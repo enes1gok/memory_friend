@@ -1,14 +1,39 @@
 ---
-description: UI/UX principles, design system, and component conventions for React Native
+description: UI/UX principles, design system, and component conventions for memory_friend
 globs: "**/*.tsx"
 alwaysApply: false
 ---
 
-# UI/UX and design hierarchy
+# UI/UX and design hierarchy — memory_friend
 
 Layout, copy, and motion should **minimize cognitive load** — users should rarely ask “what do I do here?”
 
-Document your app’s visual language (colors, spacing, typography) in project docs or design tokens so new UI stays consistent.
+## Design tokens (PRD)
+
+**Theme:** **Dark mode default** — deep space black canvas so photos/videos read like a cinema screen.
+
+| Role | Guidance |
+|------|------------|
+| Canvas / background | Deep space black (e.g. near `#020617`–`#0a0a0f` range); use shared token — avoid one-off hex |
+| Accent (dynamic) | Shift **ocean blue** (goal far) → **fiery orange** (target near). Implement as a single **progress-driven** token (0–1 from goal date) interpolated in one module |
+| Success / warmth | Use sparingly for celebrations; keep contrast on black |
+| Body text | High readability on dark surfaces; avoid muted gray on tinted panels |
+
+**Typography:**
+
+| Use | Font |
+|-----|------|
+| Headings / display | **Poppins** (or project-loaded equivalent) — bold, motivational |
+| Body | **SF Pro** on iOS, **Inter** on Android — or one cross-platform Inter if bundled |
+
+Register fonts in Expo (`useFonts` / config plugin) once; reference via theme, not scattered `fontFamily` strings.
+
+## Product UX anchors
+
+- **Frictionless onboarding:** ~3 steps to dashboard (goal → date → start); no long forms up front.
+- **15-second capture loop:** Record → quick emotion tag → done; new UI must justify added seconds.
+- **Emotion heatmap:** GitHub-style calendar on home; color = mood — keep legend accessible (not color-only).
+- **Cinema finale:** Target day gets a distinct “premiere” full-screen experience — separate from standard chrome.
 
 ## Visual hierarchy
 
@@ -19,7 +44,7 @@ Document your app’s visual language (colors, spacing, typography) in project d
 ## Usability
 
 - **Self-evident:** Primary actions read as **buttons** (clear tap target); navigation affordances read as **tabs or links** (underline, icon + weight).
-- **Navigation:** Follow the **Expo Router** file tree under `app/`. Back affordances and return paths should be obvious.
+- **Navigation:** **React Navigation** — register screens on the appropriate **Stack** / **Tab** navigator; back affordances and return paths should be obvious. Root providers and auth/onboarding order live alongside the navigation container (see project `App.tsx` or root layout).
 - **Forms:** Prefer **default** choices to the most helpful option; use progressive disclosure (sheets, steps) instead of long single pages when possible.
 
 ## Styling: NativeWind first (when the project uses it)

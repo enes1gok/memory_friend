@@ -1,0 +1,40 @@
+---
+description: WatermelonDB models, migrations, MMKV keys, and storage source-of-truth for memory_friend
+globs: "src/{models,database,stores}/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Data layer — WatermelonDB + MMKV + Zustand
+
+## WatermelonDB models
+
+- Extend `@nozbe/watermelondb`'s `Model` with decorators: `@field`, `@date`, `@readonly`, `@relation`, `@children`, `@lazy` as needed.
+- **IDs:** Use WatermelonDB’s `uuid` / `randomId` patterns; do not reuse IDs across tables.
+- **Relations:** Prefer explicit `@relation` / `@children` over manual foreign-key strings when the schema supports it.
+- **Never store raw media bytes** in a column — store **`file://` paths** or relative paths resolved against a known root helper.
+
+## Schema and migrations
+
+- Schema lives in `src/database/schema.ts` (or project equivalent).
+- **Any** column add/remove/rename requires a **new migration** under `src/database/migrations/` (e.g. `Migrations.addColumns`, `createTable`).
+- Bump schema version in one place; run migrations on app start before queries.
+- Ship migrations in the **same PR** as model + usage changes to avoid runtime crashes on upgrade.
+
+## MMKV key registry
+
+- Centralize keys in something like `src/utils/mmkvKeys.ts` (exported `const` objects).
+- Use typed getters/setters or thin wrappers — avoid stringly scattered `'someKey'` across the codebase.
+- Document whether a key is **safe to delete on logout** vs **device-persisted**.
+
+## Zustand vs WatermelonDB
+
+- **WatermelonDB** is the **source of truth** for persisted user data.
+- **Zustand** holds UI state, navigation-friendly snapshots, and **optional caches** of DB queries.
+- On conflict, **DB wins**: rehydrate Zustand from WatermelonDB after sync or migration, not the reverse.
+- Prefer **observing** queries (`withObservables`, `observe`, hooks wrapping `Q`) over duplicating lists in Zustand when lists are large or frequently updated.
+
+## Anti-patterns
+
+- Duplicating the same entity shape in Zustand and WatermelonDB without a sync strategy.
+- Adding columns without a migration.
+- Storing large strings (base64 video) in SQLite/WatermelonDB rows.

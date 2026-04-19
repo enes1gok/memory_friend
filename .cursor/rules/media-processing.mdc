@@ -1,0 +1,39 @@
+---
+description: Vision Camera, FFmpegKit, and file lifecycle patterns for memory_friend media features
+globs: "src/features/{capture,collage}/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Media processing — camera, FFmpeg, files
+
+Use this rule when touching capture, journal recording, or collage/export pipelines. If a new folder holds camera/FFmpeg code, extend the glob in [master.mdc](master.mdc).
+
+## Vision Camera (react-native-vision-camera)
+
+- Request and check **camera + microphone** permissions before presenting the recorder; handle denial with clear copy and settings deep link when appropriate.
+- Use `useCameraDevice`, `useMicrophonePermission`, `useCameraPermission` (or project wrappers) and **release** / **pause** session on blur or background to save battery.
+- Prefer **preset configs** (format, fps) defined in one module — avoid per-screen magic numbers.
+- Do not hold stale refs: clear callbacks on unmount.
+
+## FFmpegKit
+
+- All FFmpeg work is **async**. Never `await` long runs on the UI thread without yielding — use `InteractionManager` or background patterns the project establishes.
+- Wrap calls in **try/catch**; on failure, surface user-visible error + telemetry log, and **delete partial outputs** in cache.
+- **Clean temp files** under `cacheDirectory` after success or failure.
+
+## File lifecycle
+
+1. **Record / pick** → write to **`FileSystem.cacheDirectory`** first (fast discard on cancel).
+2. **User commits** entry → move/copy to **`FileSystem.documentDirectory`** (or app media root) with a stable naming scheme; persist path in WatermelonDB.
+3. **Processing** (trim/merge) → read from document or cache, write output to cache → move final to document when accepted.
+4. **Delete** unreferenced cache files when the flow ends.
+
+## UI thread and progress
+
+- Do not block JS with synchronous file reads of large blobs.
+- For long FFmpeg jobs, show **determinate or indeterminate** progress (Reanimated shared values + UI thread friendly updates).
+- Cancel: support **AbortSignal** or project-specific cancellation if user leaves the screen.
+
+## Testing hooks
+
+- Expose **`testID`** on record buttons, export actions, and error retry controls per [ui-ux-design.mdc](ui-ux-design.mdc).

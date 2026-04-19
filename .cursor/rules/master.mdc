@@ -5,14 +5,18 @@ alwaysApply: true
 
 # Rule routing map
 
-Use this table to decide which specialist rules apply. Rules with `globs` activate when matching files are open; for multi-domain work, treat every matching rule as active.
+[`index.mdc`](index.mdc) is the **project constitution** (always active). Other rules use `globs` when matching files are open; for multi-domain work, treat every matching rule as active.
 
 ## When to apply each rule
 
 | You are working on | Activate |
 |--------------------|----------|
-| TypeScript types, stores, hooks, services, performance | `technical-excellence.mdc` |
-| UI components, screens, layout, styling, animations | `ui-ux-design.mdc` |
+| Project-wide identity, stack, storage invariants | `index.mdc` (always) |
+| TypeScript, Zustand, WatermelonDB/MMKV usage, performance | `technical-excellence.mdc` |
+| Screens, layout, styling, motion, design tokens | `ui-ux-design.mdc` |
+| WatermelonDB models, migrations, MMKV keys, stores vs DB | `data-layer.mdc` |
+| Vision Camera, FFmpeg, file paths, cache vs document | `media-processing.mdc` |
+| Streaks, notifications tone, AI companion UX, empathy | `behavioral-psychology.mdc` |
 
 ## Skills
 
@@ -21,7 +25,12 @@ Project skills live in `.cursor/skills/{name}/SKILL.md`. Read the matching skill
 | Skill | Trigger |
 |-------|---------|
 | `add-i18n-key` | Any user-visible string is added or changed |
-| `add-screen` | Creating a new Expo Router screen or page |
+| `add-screen` | New React Navigation screen (stack, tab, modal) |
+| `add-domain-feature` | Feature work under `src/features/*` (journal, streak, capsule, etc.) |
+| `add-watermelondb-model` | New table, model class, or WatermelonDB migration |
+| `add-notification` | Notifee channel, schedule, or notification copy |
+| `subscription-gate` | Free vs Pro limits, paywall, `can*` helpers |
+| `add-ai-feature` | OpenAI / Whisper / GPT integration or prompts |
 
 ## Maintenance contract
 

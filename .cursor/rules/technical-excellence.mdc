@@ -43,6 +43,12 @@ const { items, addItem } = useItemStore(
 const store = useItemStore(); // avoid in new code
 ```
 
+## WatermelonDB and MMKV
+
+- **WatermelonDB** holds persisted entities; query with the project’s `Q` helpers and prefer **reactive** patterns (`observe`, `withObservables`) for lists that mirror DB state.
+- **MMKV** is for fast key/value flags and caches — keys must live in a **central registry** (see [.cursor/rules/data-layer.mdc](data-layer.mdc)).
+- Do not duplicate long-lived entity lists in Zustand when WatermelonDB already models them; cache **only** what the UI needs for one frame or session.
+
 ## Performance (React Native + Expo)
 
 - Use **`useMemo`** for non-trivial derived values (filtering, sorting, chart data) and **`useCallback`** for handlers passed to memoized children or deep trees.

@@ -1,0 +1,80 @@
+---
+description: Project constitution — memory_friend identity, tech stack, directory map, and architectural invariants
+alwaysApply: true
+---
+
+# memory_friend — Project constitution
+
+Authoritative context for this repo. Deeper product detail lives in [`project_details.md`](../../project_details.md).
+
+## App identity
+
+| Field | Value |
+|--------|--------|
+| Project name | memory_friend |
+| Display name | Set in `app.json` / `app.config.js` |
+| Framework | Expo (Dev Build) for native modules (camera, FFmpeg, etc.) |
+| Navigation | **React Navigation** (Stack, Tabs — not file-based routing) |
+| Default UI | Dark mode; portrait-first |
+| Node | `>= 20` (align with `package.json` engines when present) |
+
+Update bundle identifiers, slug, and deep links in `app.config.js` / `app.json` when finalized.
+
+## Tech stack (PRD)
+
+| Area | Technology | Role |
+|------|------------|------|
+| App shell | Expo (Dev Build) | Native modules, EAS builds |
+| Navigation | React Navigation | Stack / tab / modal flows |
+| UI state | Zustand | Fast, atomic selectors with `useShallow` |
+| Persistent data | WatermelonDB | Offline-first entities (entries, goals, capsules, badges) |
+| Fast cache | react-native-mmkv | Timers, streak display cache, session flags |
+| Camera | react-native-vision-camera | Video/photo capture |
+| Media processing | FFmpegKit (or maintained fork) | Trim, merge, assemble locally |
+| Notifications | Notifee | Local + push channels, scheduling |
+| AI | OpenAI API (Whisper / GPT) | Speech-to-text, emotion tagging, companion copy |
+| Files | expo-file-system (or equivalent) | Document vs cache paths for media |
+
+## Directory map (target)
+
+```
+src/
+  features/journal/       Capture flow, speech-to-text hooks, emotion tagging UI
+  features/streak/        Streak engine, badges, celebrations, heatmap data
+  features/capsule/       Time-capsule create / unlock / delivery
+  features/ai/            OpenAI client wrappers, prompts, offline fallbacks
+  features/collage/       FFmpeg assembly, finale / “cinema” export flows
+  features/coop/          Shared journeys, duo timelines (when built)
+  features/notification/  Notifee scheduling, channels, copy assembly
+  features/subscription/  Tier checks, paywall entry points
+  models/                 WatermelonDB model classes
+  database/               schema, migrations/, database setup
+  stores/                 Zustand stores (UI + ephemeral coordination)
+  services/               API clients, backup adapters, cross-cutting IO
+  utils/                  haptics, dates, files, MMKV key registry
+  i18n/locales/           Locale JSON (e.g. en.json, …)
+  components/             Shared presentational / layout components
+  screens/                Screen entry components wired from navigators
+```
+
+Adjust names to match the repo as it grows; keep **feature boundaries** clear.
+
+## Storage boundaries (invariants)
+
+1. **WatermelonDB** — Source of truth for user-visible entities: journal entries, goals, streak state references, capsules, badges, AI enrichment fields (text/tags), metadata. **Never store binary blobs** — store **file paths** or asset IDs only.
+2. **MMKV** — Ephemeral or high-churn keys: active countdown, last-open date, UI flags, denormalized cache for fast home render. **Must be rebuildable** from WatermelonDB + files if wiped.
+3. **File system** — Large media under `documentDirectory` (committed) or `cacheDirectory` (temporary). Delete temp files after processing or on error.
+4. **Cloud / OpenAI** — No silent mass upload; network calls need explicit product rules, user consent where required, and **offline-safe** UI when unavailable.
+
+## Architectural invariants
+
+- **Offline-first:** Core flows (capture, view journal, streak) work without network; AI enhances, never blocks capture completion.
+- **Local media:** Prefer on-device FFmpeg over server for cost and privacy unless spec says otherwise.
+- **Subscription:** Freemium vs Pro gates live in one place (`FeatureLimits` + `can*` helpers); see [.cursor/skills/subscription-gate/SKILL.md](../skills/subscription-gate/SKILL.md).
+- **Empathetic UX:** Notifications and empty states follow [.cursor/rules/behavioral-psychology.mdc](behavioral-psychology.mdc) — invite, don’t shame.
+
+## Cross-links
+
+- Rule routing: [master.mdc](master.mdc)
+- Data layer: [data-layer.mdc](data-layer.mdc)
+- Media: [media-processing.mdc](media-processing.mdc)

@@ -1,0 +1,42 @@
+---
+description: Engagement, empathetic copy, streak integrity, and AI companion behavior for memory_friend
+globs: "src/features/{streak,notification,ai}/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Behavioral psychology and empathetic product behavior
+
+memory_friend is a **goal-linked journal**: triggers should **invite** return and reinforce identity, not shame. Align notifications, streaks, gamification, and AI surfaces with the principles below.
+
+## Streak and gamification integrity
+
+- **Deterministic streaks:** Streak / “unbreakable chain” logic must be **recomputable** from stored completion dates (or explicit state machine), not hidden toggles.
+- **Anti-spam rewards:** If using variable rewards (e.g. “critical hit” XP), use a **stable seed** per entity + calendar day (e.g. `entryId + dateStr`) so repeated taps cannot farm rewards.
+- **Integrity checks:** If reconciling XP or streak, prefer **raising** to correct computed values over silently dropping user-visible progress (document exceptions).
+
+## Notifications (Notifee + copy)
+
+- **Tone:** Curiosity and support — “what’s next?” not “you failed.” Reference progress and context (e.g. final stretch, past resilience).
+- **Contextual nudges:** If the user logs stress repeatedly, reference **past recovery** or small next steps — not blame.
+- **Quiet hours:** Respect user-defined quiet hours from preferences; never override without an explicit “critical” product decision (rare).
+
+## 15-second capture principle
+
+- The PRD targets a **~15s loop**: record → tag emotion → done. New steps (forms, modals, sign-in gates) need **strong justification**; default the smallest path.
+- **Friction budget:** If adding a field, remove or defer something else or measure impact.
+
+## Empathetic empty states
+
+- Missed days: **no accusatory** copy. Use illustration + gentle, forward-looking message (“Fresh start today” / “Your story continues”).
+- Avoid red “error” framing for “no data yet” — use neutral or warm tones.
+
+## AI companion
+
+- **Never block capture** on OpenAI: network, rate limits, and errors must **degrade gracefully** (save raw media + transcript empty state, retry in background).
+- **Caching:** Persist AI outputs (transcript, tags, encouragement) on the WatermelonDB row once received.
+- **Privacy:** Send the **minimum** text needed for the task; document retention in product/security docs.
+
+## Cross-links
+
+- Notifications implementation: [.cursor/skills/add-notification/SKILL.md](../skills/add-notification/SKILL.md)
+- AI patterns: [.cursor/skills/add-ai-feature/SKILL.md](../skills/add-ai-feature/SKILL.md)
