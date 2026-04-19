@@ -1,0 +1,28 @@
+---
+description: Rule routing table — maps task types to specialist rules and skills. Update this file whenever a new rule or skill is added.
+alwaysApply: true
+---
+
+# Rule routing map
+
+Use this table to decide which specialist rules apply. Rules with `globs` activate when matching files are open; for multi-domain work, treat every matching rule as active.
+
+## When to apply each rule
+
+| You are working on | Activate |
+|--------------------|----------|
+| TypeScript types, stores, hooks, services, performance | `technical-excellence.mdc` |
+| UI components, screens, layout, styling, animations | `ui-ux-design.mdc` |
+
+## Skills
+
+Project skills live in `.cursor/skills/{name}/SKILL.md`. Read the matching skill when the trigger applies.
+
+| Skill | Trigger |
+|-------|---------|
+| `add-i18n-key` | Any user-visible string is added or changed |
+| `add-screen` | Creating a new Expo Router screen or page |
+
+## Maintenance contract
+
+**New rule:** add `.cursor/rules/*.mdc` with a tight `globs` pattern, then add a row to the table above. **New skill:** add `.cursor/skills/{name}/SKILL.md`, then add a row here. Do not broaden existing `globs` — prefer narrow patterns and this table for orientation.

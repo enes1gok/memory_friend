@@ -1,0 +1,78 @@
+---
+description: UI/UX principles, design system, and component conventions for React Native
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# UI/UX and design hierarchy
+
+Layout, copy, and motion should **minimize cognitive load** — users should rarely ask “what do I do here?”
+
+Document your app’s visual language (colors, spacing, typography) in project docs or design tokens so new UI stays consistent.
+
+## Visual hierarchy
+
+- **Spacing:** Use a consistent rhythm — with NativeWind, prefer utilities like `gap-*`, `p-*`, `m-*`, `px-*`, `py-*` instead of one-off magic numbers when building new UI.
+- **Contrast:** Do not rely on font size alone; use **weight** and **color tone** to show importance. Ensure text meets contrast on tinted or saturated backgrounds (avoid low-contrast gray on strong fills).
+- **Labels:** Prefer **icons + layout** to explain affordances; use short labels only when ambiguity remains. Pair icons with `accessibilityLabel` for screen readers.
+
+## Usability
+
+- **Self-evident:** Primary actions read as **buttons** (clear tap target); navigation affordances read as **tabs or links** (underline, icon + weight).
+- **Navigation:** Follow the **Expo Router** file tree under `app/`. Back affordances and return paths should be obvious.
+- **Forms:** Prefer **default** choices to the most helpful option; use progressive disclosure (sheets, steps) instead of long single pages when possible.
+
+## Styling: NativeWind first (when the project uses it)
+
+- **New UI:** Prefer **`className`** and your design tokens / Tailwind utilities. Avoid ad-hoc hex when a token or utility already exists.
+- **Legacy:** When editing older `StyleSheet`-based components, migrate toward `className` where practical in the same change, without unrelated large refactors.
+
+## Haptics
+
+Prefer a **small shared helper** (e.g. `src/utils/haptics.ts`) wrapping `expo-haptics` so feedback is consistent:
+
+| Kind | Typical use |
+|------|----------------|
+| Success / strong positive | Milestones, completed actions |
+| Light | Toggles, light confirmation |
+| Warning | Destructive paths, errors |
+| Selection | Tabs, segmented controls, pickers |
+
+## Motion (Reanimated)
+
+Prefer **`react-native-reanimated`** for motion:
+
+- Entering / exiting: `FadeInDown`, `FadeInUp`, `FadeInRight`, `FadeOutUp` on Reanimated `Animated.View`.
+- List / layout: `Layout.springify()` where items reorder or resize.
+- Values: `withSpring`, `withTiming`, `useSharedValue`, `useAnimatedStyle`.
+
+Avoid **`LayoutAnimation`** in **new** code when Reanimated can cover the case; prefer Reanimated for predictable, interruptible animations.
+
+## testID (E2E)
+
+Expose **`testID`** on interactive controls (pressable, text input, switch) for Maestro or similar. Use a stable convention, for example:
+
+```
+{domain}:{component}:{action}
+```
+
+Examples: `home:add-button:press`, `settings:theme-select:change`.
+
+## Accessibility
+
+For new or heavily touched interactives, set at least:
+
+- `accessibilityRole` (`button`, `link`, `switch`, …)
+- `accessibilityLabel` (localized via your i18n layer where possible)
+
+## Component placement
+
+| Scope | Path (typical) |
+|--------|----------------|
+| Feature-only | `src/features/{domain}/components/` |
+| Shared (2+ domains) | `src/components/` |
+| One screen | `src/screens/{Screen}/components/` |
+
+## Copy and i18n
+
+Route **user-visible** strings through your i18n solution (e.g. `react-i18next`). See [.cursor/skills/add-i18n-key/SKILL.md](../skills/add-i18n-key/SKILL.md).

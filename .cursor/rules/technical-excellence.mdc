@@ -1,0 +1,53 @@
+---
+description: TypeScript standards, clean code principles, and performance patterns for React Native
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Technical excellence and clean code
+
+Standards for `src/`. Treat ESLint warnings as debt to clear, not noise to ignore.
+
+## TypeScript standards
+
+- **No `any`:** Prefer precise types from domain modules. If the shape is unknown at compile time, use `unknown` and narrow (typeof, `in`, guards, Zod, etc.). Do not add new `any` usages; replace existing ones when you touch a file.
+- **Shared models:** Centralize shared shapes (types/interfaces) for the same domain concept. Avoid parallel ad-hoc types for the same entity.
+- **Interfaces vs types:** Prefer `interface` for object shapes (component props, service payloads, store slices). Reserve `type` for unions, mapped types, and utility compositions.
+- **Exhaustive unions:** Every `switch` on a discriminated union should end in `default: assertNever(x)` so missing cases become compile errors.
+
+```ts
+function assertNever(x: never): never {
+  throw new Error(`Unhandled case: ${String(x)}`);
+}
+```
+
+## Clean code (small surface, clear intent)
+
+- **Names:** Prefer descriptive booleans and verbs (`isLoading`, `hasError`, `fetchProfile`) over `check`, `flag`, `temp`.
+- **Function size:** One responsibility per function; aim for roughly **≤ 20 lines** per logical unit. When editing legacy code, **extract helpers** instead of growing monoliths further.
+- **Arguments:** Prefer **0–2 parameters**; for more, use a single **options object** with a named interface.
+- **DRY:** Move repeated UI + state orchestration into a **custom hook** when the same pattern appears in multiple places.
+
+## Zustand state access
+
+- Use **atomic selectors** with `useShallow` when selecting multiple fields from the same store.
+- **Do not** subscribe to the whole store in components (`useXxxStore` without a selector) — it forces broad re-renders and bypasses shallow optimization. Prefer feature hooks or explicit shallow selectors.
+
+```ts
+// Prefer: narrow, shallow subscription
+const { items, addItem } = useItemStore(
+  useShallow((s) => ({ items: s.items, addItem: s.addItem }))
+);
+
+// Avoid: raw store = entire state tree in components
+const store = useItemStore(); // avoid in new code
+```
+
+## Performance (React Native + Expo)
+
+- Use **`useMemo`** for non-trivial derived values (filtering, sorting, chart data) and **`useCallback`** for handlers passed to memoized children or deep trees.
+- Memoize only what profiling or dependency lists justify; avoid blanket `useCallback` on every trivial handler.
+
+## Documentation
+
+When the project has architecture or product docs, update the relevant doc when behavior or boundaries change in a non-trivial way.
