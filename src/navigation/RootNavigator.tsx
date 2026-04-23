@@ -4,6 +4,7 @@ import { PlaceholderModalScreen } from '@/screens/PlaceholderModalScreen';
 import { CapsuleCreateScreen } from '@/screens/CapsuleCreateScreen';
 import { CapsuleRevealScreen } from '@/screens/CapsuleRevealScreen';
 import { CollagePremiereScreen } from '@/screens/CollagePremiereScreen';
+import { LanguageSettingsScreen } from '@/screens/LanguageSettingsScreen';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { colors } from '@/theme/colors';
 
@@ -30,6 +31,15 @@ export function RootNavigator() {
       <Stack.Screen
         name="PlaceholderModal"
         component={PlaceholderModalScreen}
+        options={{
+          presentation: 'modal',
+          title: '',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="LanguageSettings"
+        component={LanguageSettingsScreen}
         options={{
           presentation: 'modal',
           title: '',

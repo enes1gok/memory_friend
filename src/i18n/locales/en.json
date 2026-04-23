@@ -258,5 +258,12 @@
       "cta": "Let's go",
       "dismissA11y": "Dismiss celebration"
     }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "App language",
+      "rowLabel": "Language",
+      "rowA11y": "Change app language, currently {{language}}"
+    }
   }
 }

@@ -8,6 +8,7 @@ description: Adds or updates i18n keys in locale files and wires them through re
 ## Files
 
 - Locale JSON (or TS) under your i18n folder — e.g. `src/i18n/locales/en.json`, `src/i18n/locales/tr.json` (adjust paths to match the project).
+- For **key parity across all shipped locales** (`en`, `tr`, `es`, `de`, `zh`, `it`, `fr`), follow [.cursor/skills/sync-locales/SKILL.md](../sync-locales/SKILL.md) and run `node .cursor/skills/sync-locales/scripts/check-locales.js` from the repo root.
 - Usage: `import { useTranslation } from 'react-i18next'` → `const { t } = useTranslation();` → `t('namespace.key')` or nested `t('namespace.section.key')`.
 
 ## Namespaces and keys

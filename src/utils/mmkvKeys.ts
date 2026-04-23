@@ -6,6 +6,9 @@
  * - `logout`: clear on sign-out / account switch (rebuild from DB where noted).
  */
 export const MMKV_KEYS = {
+  /** device — BCP-47 code of user-selected app language (e.g. 'en', 'tr'). */
+  appLanguage: 'settings:appLanguage',
+
   /** device — last foreground / open timestamp (ms). */
   lastAppOpenAt: 'session:lastAppOpenAt',
 

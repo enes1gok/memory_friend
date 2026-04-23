@@ -1,0 +1,269 @@
+{
+  "tabs": {
+    "home": "Ana sayfa",
+    "capture": "Yakala",
+    "journal": "Günlük",
+    "profile": "Profil"
+  },
+  "home": {
+    "noGoal": {
+      "title": "Serini görmek için bir hedef belirle",
+      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla; ardından ana ekranında serin ve ruh hali takvimin görünür."
+    },
+    "missingGoal": {
+      "title": "Hedef bulunamadı",
+      "body": "Aktif hedefini yükleyemedik. Tanıtımdan yeni bir hedef deneyebilirsin."
+    },
+    "daysLeft_one": "Hedefine {{count}} gün kaldı",
+    "daysLeft_other": "Hedefine {{count}} gün kaldı",
+    "targetDay": "Hedef gün — başardın. Nasıl hissediyorsan öyle kutla."
+  },
+  "collage": {
+    "banner": {
+      "title": "Yolculuk kolajın hazır",
+      "cta": "Sinema salonunu aç"
+    },
+    "progress": {
+      "title": "Finalin oluşturuluyor",
+      "preparing": "Anların hazırlanıyor…",
+      "merging": "Hikâyen birleştiriliyor…",
+      "addingMusic": "Müziğin ekleniyor…",
+      "finishing": "Filmin tamamlanıyor…",
+      "cancel": "İptal"
+    },
+    "premiere": {
+      "share": "Videoyu paylaş",
+      "replay": "Yeniden izle",
+      "retry": "Tekrar dene",
+      "retryA11y": "Videoyu yeniden oluşturmayı dene",
+      "close": "Bitti",
+      "closeA11y": "Galayı kapat ve ana sayfaya dön"
+    },
+    "error": {
+      "noMedia": "Önce birkaç video veya fotoğraflı kayıt ekle, sonra kolaj için geri gel.",
+      "assembly": "Videoyu bitiremedik. Birazdan tekrar dene.",
+      "cancelled": "Dışa aktarma durdu. Hazır olduğunda yeniden deneyebilirsin."
+    }
+  },
+  "streak": {
+    "dayStreak": "günlük seri",
+    "bestStreak": "En iyi seri: {{count}} gün",
+    "flameA11y": "Seri alev simgesi",
+    "accessibility": {
+      "counter": "Mevcut seri: {{count}} gün"
+    }
+  },
+  "heatmap": {
+    "title": "Ruh hali takvimi",
+    "subtitle": "Her kare bir gün. Renk, o günkü son kaydında nasıl hissettiğini gösterir.",
+    "noEntry": "Kayıt yok",
+    "cellA11y": "{{date}}: {{mood}}",
+    "weeksShown": "Son {{count}} hafta"
+  },
+  "badges": {
+    "title": "Rozetler",
+    "subtitle": "Yol boyunca küçük zaferler. Kilitli rozetler, gelmeye devam ettikçe açılır.",
+    "accessibility": {
+      "earned": "Kazanılan rozet: {{name}}",
+      "locked": "Kilitli rozet: {{name}}"
+    },
+    "firstEntry": {
+      "name": "İlk an",
+      "description": "İlk kaydını yakaladın."
+    },
+    "streak3": {
+      "name": "3 günlük seri",
+      "description": "Üç gün üst üste. İvme artıyor."
+    },
+    "streak7": {
+      "name": "7 günlük seri",
+      "description": "Kendin için bir hafta boyunca burada oldun."
+    },
+    "streak30": {
+      "name": "30 günlük seri",
+      "description": "Tam bir ay. Bu gerçek bir bağlılık."
+    },
+    "total10": {
+      "name": "10 an",
+      "description": "Yolculuğunda on kayıt."
+    },
+    "total50": {
+      "name": "50 an",
+      "description": "Elli anı yakaladın. Gelecekteki sen sana teşekkür edecek."
+    }
+  },
+  "celebration": {
+    "title": "Bir rozet açtın",
+    "dismissA11y": "Kutlamayı kapat"
+  },
+  "screens": {
+    "home": {
+      "title": "Ana sayfa",
+      "placeholder": "Duygu haritan ve serin burada olacak."
+    },
+    "capture": {
+      "title": "Yakala",
+      "placeholder": "Hızlı yakalama burada olacak."
+    },
+    "journal": {
+      "title": "Günlük",
+      "placeholder": "Günlük geçmişin burada olacak."
+    },
+    "profile": {
+      "title": "Profil",
+      "placeholder": "Ayarlar ve hesap burada olacak.",
+      "openModal": "Örnek modalı aç"
+    },
+    "placeholderModal": {
+      "title": "Örnek modal",
+      "body": "Modal rotaları gelecek akışlar için kök yığına bağlandı."
+    }
+  },
+  "onboarding": {
+    "goalName": {
+      "title": "Hedefin ne?",
+      "subtitle": "Bir satır yeter. Sonra her zaman netleştirebilirsin.",
+      "placeholder": "örn. 5K koş, kursu bitir, daha sakin hisset",
+      "next": "Devam"
+    },
+    "targetDate": {
+      "title": "Ne zamana kadar?",
+      "subtitle": "Cezalandırıcı değil, motive edici bir tarih seç.",
+      "openPicker": "Tarih seç",
+      "next": "Devam"
+    },
+    "start": {
+      "title": "Hazırsın",
+      "subtitle": "Birlikte takip edeceğimiz şeyler bunlar.",
+      "summaryGoal": "Hedef",
+      "summaryDate": "Hedef tarih",
+      "cta": "Başlayalım"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "Kamera erişimi",
+      "cameraBody": "Yolculuğunda hızlı anlar yakalayabilmen için kameraya ihtiyacımız var.",
+      "cta": "Kameraya izin ver",
+      "openSettings": "Ayarları aç"
+    },
+    "noDevice": "Bu cihazda kamera bulunamadı.",
+    "mode": {
+      "video": "Video",
+      "photo": "Fotoğraf"
+    },
+    "shutter": {
+      "photo": "Fotoğraf çek",
+      "record": "Videoyu kaydet veya durdur"
+    },
+    "mood": {
+      "title": "Bugün nasıldı?",
+      "subtitle": "En uygun ruh haline dokun. Yanlış cevap yok."
+    }
+  },
+  "journal": {
+    "listTitle": "Anların",
+    "empty": {
+      "title": "Henüz kayıt yok",
+      "body": "Hazır olduğunda kısa bir klip veya fotoğraf yakala. Bu alan yolculuğunla dolar, baskıyla değil."
+    },
+    "noGoal": {
+      "title": "Başlamak için bir hedef belirle",
+      "body": "Bir hedef eklediğinde günlük kayıtların burada görünür."
+    }
+  },
+  "moods": {
+    "happy": "Mutlu",
+    "grateful": "Minnettar",
+    "excited": "Heyecanlı",
+    "calm": "Sakin",
+    "neutral": "Nötr",
+    "tired": "Yorgun",
+    "stressed": "Stresli",
+    "sad": "Üzgün"
+  },
+  "common": {
+    "loading": "Yükleniyor…",
+    "error": "Bir şeyler ters gitti",
+    "retry": "Tekrar dene"
+  },
+  "capsule": {
+    "list": {
+      "title": "Zaman kapsülü",
+      "empty": "Gelecekteki kendine bir mesaj kaydet. Seçtiğin güne kadar saklarız—sonra nazikçe açman için hatırlatırız.",
+      "createCta": "Zaman kapsülü kaydet"
+    },
+    "create": {
+      "title": "Yeni zaman kapsülü",
+      "titlePlaceholder": "Başlık",
+      "mediaHint": "Kısa bir video veya fotoğraf yakala, ya da bunun yerine yaz.",
+      "textMode": "Sadece metin",
+      "mediaMode": "Video veya fotoğraf",
+      "textPlaceholder": "Gelecekteki kendin için bir şey yaz",
+      "unlockDateLabel": "Şu gün aç",
+      "save": "Kaydet ve mühürle",
+      "cancel": "İptal",
+      "captureReady": "Tamam — bunu diğer bilgilerinle birlikte mühürleyeceğiz.",
+      "dateMustBeFuture": "Açılması için gelecekte bir zaman seç."
+    },
+    "card": {
+      "lockedStatus": "Mühürlü",
+      "unlockedStatus": "Hazır",
+      "opensOn": "{{date}} tarihinde açılır",
+      "viewCta": "Görüntüle",
+      "a11y": "Zaman kapsülü: {{title}}. {{state}}"
+    },
+    "reveal": {
+      "title": "Senin için bir mesaj",
+      "subtitle": "Bunu kendin için, ihtiyaç duyabileceğin bir gün için kaydettin.",
+      "dismiss": "Kapat"
+    }
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "Günlük kayıt"
+    },
+    "capsule": {
+      "channelName": "Zaman kapsülü",
+      "title": "\"{{title}}\" kapsülün hazır",
+      "body": "Zaman kapsülün hazır — bunu kendin için kaydettin."
+    },
+    "permission": {
+      "rationale": "Hedefin için kısa bir an kaydetmene nazikçe hatırlatalım. Bunu istediğin zaman sistem ayarlarından kapatabilirsin."
+    },
+    "daily": {
+      "earlyTitle": "Yolculuğun şekilleniyor",
+      "earlyBody": "Hazır olduğunda kısa bir kayıt \"{{goalName}}\" hedefini ilerletir. Baskı yok, sadece gelmek için alan.",
+      "midTitle": "Hâlâ yanındayız",
+      "midBody": "\"{{goalName}}\" için ilerliyordun. Bugünkü küçük bir an bile ilerleme sayılır.",
+      "finalStretchTitle": "Son düzlük",
+      "finalStretchBody": "\"{{goalName}}\" hedefinden önce son haftadayız. Bugün nasılsın? Dürüst bir kayıt yeter.",
+      "targetDayTitle": "Hedef gün",
+      "targetDayBody": "Bugün \"{{goalName}}\" için belirlediğin gün. Büyük ya da sessiz, nasıl hissettiğini yakala. Bu senin hikâyen."
+    },
+    "companion": {
+      "channelName": "Yoldaş hatırlatmaları",
+      "title": "Daha önce de toparlandın",
+      "body": "Arka arkaya birkaç kayıt ağır hissettirdi — bu bir yargı değil, bilgi. Hazır olduğunda dürüst bir an yeter."
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "Senin için bir not"
+    },
+    "hypeMan": {
+      "title": "Senin için coşku",
+      "subtitle": "Zaten yarattığın birkaç parlak an — hâlâ aynı insansın.",
+      "noPhotos": "Yakalamaya devam et. Öne çıkanların hâlâ büyüyor.",
+      "cta": "Hadi gidelim",
+      "dismissA11y": "Kutlamayı kapat"
+    }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "Uygulama dili",
+      "rowLabel": "Dil",
+      "rowA11y": "Uygulama dilini değiştir, şu an {{language}}"
+    }
+  }
+}

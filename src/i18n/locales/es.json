@@ -1,0 +1,269 @@
+{
+  "tabs": {
+    "home": "Inicio",
+    "capture": "Capturar",
+    "journal": "Diario",
+    "profile": "Perfil"
+  },
+  "home": {
+    "noGoal": {
+      "title": "Define un objetivo para ver tu racha",
+      "body": "Termina la introducción con un objetivo y una fecha meta; entonces tu inicio mostrará tu racha y tu calendario de ánimo."
+    },
+    "missingGoal": {
+      "title": "Objetivo no encontrado",
+      "body": "No pudimos cargar tu objetivo activo. Prueba a definir uno nuevo en la introducción."
+    },
+    "daysLeft_one": "Queda {{count}} día para tu meta",
+    "daysLeft_other": "Quedan {{count}} días para tu meta",
+    "targetDay": "Día meta — lo lograste. Celébralo como te sientas bien."
+  },
+  "collage": {
+    "banner": {
+      "title": "Tu collage del viaje está listo",
+      "cta": "Abrir sala de cine"
+    },
+    "progress": {
+      "title": "Creando tu gran final",
+      "preparing": "Preparando tus momentos…",
+      "merging": "Uniendo tu historia…",
+      "addingMusic": "Añadiendo tu banda sonora…",
+      "finishing": "Terminando tu película…",
+      "cancel": "Cancelar"
+    },
+    "premiere": {
+      "share": "Compartir video",
+      "replay": "Ver de nuevo",
+      "retry": "Intentar de nuevo",
+      "retryA11y": "Intentar crear el video de nuevo",
+      "close": "Listo",
+      "closeA11y": "Cerrar el estreno e ir al inicio"
+    },
+    "error": {
+      "noMedia": "Añade primero algunos registros en video o foto, luego vuelve por tu collage.",
+      "assembly": "No pudimos terminar el video. Inténtalo de nuevo en un momento.",
+      "cancelled": "Se detuvo la exportación. Puedes intentarlo cuando quieras."
+    }
+  },
+  "streak": {
+    "dayStreak": "días de racha",
+    "bestStreak": "Mejor racha: {{count}} días",
+    "flameA11y": "Icono de llama de racha",
+    "accessibility": {
+      "counter": "Racha actual: {{count}} días"
+    }
+  },
+  "heatmap": {
+    "title": "Calendario de ánimo",
+    "subtitle": "Cada cuadrado es un día. El color muestra cómo te sentiste en tu último registro ese día.",
+    "noEntry": "Sin entrada",
+    "cellA11y": "{{date}}: {{mood}}",
+    "weeksShown": "Últimas {{count}} semanas"
+  },
+  "badges": {
+    "title": "Insignias",
+    "subtitle": "Pequeñas victorias en el camino. Las bloqueadas se desbloquean al seguir presente.",
+    "accessibility": {
+      "earned": "Insignia obtenida: {{name}}",
+      "locked": "Insignia bloqueada: {{name}}"
+    },
+    "firstEntry": {
+      "name": "Primer momento",
+      "description": "Capturaste tu primer registro."
+    },
+    "streak3": {
+      "name": "Racha de 3 días",
+      "description": "Tres días seguidos. El impulso crece."
+    },
+    "streak7": {
+      "name": "Racha de 7 días",
+      "description": "Una semana mostrándote para ti."
+    },
+    "streak30": {
+      "name": "Racha de 30 días",
+      "description": "Un mes completo. Eso es compromiso de verdad."
+    },
+    "total10": {
+      "name": "10 momentos",
+      "description": "Diez registros en tu viaje."
+    },
+    "total50": {
+      "name": "50 momentos",
+      "description": "Cincuenta recuerdos capturados. Tu yo del futuro te lo agradecerá."
+    }
+  },
+  "celebration": {
+    "title": "Desbloqueaste una insignia",
+    "dismissA11y": "Cerrar celebración"
+  },
+  "screens": {
+    "home": {
+      "title": "Inicio",
+      "placeholder": "Tu mapa de emociones y tu racha estarán aquí."
+    },
+    "capture": {
+      "title": "Capturar",
+      "placeholder": "La captura rápida estará aquí."
+    },
+    "journal": {
+      "title": "Diario",
+      "placeholder": "Tu historial del diario estará aquí."
+    },
+    "profile": {
+      "title": "Perfil",
+      "placeholder": "Ajustes y cuenta estarán aquí.",
+      "openModal": "Abrir modal de ejemplo"
+    },
+    "placeholderModal": {
+      "title": "Modal de ejemplo",
+      "body": "Las rutas modales están conectadas en la pila raíz para flujos futuros."
+    }
+  },
+  "onboarding": {
+    "goalName": {
+      "title": "¿Cuál es tu objetivo?",
+      "subtitle": "Una línea basta. Siempre puedes afinarlo después.",
+      "placeholder": "p. ej. Correr un 5K, terminar el curso, sentirme más tranquilo",
+      "next": "Continuar"
+    },
+    "targetDate": {
+      "title": "¿Para cuándo?",
+      "subtitle": "Elige una fecha que motive, no que castigue.",
+      "openPicker": "Elegir fecha",
+      "next": "Continuar"
+    },
+    "start": {
+      "title": "Estás listo",
+      "subtitle": "Esto es lo que seguiremos juntos.",
+      "summaryGoal": "Objetivo",
+      "summaryDate": "Fecha meta",
+      "cta": "Empecemos"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "Acceso a la cámara",
+      "cameraBody": "Necesitamos la cámara para que captures momentos rápidos en tu viaje.",
+      "cta": "Permitir cámara",
+      "openSettings": "Abrir ajustes"
+    },
+    "noDevice": "No se encontró cámara en este dispositivo.",
+    "mode": {
+      "video": "Video",
+      "photo": "Foto"
+    },
+    "shutter": {
+      "photo": "Tomar foto",
+      "record": "Grabar o detener video"
+    },
+    "mood": {
+      "title": "¿Cómo fue hoy?",
+      "subtitle": "Toca el ánimo que mejor encaje. No hay respuesta incorrecta."
+    }
+  },
+  "journal": {
+    "listTitle": "Tus momentos",
+    "empty": {
+      "title": "Aún no hay entradas",
+      "body": "Cuando estés listo, captura un clip corto o una foto. Este espacio se llenará con tu viaje, no con presión."
+    },
+    "noGoal": {
+      "title": "Define un objetivo para empezar",
+      "body": "Cuando añadas un objetivo, tus entradas del diario aparecerán aquí."
+    }
+  },
+  "moods": {
+    "happy": "Feliz",
+    "grateful": "Agradecido",
+    "excited": "Emocionado",
+    "calm": "Tranquilo",
+    "neutral": "Neutral",
+    "tired": "Cansado",
+    "stressed": "Estresado",
+    "sad": "Triste"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "error": "Algo salió mal",
+    "retry": "Intentar de nuevo"
+  },
+  "capsule": {
+    "list": {
+      "title": "Cápsula del tiempo",
+      "empty": "Graba un mensaje para tu yo futuro. Lo guardaremos hasta el día que elijas—luego te recordaremos suavemente abrirlo.",
+      "createCta": "Grabar una cápsula del tiempo"
+    },
+    "create": {
+      "title": "Nueva cápsula del tiempo",
+      "titlePlaceholder": "Título",
+      "mediaHint": "Captura un video o foto cortos, o escribe algo en su lugar.",
+      "textMode": "Solo texto",
+      "mediaMode": "Video o foto",
+      "textPlaceholder": "Escribe algo para tu yo futuro",
+      "unlockDateLabel": "Abrir en este día",
+      "save": "Guardar y sellar",
+      "cancel": "Cancelar",
+      "captureReady": "Listo — lo sellaremos con tus otros datos.",
+      "dateMustBeFuture": "Elige una fecha futura para cuando deba abrirse."
+    },
+    "card": {
+      "lockedStatus": "Sellada",
+      "unlockedStatus": "Lista",
+      "opensOn": "Se abre el {{date}}",
+      "viewCta": "Ver",
+      "a11y": "Cápsula del tiempo: {{title}}. {{state}}"
+    },
+    "reveal": {
+      "title": "Un mensaje para ti",
+      "subtitle": "Grabaste esto para ti, para un día que pudiera necesitarlo.",
+      "dismiss": "Cerrar"
+    }
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "Registro diario"
+    },
+    "capsule": {
+      "channelName": "Cápsula del tiempo",
+      "title": "Tu cápsula \"{{title}}\" está lista",
+      "body": "Tu cápsula del tiempo está lista — grabaste esto para ti."
+    },
+    "permission": {
+      "rationale": "Recibe un recordatorio amable para registrar un momento para tu objetivo. Puedes desactivarlo cuando quieras en los ajustes del sistema."
+    },
+    "daily": {
+      "earlyTitle": "Tu viaje se está desarrollando",
+      "earlyBody": "Cuando estés listo, un registro corto mantiene \"{{goalName}}\" avanzando. Sin presión, solo espacio para aparecer.",
+      "midTitle": "Aún aquí contigo",
+      "midBody": "Has estado avanzando hacia \"{{goalName}}\". Un pequeño momento hoy sigue contando como progreso.",
+      "finalStretchTitle": "Recta final",
+      "finalStretchBody": "Estamos en la última semana antes de tu meta para \"{{goalName}}\". ¿Cómo estás hoy? Un registro honesto basta.",
+      "targetDayTitle": "Día meta",
+      "targetDayBody": "Hoy es el día que fijaste para \"{{goalName}}\". Captura cómo te sientes, grande o en silencio. Esta es tu historia."
+    },
+    "companion": {
+      "channelName": "Recordatorios del compañero",
+      "title": "Ya te has recuperado antes",
+      "body": "Varios registros seguidos se sintieron pesados — y eso es información, no un veredicto. Cuando estés listo, un momento honesto basta."
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "Una nota para ti"
+    },
+    "hypeMan": {
+      "title": "Ánimo para ti",
+      "subtitle": "Algunos momentos brillantes que ya creaste — sigues siendo esa persona.",
+      "noPhotos": "Sigue capturando. Tu reel de lo mejor sigue creciendo.",
+      "cta": "Vamos",
+      "dismissA11y": "Cerrar celebración"
+    }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "Idioma de la app",
+      "rowLabel": "Idioma",
+      "rowA11y": "Cambiar el idioma de la app, actualmente {{language}}"
+    }
+  }
+}

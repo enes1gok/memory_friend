@@ -1,0 +1,269 @@
+{
+  "tabs": {
+    "home": "Start",
+    "capture": "Erfassen",
+    "journal": "Tagebuch",
+    "profile": "Profil"
+  },
+  "home": {
+    "noGoal": {
+      "title": "Lege ein Ziel fest, um deine Serie zu sehen",
+      "body": "Schließe die Einführung mit Ziel und Zieldatum ab, dann zeigt dein Startbildschirm Serie und Stimmungskalender."
+    },
+    "missingGoal": {
+      "title": "Ziel nicht gefunden",
+      "body": "Wir konnten dein aktives Ziel nicht laden. Versuche in der Einführung ein neues Ziel zu setzen."
+    },
+    "daysLeft_one": "Noch {{count}} Tag bis zu deinem Ziel",
+    "daysLeft_other": "Noch {{count}} Tage bis zu deinem Ziel",
+    "targetDay": "Zieltag — du hast es geschafft. Feiere, wie es sich für dich richtig anfühlt."
+  },
+  "collage": {
+    "banner": {
+      "title": "Dein Reise-Collage ist fertig",
+      "cta": "Kinosaal öffnen"
+    },
+    "progress": {
+      "title": "Dein Finale entsteht",
+      "preparing": "Momente werden vorbereitet…",
+      "merging": "Geschichte wird zusammengesetzt…",
+      "addingMusic": "Soundtrack wird gelegt…",
+      "finishing": "Film wird fertiggestellt…",
+      "cancel": "Abbrechen"
+    },
+    "premiere": {
+      "share": "Video teilen",
+      "replay": "Erneut ansehen",
+      "retry": "Erneut versuchen",
+      "retryA11y": "Video-Erstellung erneut versuchen",
+      "close": "Fertig",
+      "closeA11y": "Premiere schließen und zum Start"
+    },
+    "error": {
+      "noMedia": "Füge zuerst ein paar Video- oder Foto-Check-ins hinzu, dann komm für dein Collage zurück.",
+      "assembly": "Wir konnten das Video nicht fertigstellen. Versuche es gleich noch einmal.",
+      "cancelled": "Export gestoppt. Du kannst es versuchen, sobald du bereit bist."
+    }
+  },
+  "streak": {
+    "dayStreak": "Tage in Serie",
+    "bestStreak": "Beste Serie: {{count}} Tage",
+    "flameA11y": "Serien-Flammen-Symbol",
+    "accessibility": {
+      "counter": "Aktuelle Serie: {{count}} Tage"
+    }
+  },
+  "heatmap": {
+    "title": "Stimmungskalender",
+    "subtitle": "Jedes Feld ist ein Tag. Die Farbe zeigt, wie du dich beim letzten Check-in an dem Tag gefühlt hast.",
+    "noEntry": "Kein Eintrag",
+    "cellA11y": "{{date}}: {{mood}}",
+    "weeksShown": "Letzte {{count}} Wochen"
+  },
+  "badges": {
+    "title": "Abzeichen",
+    "subtitle": "Kleine Erfolge auf dem Weg. Gesperrte Abzeichen schalten sich frei, wenn du dranbleibst.",
+    "accessibility": {
+      "earned": "Erhaltenes Abzeichen: {{name}}",
+      "locked": "Gesperrtes Abzeichen: {{name}}"
+    },
+    "firstEntry": {
+      "name": "Erster Moment",
+      "description": "Du hast deinen ersten Check-in aufgenommen."
+    },
+    "streak3": {
+      "name": "3-Tage-Serie",
+      "description": "Drei Tage hintereinander. Schwung baut sich auf."
+    },
+    "streak7": {
+      "name": "7-Tage-Serie",
+      "description": "Eine Woche lang für dich da."
+    },
+    "streak30": {
+      "name": "30-Tage-Serie",
+      "description": "Ein ganzer Monat. Das ist echtes Commitment."
+    },
+    "total10": {
+      "name": "10 Momente",
+      "description": "Zehn Check-ins auf deiner Reise."
+    },
+    "total50": {
+      "name": "50 Momente",
+      "description": "Fünfzig Erinnerungen festgehalten. Dein zukünftiges Ich wird dir danken."
+    }
+  },
+  "celebration": {
+    "title": "Du hast ein Abzeichen freigeschaltet",
+    "dismissA11y": "Feier schließen"
+  },
+  "screens": {
+    "home": {
+      "title": "Start",
+      "placeholder": "Deine Emotions-Heatmap und Serie werden hier erscheinen."
+    },
+    "capture": {
+      "title": "Erfassen",
+      "placeholder": "Schnellerfassung wird hier erscheinen."
+    },
+    "journal": {
+      "title": "Tagebuch",
+      "placeholder": "Deine Tagebuch-Historie wird hier erscheinen."
+    },
+    "profile": {
+      "title": "Profil",
+      "placeholder": "Einstellungen und Konto werden hier erscheinen.",
+      "openModal": "Beispiel-Modal öffnen"
+    },
+    "placeholderModal": {
+      "title": "Beispiel-Modal",
+      "body": "Modal-Routen sind im Root-Stack für künftige Abläufe verdrahtet."
+    }
+  },
+  "onboarding": {
+    "goalName": {
+      "title": "Was ist dein Ziel?",
+      "subtitle": "Eine Zeile reicht. Du kannst es später verfeinern.",
+      "placeholder": "z. B. 5K laufen, Kurs beenden, ruhiger fühlen",
+      "next": "Weiter"
+    },
+    "targetDate": {
+      "title": "Bis wann?",
+      "subtitle": "Wähle ein Datum, das motiviert, nicht bestraft.",
+      "openPicker": "Datum wählen",
+      "next": "Weiter"
+    },
+    "start": {
+      "title": "Du bist bereit",
+      "subtitle": "Das verfolgen wir gemeinsam.",
+      "summaryGoal": "Ziel",
+      "summaryDate": "Zieldatum",
+      "cta": "Los geht's"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "Kamerazugriff",
+      "cameraBody": "Wir brauchen die Kamera, damit du schnelle Momente auf deiner Reise festhalten kannst.",
+      "cta": "Kamera erlauben",
+      "openSettings": "Einstellungen öffnen"
+    },
+    "noDevice": "Auf diesem Gerät wurde keine Kamera gefunden.",
+    "mode": {
+      "video": "Video",
+      "photo": "Foto"
+    },
+    "shutter": {
+      "photo": "Foto aufnehmen",
+      "record": "Video aufnehmen oder stoppen"
+    },
+    "mood": {
+      "title": "Wie war heute?",
+      "subtitle": "Tippe die Stimmung an, die am besten passt. Es gibt keine falsche Antwort."
+    }
+  },
+  "journal": {
+    "listTitle": "Deine Momente",
+    "empty": {
+      "title": "Noch keine Einträge",
+      "body": "Wenn du bereit bist, nimm einen kurzen Clip oder ein Foto auf. Dieser Raum füllt sich mit deiner Reise, nicht mit Druck."
+    },
+    "noGoal": {
+      "title": "Lege ein Ziel fest, um zu starten",
+      "body": "Sobald du ein Ziel hinzufügst, erscheinen deine Tagebuch-Einträge hier."
+    }
+  },
+  "moods": {
+    "happy": "Glücklich",
+    "grateful": "Dankbar",
+    "excited": "Aufgeregt",
+    "calm": "Ruhig",
+    "neutral": "Neutral",
+    "tired": "Müde",
+    "stressed": "Gestresst",
+    "sad": "Traurig"
+  },
+  "common": {
+    "loading": "Lädt…",
+    "error": "Etwas ist schiefgelaufen",
+    "retry": "Erneut versuchen"
+  },
+  "capsule": {
+    "list": {
+      "title": "Zeitkapsel",
+      "empty": "Nimm eine Nachricht für dein zukünftiges Ich auf. Wir bewahren sie bis zu dem Tag, den du wählst—und erinnern dich sanft daran, sie zu öffnen.",
+      "createCta": "Zeitkapsel aufnehmen"
+    },
+    "create": {
+      "title": "Neue Zeitkapsel",
+      "titlePlaceholder": "Titel",
+      "mediaHint": "Nimm ein kurzes Video oder Foto auf, oder schreibe stattdessen etwas.",
+      "textMode": "Nur Text",
+      "mediaMode": "Video oder Foto",
+      "textPlaceholder": "Schreibe etwas für dein zukünftiges Ich",
+      "unlockDateLabel": "An diesem Tag öffnen",
+      "save": "Speichern und versiegeln",
+      "cancel": "Abbrechen",
+      "captureReady": "Alles klar — wir versiegeln das mit deinen anderen Angaben.",
+      "dateMustBeFuture": "Wähle einen Zeitpunkt in der Zukunft, wann sie geöffnet werden soll."
+    },
+    "card": {
+      "lockedStatus": "Versiegelt",
+      "unlockedStatus": "Bereit",
+      "opensOn": "Öffnet am {{date}}",
+      "viewCta": "Ansehen",
+      "a11y": "Zeitkapsel: {{title}}. {{state}}"
+    },
+    "reveal": {
+      "title": "Eine Nachricht für dich",
+      "subtitle": "Du hast das für dich aufgenommen, für einen Tag, der es vielleicht braucht.",
+      "dismiss": "Schließen"
+    }
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "Täglicher Check-in"
+    },
+    "capsule": {
+      "channelName": "Zeitkapsel",
+      "title": "Deine Kapsel „{{title}}“ ist bereit",
+      "body": "Deine Zeitkapsel ist bereit — du hast das für dich aufgenommen."
+    },
+    "permission": {
+      "rationale": "Erhalte eine sanfte Erinnerung, einen Moment für dein Ziel zu loggen. Du kannst das jederzeit in den Systemeinstellungen ausschalten."
+    },
+    "daily": {
+      "earlyTitle": "Deine Reise entfaltet sich",
+      "earlyBody": "Wenn du bereit bist, hält ein kurzer Check-in „{{goalName}}“ in Bewegung. Kein Druck, nur Raum, zu erscheinen.",
+      "midTitle": "Immer noch bei dir",
+      "midBody": "Du hast auf „{{goalName}}“ hingearbeitet. Ein kleiner Moment heute zählt noch als Fortschritt.",
+      "finalStretchTitle": "Endspurt",
+      "finalStretchBody": "Wir sind in der letzten Woche vor deinem Ziel für „{{goalName}}“. Wie geht es dir heute? Ein ehrlicher Check-in reicht.",
+      "targetDayTitle": "Zieltag",
+      "targetDayBody": "Heute ist der Tag, den du für „{{goalName}}“ gesetzt hast. Halte fest, wie du dich fühlst, groß oder leise. Das ist deine Geschichte."
+    },
+    "companion": {
+      "channelName": "Begleiter-Nudges",
+      "title": "Du bist schon wieder aufgestanden",
+      "body": "Mehrere Check-ins hintereinander fühlten sich schwer an — das ist Information, kein Urteil. Wenn du bereit bist, reicht ein ehrlicher Moment."
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "Eine Notiz für dich"
+    },
+    "hypeMan": {
+      "title": "Schwung für dich",
+      "subtitle": "Ein paar helle Momente, die du schon geschaffen hast — du bist noch immer diese Person.",
+      "noPhotos": "Mach weiter mit Aufnahmen. Dein Highlight-Reel wächst noch.",
+      "cta": "Los geht's",
+      "dismissA11y": "Feier schließen"
+    }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "App-Sprache",
+      "rowLabel": "Sprache",
+      "rowA11y": "App-Sprache ändern, aktuell {{language}}"
+    }
+  }
+}

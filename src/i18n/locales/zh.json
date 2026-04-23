@@ -1,0 +1,269 @@
+{
+  "tabs": {
+    "home": "首页",
+    "capture": "记录",
+    "journal": "日记",
+    "profile": "个人资料"
+  },
+  "home": {
+    "noGoal": {
+      "title": "设定目标以查看连续记录",
+      "body": "完成引导并设置目标与截止日期后，首页将显示你的连续记录与心情日历。"
+    },
+    "missingGoal": {
+      "title": "未找到目标",
+      "body": "无法加载你的当前目标。请尝试在引导流程中重新设置。"
+    },
+    "daysLeft_one": "距离目标还有 {{count}} 天",
+    "daysLeft_other": "距离目标还有 {{count}} 天",
+    "targetDay": "目标日——你做到了。按你喜欢的方式庆祝吧。"
+  },
+  "collage": {
+    "banner": {
+      "title": "你的旅程拼贴已就绪",
+      "cta": "打开影厅"
+    },
+    "progress": {
+      "title": "正在制作你的终章",
+      "preparing": "正在准备你的瞬间…",
+      "merging": "正在串联你的故事…",
+      "addingMusic": "正在叠加你的配乐…",
+      "finishing": "正在完成你的影片…",
+      "cancel": "取消"
+    },
+    "premiere": {
+      "share": "分享视频",
+      "replay": "再看一遍",
+      "retry": "重试",
+      "retryA11y": "尝试重新创建视频",
+      "close": "完成",
+      "closeA11y": "关闭首映并返回首页"
+    },
+    "error": {
+      "noMedia": "请先添加几条视频或照片打卡，然后再来制作拼贴。",
+      "assembly": "我们无法完成视频。请稍后再试。",
+      "cancelled": "导出已停止。你随时可以重试。"
+    }
+  },
+  "streak": {
+    "dayStreak": "天连续",
+    "bestStreak": "最佳连续：{{count}} 天",
+    "flameA11y": "连续火焰图标",
+    "accessibility": {
+      "counter": "当前连续：{{count}} 天"
+    }
+  },
+  "heatmap": {
+    "title": "心情日历",
+    "subtitle": "每个方块代表一天。颜色显示你在当天最后一次打卡时的心情。",
+    "noEntry": "无记录",
+    "cellA11y": "{{date}}：{{mood}}",
+    "weeksShown": "最近 {{count}} 周"
+  },
+  "badges": {
+    "title": "徽章",
+    "subtitle": "一路上的小成就。继续打卡，被锁定的徽章会陆续解锁。",
+    "accessibility": {
+      "earned": "已获得徽章：{{name}}",
+      "locked": "未解锁徽章：{{name}}"
+    },
+    "firstEntry": {
+      "name": "第一次记录",
+      "description": "你完成了第一次打卡。"
+    },
+    "streak3": {
+      "name": "连续 3 天",
+      "description": "连续三天。动力正在累积。"
+    },
+    "streak7": {
+      "name": "连续 7 天",
+      "description": "一整周都在为自己坚持。"
+    },
+    "streak30": {
+      "name": "连续 30 天",
+      "description": "整整一个月。这是真正的投入。"
+    },
+    "total10": {
+      "name": "10 个瞬间",
+      "description": "旅程中已记录十次打卡。"
+    },
+    "total50": {
+      "name": "50 个瞬间",
+      "description": "已捕捉五十段回忆。未来的你会感谢现在的你。"
+    }
+  },
+  "celebration": {
+    "title": "你解锁了一枚徽章",
+    "dismissA11y": "关闭庆祝"
+  },
+  "screens": {
+    "home": {
+      "title": "首页",
+      "placeholder": "你的情绪热力图与连续记录将显示在这里。"
+    },
+    "capture": {
+      "title": "记录",
+      "placeholder": "快速记录将显示在这里。"
+    },
+    "journal": {
+      "title": "日记",
+      "placeholder": "你的日记历史将显示在这里。"
+    },
+    "profile": {
+      "title": "个人资料",
+      "placeholder": "设置与账户将显示在这里。",
+      "openModal": "打开示例弹窗"
+    },
+    "placeholderModal": {
+      "title": "示例弹窗",
+      "body": "弹窗路由已接入根栈，供后续流程使用。"
+    }
+  },
+  "onboarding": {
+    "goalName": {
+      "title": "你的目标是什么？",
+      "subtitle": "一句话就够。你随时可以再完善。",
+      "placeholder": "例如：跑完 5 公里、完成课程、更平静",
+      "next": "继续"
+    },
+    "targetDate": {
+      "title": "截止日期？",
+      "subtitle": "选择一个让你有动力、而不是有压力的日子。",
+      "openPicker": "选择日期",
+      "next": "继续"
+    },
+    "start": {
+      "title": "你准备好了",
+      "subtitle": "接下来我们会一起追踪这些内容。",
+      "summaryGoal": "目标",
+      "summaryDate": "截止日期",
+      "cta": "开始吧"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "相机权限",
+      "cameraBody": "我们需要相机，以便你在旅程中快速记录瞬间。",
+      "cta": "允许使用相机",
+      "openSettings": "打开设置"
+    },
+    "noDevice": "此设备未找到相机。",
+    "mode": {
+      "video": "视频",
+      "photo": "照片"
+    },
+    "shutter": {
+      "photo": "拍照",
+      "record": "开始或停止录制视频"
+    },
+    "mood": {
+      "title": "今天怎么样？",
+      "subtitle": "点击最符合的心情。没有错误答案。"
+    }
+  },
+  "journal": {
+    "listTitle": "你的瞬间",
+    "empty": {
+      "title": "还没有记录",
+      "body": "准备好时，拍一段短视频或一张照片。这里会填满你的旅程，而不是压力。"
+    },
+    "noGoal": {
+      "title": "先设定目标再开始",
+      "body": "添加目标后，你的日记记录会显示在这里。"
+    }
+  },
+  "moods": {
+    "happy": "开心",
+    "grateful": "感恩",
+    "excited": "兴奋",
+    "calm": "平静",
+    "neutral": "一般",
+    "tired": "疲惫",
+    "stressed": "紧张",
+    "sad": "难过"
+  },
+  "common": {
+    "loading": "加载中…",
+    "error": "出了点问题",
+    "retry": "重试"
+  },
+  "capsule": {
+    "list": {
+      "title": "时间胶囊",
+      "empty": "给未来的自己录一条消息。我们会保存到你选定的那一天——然后温柔提醒你打开它。",
+      "createCta": "录制时间胶囊"
+    },
+    "create": {
+      "title": "新建时间胶囊",
+      "titlePlaceholder": "标题",
+      "mediaHint": "录制短视频或拍照，也可以改为写下内容。",
+      "textMode": "仅文字",
+      "mediaMode": "视频或照片",
+      "textPlaceholder": "写给未来的自己",
+      "unlockDateLabel": "在这一天打开",
+      "save": "保存并封存",
+      "cancel": "取消",
+      "captureReady": "好的——我们会把它与你的其他信息一起封存。",
+      "dateMustBeFuture": "请选择未来的打开时间。"
+    },
+    "card": {
+      "lockedStatus": "已封存",
+      "unlockedStatus": "可打开",
+      "opensOn": "{{date}} 打开",
+      "viewCta": "查看",
+      "a11y": "时间胶囊：{{title}}。{{state}}"
+    },
+    "reveal": {
+      "title": "给你的一条消息",
+      "subtitle": "这是你为自己录的，为了某个可能需要它的日子。",
+      "dismiss": "关闭"
+    }
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "每日打卡"
+    },
+    "capsule": {
+      "channelName": "时间胶囊",
+      "title": "你的胶囊「{{title}}」已就绪",
+      "body": "你的时间胶囊已就绪——这是你为自己录下的。"
+    },
+    "permission": {
+      "rationale": "温和提醒为目标记录一个瞬间。你随时可在系统设置中关闭。"
+    },
+    "daily": {
+      "earlyTitle": "你的旅程正在展开",
+      "earlyBody": "当你准备好时，一次简短打卡也能让「{{goalName}}」继续前进。没有压力，只为留出空间。",
+      "midTitle": "仍与你同在",
+      "midBody": "你一直在向「{{goalName}}」前进。今天的小小瞬间也算进步。",
+      "finalStretchTitle": "最后冲刺",
+      "finalStretchBody": "距离「{{goalName}}」的目标只剩最后一周。今天感觉如何？一次真诚的打卡就够了。",
+      "targetDayTitle": "目标日",
+      "targetDayBody": "今天是你为「{{goalName}}」设定的日子。记录你的感受，无论盛大或安静。这是你的故事。"
+    },
+    "companion": {
+      "channelName": "伙伴提醒",
+      "title": "你曾经重新站起来过",
+      "body": "连续几次打卡感到沉重——这是信息，不是评判。当你准备好时，一个真诚的瞬间就够了。"
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "给你的一张便条"
+    },
+    "hypeMan": {
+      "title": "为你加油",
+      "subtitle": "你已经创造过一些闪亮瞬间——你仍然是那个人。",
+      "noPhotos": "继续记录吧。你的高光集锦还在成长。",
+      "cta": "出发",
+      "dismissA11y": "关闭庆祝"
+    }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "应用语言",
+      "rowLabel": "语言",
+      "rowA11y": "更改应用语言，当前为 {{language}}"
+    }
+  }
+}

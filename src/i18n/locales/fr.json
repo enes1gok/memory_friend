@@ -1,0 +1,269 @@
+{
+  "tabs": {
+    "home": "Accueil",
+    "capture": "Capturer",
+    "journal": "Journal",
+    "profile": "Profil"
+  },
+  "home": {
+    "noGoal": {
+      "title": "Définis un objectif pour voir ta série",
+      "body": "Termine l'introduction avec un objectif et une date cible, puis l'accueil affichera ta série et ton calendrier d'humeur."
+    },
+    "missingGoal": {
+      "title": "Objectif introuvable",
+      "body": "Nous n'avons pas pu charger ton objectif actif. Essaie d'en définir un nouveau depuis l'introduction."
+    },
+    "daysLeft_one": "Il reste {{count}} jour avant ton objectif",
+    "daysLeft_other": "Il reste {{count}} jours avant ton objectif",
+    "targetDay": "Jour J — tu as réussi. Célèbre comme tu le sens."
+  },
+  "collage": {
+    "banner": {
+      "title": "Ton collage de parcours est prêt",
+      "cta": "Ouvrir la salle de cinéma"
+    },
+    "progress": {
+      "title": "Création de ton final",
+      "preparing": "Préparation de tes moments…",
+      "merging": "Assemblage de ton histoire…",
+      "addingMusic": "Ajout de ta bande-son…",
+      "finishing": "Finalisation de ton film…",
+      "cancel": "Annuler"
+    },
+    "premiere": {
+      "share": "Partager la vidéo",
+      "replay": "Revoir",
+      "retry": "Réessayer",
+      "retryA11y": "Réessayer de créer la vidéo",
+      "close": "Terminé",
+      "closeA11y": "Fermer la première et retourner à l'accueil"
+    },
+    "error": {
+      "noMedia": "Ajoute d'abord quelques enregistrements vidéo ou photo, puis reviens pour ton collage.",
+      "assembly": "Nous n'avons pas pu terminer la vidéo. Réessaie dans un instant.",
+      "cancelled": "Export interrompu. Tu peux réessayer quand tu veux."
+    }
+  },
+  "streak": {
+    "dayStreak": "jours de série",
+    "bestStreak": "Meilleure série : {{count}} jours",
+    "flameA11y": "Icône flamme de série",
+    "accessibility": {
+      "counter": "Série actuelle : {{count}} jours"
+    }
+  },
+  "heatmap": {
+    "title": "Calendrier d'humeur",
+    "subtitle": "Chaque case est un jour. La couleur montre comment tu te sentais lors de ton dernier enregistrement ce jour-là.",
+    "noEntry": "Aucune entrée",
+    "cellA11y": "{{date}} : {{mood}}",
+    "weeksShown": "{{count}} dernières semaines"
+  },
+  "badges": {
+    "title": "Badges",
+    "subtitle": "Petites victoires en chemin. Les badges verrouillés se déverrouillent en continuant à être présent.",
+    "accessibility": {
+      "earned": "Badge obtenu : {{name}}",
+      "locked": "Badge verrouillé : {{name}}"
+    },
+    "firstEntry": {
+      "name": "Premier moment",
+      "description": "Tu as capturé ton premier enregistrement."
+    },
+    "streak3": {
+      "name": "Série de 3 jours",
+      "description": "Trois jours d'affilée. L'élan se construit."
+    },
+    "streak7": {
+      "name": "Série de 7 jours",
+      "description": "Une semaine à être là pour toi."
+    },
+    "streak30": {
+      "name": "Série de 30 jours",
+      "description": "Un mois entier. C'est un vrai engagement."
+    },
+    "total10": {
+      "name": "10 moments",
+      "description": "Dix enregistrements sur ton parcours."
+    },
+    "total50": {
+      "name": "50 moments",
+      "description": "Cinquante souvenirs capturés. Ton futur toi te dira merci."
+    }
+  },
+  "celebration": {
+    "title": "Tu as débloqué un badge",
+    "dismissA11y": "Fermer la célébration"
+  },
+  "screens": {
+    "home": {
+      "title": "Accueil",
+      "placeholder": "Ta carte de chaleur émotionnelle et ta série seront ici."
+    },
+    "capture": {
+      "title": "Capturer",
+      "placeholder": "La capture rapide sera ici."
+    },
+    "journal": {
+      "title": "Journal",
+      "placeholder": "L'historique du journal sera ici."
+    },
+    "profile": {
+      "title": "Profil",
+      "placeholder": "Réglages et compte seront ici.",
+      "openModal": "Ouvrir la modale d'exemple"
+    },
+    "placeholderModal": {
+      "title": "Modale d'exemple",
+      "body": "Les routes modales sont branchées sur la pile racine pour les flux futurs."
+    }
+  },
+  "onboarding": {
+    "goalName": {
+      "title": "Quel est ton objectif ?",
+      "subtitle": "Une ligne suffit. Tu pourras l'affiner plus tard.",
+      "placeholder": "ex. Courir un 5 km, finir le cours, me sentir plus calme",
+      "next": "Continuer"
+    },
+    "targetDate": {
+      "title": "Pour quand ?",
+      "subtitle": "Choisis une date motivante, pas punitive.",
+      "openPicker": "Choisir une date",
+      "next": "Continuer"
+    },
+    "start": {
+      "title": "Tu es prêt",
+      "subtitle": "Voici ce que nous suivrons ensemble.",
+      "summaryGoal": "Objectif",
+      "summaryDate": "Date cible",
+      "cta": "C'est parti"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "Accès à la caméra",
+      "cameraBody": "Nous avons besoin de la caméra pour capturer des moments rapides sur ton parcours.",
+      "cta": "Autoriser la caméra",
+      "openSettings": "Ouvrir les réglages"
+    },
+    "noDevice": "Aucune caméra trouvée sur cet appareil.",
+    "mode": {
+      "video": "Vidéo",
+      "photo": "Photo"
+    },
+    "shutter": {
+      "photo": "Prendre une photo",
+      "record": "Enregistrer ou arrêter la vidéo"
+    },
+    "mood": {
+      "title": "Comment s'est passée la journée ?",
+      "subtitle": "Touche l'humeur qui correspond le mieux. Il n'y a pas de mauvaise réponse."
+    }
+  },
+  "journal": {
+    "listTitle": "Tes moments",
+    "empty": {
+      "title": "Pas encore d'entrées",
+      "body": "Quand tu es prêt, capture un court clip ou une photo. Cet espace se remplira de ton parcours, pas de pression."
+    },
+    "noGoal": {
+      "title": "Définis un objectif pour commencer",
+      "body": "Une fois l'objectif ajouté, tes entrées du journal apparaîtront ici."
+    }
+  },
+  "moods": {
+    "happy": "Heureux",
+    "grateful": "Reconnaissant",
+    "excited": "Excité",
+    "calm": "Calme",
+    "neutral": "Neutre",
+    "tired": "Fatigué",
+    "stressed": "Stressé",
+    "sad": "Triste"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer"
+  },
+  "capsule": {
+    "list": {
+      "title": "Capsule temporelle",
+      "empty": "Enregistre un message pour ton futur toi. Nous le garderons jusqu'au jour choisi—puis te rappellerons doucement de l'ouvrir.",
+      "createCta": "Enregistrer une capsule temporelle"
+    },
+    "create": {
+      "title": "Nouvelle capsule temporelle",
+      "titlePlaceholder": "Titre",
+      "mediaHint": "Capture une courte vidéo ou photo, ou écris quelque chose à la place.",
+      "textMode": "Texte seulement",
+      "mediaMode": "Vidéo ou photo",
+      "textPlaceholder": "Écris quelque chose pour ton futur toi",
+      "unlockDateLabel": "Ouvrir ce jour-là",
+      "save": "Enregistrer et sceller",
+      "cancel": "Annuler",
+      "captureReady": "Parfait — nous scellerons cela avec tes autres détails.",
+      "dateMustBeFuture": "Choisis un moment futur pour l'ouverture."
+    },
+    "card": {
+      "lockedStatus": "Scellée",
+      "unlockedStatus": "Prête",
+      "opensOn": "S'ouvre le {{date}}",
+      "viewCta": "Voir",
+      "a11y": "Capsule temporelle : {{title}}. {{state}}"
+    },
+    "reveal": {
+      "title": "Un message pour toi",
+      "subtitle": "Tu l'as enregistré pour toi, pour un jour qui pourrait en avoir besoin.",
+      "dismiss": "Fermer"
+    }
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "Enregistrement quotidien"
+    },
+    "capsule": {
+      "channelName": "Capsule temporelle",
+      "title": "Ta capsule « {{title}} » est prête",
+      "body": "Ta capsule temporelle est prête — tu l'as enregistrée pour toi."
+    },
+    "permission": {
+      "rationale": "Reçois un rappel doux pour enregistrer un moment pour ton objectif. Tu peux désactiver cela à tout moment dans les réglages système."
+    },
+    "daily": {
+      "earlyTitle": "Ton parcours se déploie",
+      "earlyBody": "Quand tu es prêt, un court enregistrement fait avancer « {{goalName}} ». Pas de pression, juste de l'espace pour être là.",
+      "midTitle": "Toujours avec toi",
+      "midBody": "Tu avançais vers « {{goalName}} ». Un petit moment aujourd'hui compte encore comme du progrès.",
+      "finalStretchTitle": "Dernière ligne droite",
+      "finalStretchBody": "Nous sommes dans la dernière semaine avant ton objectif pour « {{goalName}} ». Comment vas-tu aujourd'hui ? Un enregistrement honnête suffit.",
+      "targetDayTitle": "Jour J",
+      "targetDayBody": "Aujourd'hui est le jour que tu as fixé pour « {{goalName}} ». Capture ce que tu ressens, grand ou discret. C'est ton histoire."
+    },
+    "companion": {
+      "channelName": "Rappels du compagnon",
+      "title": "Tu t'es déjà relevé avant",
+      "body": "Plusieurs enregistrements d'affilée ont semblé lourds — c'est une information, pas un verdict. Quand tu es prêt, un moment honnête suffit."
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "Une note pour toi"
+    },
+    "hypeMan": {
+      "title": "Un boost pour toi",
+      "subtitle": "Quelques moments lumineux que tu as déjà créés — tu es toujours cette personne.",
+      "noPhotos": "Continue à capturer. Ton montage des meilleurs moments grandit encore.",
+      "cta": "C'est parti",
+      "dismissA11y": "Fermer la célébration"
+    }
+  },
+  "settings": {
+    "language": {
+      "screenTitle": "Langue de l'app",
+      "rowLabel": "Langue",
+      "rowA11y": "Changer la langue de l'app, actuellement {{language}}"
+    }
+  }
+}
