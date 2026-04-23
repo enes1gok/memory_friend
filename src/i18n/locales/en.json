@@ -212,6 +212,23 @@
       "finalStretchBody": "We are in the last week before your target for \"{{goalName}}\". How are you doing today? One honest check-in is enough.",
       "targetDayTitle": "Target day",
       "targetDayBody": "Today is the day you set for \"{{goalName}}\". Capture how you feel, whether it is big or quiet. This is your story."
+    },
+    "companion": {
+      "channelName": "Companion nudges",
+      "title": "You have bounced back before",
+      "body": "A few check-ins in a row felt heavy — and that is information, not a verdict. When you are ready, one honest moment is enough."
+    }
+  },
+  "ai": {
+    "companion": {
+      "title": "A note for you"
+    },
+    "hypeMan": {
+      "title": "Hype for you",
+      "subtitle": "A few bright moments you already made — you are still that person.",
+      "noPhotos": "Keep capturing. Your highlight reel is still growing.",
+      "cta": "Let's go",
+      "dismissA11y": "Dismiss celebration"
     }
   }
 }

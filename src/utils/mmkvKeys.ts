@@ -32,4 +32,10 @@ export const MMKV_KEYS = {
 
   /** logout — JSON map of capsule id → notif id for capsule unlock triggers. */
   capsuleScheduledIds: 'capsule:scheduledIds',
+
+  /** device — YYYY-MM-DD (local) of last scheduled AI companion nudge. */
+  aiLastNudgeDate: 'ai:lastNudgeDate',
+
+  /** device — last journal entry id that triggered companion nudge dedup. */
+  aiLastEnrichmentContextId: 'ai:lastEnrichmentContextId',
 } as const;

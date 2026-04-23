@@ -11,12 +11,14 @@ import {
 } from 'react-native-vision-camera';
 
 import { Body, Heading } from '@/components/Typography';
+import { useEnrichJournalEntry } from '@/features/ai/hooks/useEnrichJournalEntry';
 import { MoodPicker } from '@/features/journal/components/MoodPicker';
 import { useSaveJournalEntry } from '@/features/journal/hooks/useSaveJournalEntry';
 import { CelebrationOverlay } from '@/features/streak/components/CelebrationOverlay';
 import type { BadgeTypeId } from '@/features/streak/constants/badgeTypes';
 import { pickBestNewBadge } from '@/features/streak/logic/pickBestNewBadge';
 import { colors } from '@/theme/colors';
+import { useUIStore } from '@/stores/useUIStore';
 import { hapticSuccess } from '@/utils/haptics';
 import { persistJournalMedia } from '@/utils/persistJournalMedia';
 
@@ -47,6 +49,8 @@ export function CaptureScreen() {
   const [celebrationOpen, setCelebrationOpen] = useState(false);
 
   const saveJournalEntry = useSaveJournalEntry();
+  const { triggerEnrichment } = useEnrichJournalEntry();
+  const setHypeManFromCapturePending = useUIStore((s) => s.setHypeManFromCapturePending);
 
   const showMoodPicker = pendingMedia !== null;
   const isActive = isFocused && !showMoodPicker && !saving;
@@ -56,10 +60,15 @@ export function CaptureScreen() {
       if (!pendingMedia) return;
       setSaving(true);
       try {
-        const { newBadges } = await saveJournalEntry({
+        const { entryId, newBadges } = await saveJournalEntry({
           mediaPath: pendingMedia.path,
           mediaType: pendingMedia.type,
           moodTag,
+        });
+        triggerEnrichment({
+          entryId,
+          mediaPath: pendingMedia.path,
+          mediaType: pendingMedia.type,
         });
         setPendingMedia(null);
         const best = pickBestNewBadge(newBadges);
@@ -74,7 +83,7 @@ export function CaptureScreen() {
         setSaving(false);
       }
     },
-    [pendingMedia, saveJournalEntry],
+    [pendingMedia, saveJournalEntry, triggerEnrichment],
   );
 
   const dismissMoodFlow = useCallback(() => {
@@ -272,6 +281,9 @@ export function CaptureScreen() {
         visible={celebrationOpen && celebrationBadge != null}
         badgeType={celebrationBadge}
         onDismiss={() => {
+          if (celebrationBadge) {
+            setHypeManFromCapturePending(true);
+          }
           setCelebrationOpen(false);
           setCelebrationBadge(null);
         }}

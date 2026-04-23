@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useAiCompanionNudge } from '@/features/ai/hooks/useAiCompanionNudge';
 import { useCapsuleNotificationHandler } from '@/features/notification/hooks/useCapsuleNotificationHandler';
 import { useScheduleReminders } from '@/features/notification/hooks/useScheduleReminders';
 import { CaptureScreen } from '@/screens/CaptureScreen';
@@ -20,6 +21,7 @@ const Tab = createBottomTabNavigator<TabParamList>();
 export function TabNavigator() {
   useScheduleReminders();
   useCapsuleNotificationHandler();
+  useAiCompanionNudge();
   const { t } = useTranslation();
   const accentProgress = useUIStore(useShallow((s) => s.accentProgress));
   const activeTint = getAccentColor(accentProgress);

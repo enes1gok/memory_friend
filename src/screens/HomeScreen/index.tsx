@@ -1,10 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, View } from 'react-native';
 
 import { Body, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
+import { CompanionCard, HypeManModal } from '@/features/ai';
 import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
 import { useCapsulesByGoal } from '@/features/capsule/hooks/useCapsulesByGoal';
 import {
@@ -15,6 +17,7 @@ import {
 } from '@/features/streak';
 import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
+import { useUIStore } from '@/stores/useUIStore';
 
 function daysUntilTargetEnd(target: Date): number {
   const end = new Date(target);
@@ -30,6 +33,17 @@ export function HomeScreen() {
   const tabNav = useNavigation();
   const rootNav = tabNav.getParent<NativeStackNavigationProp<RootStackParamList>>();
   const capsules = useCapsulesByGoal(activeGoalId);
+  const [hypeOpen, setHypeOpen] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      const { hypeManFromCapturePending, setHypeManFromCapturePending } = useUIStore.getState();
+      if (hypeManFromCapturePending) {
+        setHypeOpen(true);
+        setHypeManFromCapturePending(false);
+      }
+    }, []),
+  );
 
   if (!activeGoalId) {
     return (
@@ -83,6 +97,7 @@ export function HomeScreen() {
 
         <View className="gap-4">
           <StreakCounter activeGoalId={activeGoalId} />
+          <CompanionCard activeGoalId={activeGoalId} />
           <EmotionHeatmap activeGoalId={activeGoalId} />
           <BadgeRow activeGoalId={activeGoalId} />
         </View>
@@ -119,6 +134,14 @@ export function HomeScreen() {
           </Pressable>
         </View>
       </ScrollView>
+
+      <HypeManModal
+        visible={hypeOpen}
+        activeGoalId={activeGoalId}
+        onDismiss={() => {
+          setHypeOpen(false);
+        }}
+      />
     </SafeScreen>
   );
 }

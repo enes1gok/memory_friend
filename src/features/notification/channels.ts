@@ -8,6 +8,8 @@ export const CHANNEL_IDS = {
   DAILY_REMINDER: 'daily-reminder',
   /** Time capsule unlock delivery. */
   CAPSULE_DELIVERY: 'capsule-delivery',
+  /** AI companion contextual nudges. */
+  AI_COMPANION: 'ai_companion',
 } as const;
 
 /**
@@ -24,6 +26,11 @@ export async function ensureChannels(): Promise<void> {
       id: CHANNEL_IDS.CAPSULE_DELIVERY,
       name: i18n.t('notifications.capsule.channelName'),
       importance: AndroidImportance.HIGH,
+    });
+    await notifee.createChannel({
+      id: CHANNEL_IDS.AI_COMPANION,
+      name: i18n.t('notifications.companion.channelName'),
+      importance: AndroidImportance.DEFAULT,
     });
   }
 }

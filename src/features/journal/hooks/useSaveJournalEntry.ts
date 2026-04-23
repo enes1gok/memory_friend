@@ -14,6 +14,7 @@ export type SaveJournalEntryArgs = {
 };
 
 export type SaveJournalEntryResult = {
+  entryId: string;
   newBadges: BadgeTypeId[];
 };
 
@@ -31,8 +32,9 @@ export function useSaveJournalEntry() {
       if (!activeGoalId) {
         throw new Error('No active goal');
       }
+      let newEntryId = '';
       await database.write(async () => {
-        await database.get<JournalEntry>('journal_entries').create((record) => {
+        const created = await database.get<JournalEntry>('journal_entries').create((record) => {
           record.goalId = activeGoalId;
           record.capturedAt = new Date();
           record.moodTag = moodTag;
@@ -42,9 +44,10 @@ export function useSaveJournalEntry() {
             record.text = text;
           }
         });
+        newEntryId = created.id;
       });
       const newBadges = await updateStreakAfterJournalWrite(database, activeGoalId);
-      return { newBadges };
+      return { entryId: newEntryId, newBadges };
     },
     [activeGoalId, database],
   );
