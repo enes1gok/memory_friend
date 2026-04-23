@@ -13,7 +13,11 @@ import {
 import { Body, Heading } from '@/components/Typography';
 import { MoodPicker } from '@/features/journal/components/MoodPicker';
 import { useSaveJournalEntry } from '@/features/journal/hooks/useSaveJournalEntry';
+import { CelebrationOverlay } from '@/features/streak/components/CelebrationOverlay';
+import type { BadgeTypeId } from '@/features/streak/constants/badgeTypes';
+import { pickBestNewBadge } from '@/features/streak/logic/pickBestNewBadge';
 import { colors } from '@/theme/colors';
+import { hapticSuccess } from '@/utils/haptics';
 import { persistJournalMedia } from '@/utils/persistJournalMedia';
 
 type CaptureMode = 'video' | 'photo';
@@ -39,6 +43,8 @@ export function CaptureScreen() {
   const [isRecording, setIsRecording] = useState(false);
   const [pendingMedia, setPendingMedia] = useState<PendingMedia | null>(null);
   const [saving, setSaving] = useState(false);
+  const [celebrationBadge, setCelebrationBadge] = useState<BadgeTypeId | null>(null);
+  const [celebrationOpen, setCelebrationOpen] = useState(false);
 
   const saveJournalEntry = useSaveJournalEntry();
 
@@ -50,12 +56,18 @@ export function CaptureScreen() {
       if (!pendingMedia) return;
       setSaving(true);
       try {
-        await saveJournalEntry({
+        const { newBadges } = await saveJournalEntry({
           mediaPath: pendingMedia.path,
           mediaType: pendingMedia.type,
           moodTag,
         });
         setPendingMedia(null);
+        const best = pickBestNewBadge(newBadges);
+        if (best) {
+          hapticSuccess();
+          setCelebrationBadge(best);
+          setCelebrationOpen(true);
+        }
       } catch (e) {
         console.error('[CaptureScreen] save journal entry failed', e);
       } finally {
@@ -255,6 +267,15 @@ export function CaptureScreen() {
           <ActivityIndicator size="large" color={colors.textPrimary} />
         </View>
       ) : null}
+
+      <CelebrationOverlay
+        visible={celebrationOpen && celebrationBadge != null}
+        badgeType={celebrationBadge}
+        onDismiss={() => {
+          setCelebrationOpen(false);
+          setCelebrationBadge(null);
+        }}
+      />
     </View>
   );
 }

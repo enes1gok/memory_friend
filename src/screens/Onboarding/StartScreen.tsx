@@ -7,6 +7,9 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { Body, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
+import { ensureChannels } from '@/features/notification/channels';
+import { useNotificationPermission } from '@/features/notification/hooks/useNotificationPermission';
+import { getPreferredReminderHour, scheduleOrReschedule } from '@/features/notification/logic/scheduleDaily';
 import type { Goal } from '@/models/Goal';
 import type { OnboardingStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
@@ -20,6 +23,7 @@ export function StartScreen({ route }: Props) {
   const database = useDatabase();
   const navigation = useNavigation();
   const setActiveGoalId = useGoalStore((s) => s.setActiveGoalId);
+  const { request: requestNotificationPermission } = useNotificationPermission();
   const [busy, setBusy] = useState(false);
 
   const { goalTitle, targetDateIso } = route.params;
@@ -38,6 +42,19 @@ export function StartScreen({ route }: Props) {
         });
       });
       setActiveGoalId(newGoal.id);
+      try {
+        await ensureChannels();
+        await requestNotificationPermission();
+        await scheduleOrReschedule({
+          goalId: newGoal.id,
+          goalTitle: newGoal.title,
+          targetDate: newGoal.targetDate,
+          reminderHour: getPreferredReminderHour(),
+          streakCount: 0,
+        });
+      } catch (notifErr) {
+        console.warn('[StartScreen] notification setup', notifErr);
+      }
       hapticSuccess();
       navigation.getParent()?.dispatch(
         CommonActions.reset({

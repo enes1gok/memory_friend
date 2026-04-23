@@ -20,4 +20,13 @@ export const MMKV_KEYS = {
 
   /** logout — last check-in calendar day (ISO date string); source of truth is `streak_state`. */
   streakLastCheckIn: 'streak:lastCheckInDate',
+
+  /** logout — local hour 0-23 for daily reminder; default 20 in code if unset. */
+  notifReminderHour: 'notification:reminderHour',
+
+  /** device — true once we have prompted for notification permission. */
+  notifPermissionAsked: 'notification:permissionAsked',
+
+  /** logout — JSON string array of Notifee notification ids to cancel on reschedule. */
+  notifScheduledIds: 'notification:scheduledIds',
 } as const;

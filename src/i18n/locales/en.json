@@ -5,6 +5,70 @@
     "journal": "Journal",
     "profile": "Profile"
   },
+  "home": {
+    "noGoal": {
+      "title": "Set a goal to see your streak",
+      "body": "Finish onboarding with a goal and target date, then your home dashboard will show your streak and mood calendar."
+    },
+    "missingGoal": {
+      "title": "Goal not found",
+      "body": "We could not load your active goal. Try setting a new goal from onboarding."
+    },
+    "daysLeft_one": "{{count}} day left until your target",
+    "daysLeft_other": "{{count}} days left until your target",
+    "targetDay": "Target day — you made it. Celebrate however feels right."
+  },
+  "streak": {
+    "dayStreak": "day streak",
+    "bestStreak": "Best streak: {{count}} days",
+    "flameA11y": "Streak flame icon",
+    "accessibility": {
+      "counter": "Current streak: {{count}} days"
+    }
+  },
+  "heatmap": {
+    "title": "Mood calendar",
+    "subtitle": "Each square is a day. Color shows how you felt on your last check-in that day.",
+    "noEntry": "No entry",
+    "cellA11y": "{{date}}: {{mood}}",
+    "weeksShown": "Last {{count}} weeks"
+  },
+  "badges": {
+    "title": "Badges",
+    "subtitle": "Small wins along the way. Locked badges unlock as you keep showing up.",
+    "accessibility": {
+      "earned": "Earned badge: {{name}}",
+      "locked": "Locked badge: {{name}}"
+    },
+    "firstEntry": {
+      "name": "First moment",
+      "description": "You captured your first check-in."
+    },
+    "streak3": {
+      "name": "3-day streak",
+      "description": "Three days in a row. Momentum is building."
+    },
+    "streak7": {
+      "name": "7-day streak",
+      "description": "One week of showing up for yourself."
+    },
+    "streak30": {
+      "name": "30-day streak",
+      "description": "A full month. That takes real commitment."
+    },
+    "total10": {
+      "name": "10 moments",
+      "description": "Ten check-ins logged on your journey."
+    },
+    "total50": {
+      "name": "50 moments",
+      "description": "Fifty memories captured. Your future self will thank you."
+    }
+  },
+  "celebration": {
+    "title": "You unlocked a badge",
+    "dismissA11y": "Dismiss celebration"
+  },
   "screens": {
     "home": {
       "title": "Home",
@@ -94,5 +158,23 @@
   "common": {
     "loading": "Loading…",
     "error": "Something went wrong"
+  },
+  "notifications": {
+    "channels": {
+      "dailyReminder": "Daily check-in"
+    },
+    "permission": {
+      "rationale": "Get a gentle reminder to log a moment for your goal. You can turn this off anytime in system settings."
+    },
+    "daily": {
+      "earlyTitle": "Your journey is unfolding",
+      "earlyBody": "Whenever you are ready, a short check-in keeps \"{{goalName}}\" moving forward. No pressure, just space to show up.",
+      "midTitle": "Still here with you",
+      "midBody": "You have been building toward \"{{goalName}}\". A tiny moment today still counts as progress.",
+      "finalStretchTitle": "Final stretch",
+      "finalStretchBody": "We are in the last week before your target for \"{{goalName}}\". How are you doing today? One honest check-in is enough.",
+      "targetDayTitle": "Target day",
+      "targetDayBody": "Today is the day you set for \"{{goalName}}\". Capture how you feel, whether it is big or quiet. This is your story."
+    }
   }
 }
