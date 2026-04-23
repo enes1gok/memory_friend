@@ -37,6 +37,7 @@ module.exports = {
   },
   plugins: [
     'expo-font',
+    '@react-native-community/datetimepicker',
     [
       'react-native-vision-camera',
       {

@@ -1,5 +1,6 @@
 import './global.css';
 
+import { DatabaseProvider } from '@nozbe/watermelondb/react';
 import { Inter_400Regular } from '@expo-google-fonts/inter';
 import { Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,6 +10,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { getDatabase } from '@/database';
 import i18n from '@/i18n';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { colors } from '@/theme/colors';
@@ -40,10 +42,12 @@ export default function App() {
       ) : (
         <SafeAreaProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <NavigationContainer>
-              <StatusBar style="light" />
-              <RootNavigator />
-            </NavigationContainer>
+            <DatabaseProvider database={getDatabase()}>
+              <NavigationContainer>
+                <StatusBar style="light" />
+                <RootNavigator />
+              </NavigationContainer>
+            </DatabaseProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>
       )}

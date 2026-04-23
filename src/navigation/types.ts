@@ -1,5 +1,11 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
 
+export type OnboardingStackParamList = {
+  OnboardingGoalName: undefined;
+  OnboardingTargetDate: { goalTitle: string };
+  OnboardingStart: { goalTitle: string; targetDateIso: string };
+};
+
 export type TabParamList = {
   Home: undefined;
   Capture: undefined;
@@ -8,6 +14,7 @@ export type TabParamList = {
 };
 
 export type RootStackParamList = {
+  Onboarding: undefined;
   MainTabs: NavigatorScreenParams<TabParamList> | undefined;
   PlaceholderModal: undefined;
 };

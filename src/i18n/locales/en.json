@@ -28,6 +28,69 @@
       "body": "Modal routes are wired on the root stack for future flows."
     }
   },
+  "onboarding": {
+    "goalName": {
+      "title": "What is your goal?",
+      "subtitle": "One line is enough. You can always refine it later.",
+      "placeholder": "e.g. Run a 5K, finish the course, feel calmer",
+      "next": "Continue"
+    },
+    "targetDate": {
+      "title": "By when?",
+      "subtitle": "Pick a date that feels motivating, not punishing.",
+      "openPicker": "Choose date",
+      "next": "Continue"
+    },
+    "start": {
+      "title": "You are ready",
+      "subtitle": "Here is what we will track together.",
+      "summaryGoal": "Goal",
+      "summaryDate": "Target date",
+      "cta": "Let's start"
+    }
+  },
+  "capture": {
+    "permission": {
+      "title": "Camera access",
+      "cameraBody": "We need the camera so you can capture quick moments on your journey.",
+      "cta": "Allow camera",
+      "openSettings": "Open settings"
+    },
+    "noDevice": "No camera found on this device.",
+    "mode": {
+      "video": "Video",
+      "photo": "Photo"
+    },
+    "shutter": {
+      "photo": "Take photo",
+      "record": "Record or stop video"
+    },
+    "mood": {
+      "title": "How was today?",
+      "subtitle": "Tap the mood that fits best. There is no wrong answer."
+    }
+  },
+  "journal": {
+    "listTitle": "Your moments",
+    "empty": {
+      "title": "No entries yet",
+      "body": "When you are ready, capture a short clip or photo. This space will fill with your journey, not pressure."
+    },
+    "noGoal": {
+      "title": "Set a goal to begin",
+      "body": "Once you add a goal, your journal entries will show up here."
+    }
+  },
+  "moods": {
+    "happy": "Happy",
+    "grateful": "Grateful",
+    "excited": "Excited",
+    "calm": "Calm",
+    "neutral": "Neutral",
+    "tired": "Tired",
+    "stressed": "Stressed",
+    "sad": "Sad"
+  },
   "common": {
     "loading": "Loading…",
     "error": "Something went wrong"
