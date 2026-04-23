@@ -159,9 +159,46 @@
     "loading": "Loading…",
     "error": "Something went wrong"
   },
+  "capsule": {
+    "list": {
+      "title": "Time capsule",
+      "empty": "Record a message to your future self. We will hold it until the day you choose—then nudge you gently to open it.",
+      "createCta": "Record a time capsule"
+    },
+    "create": {
+      "title": "New time capsule",
+      "titlePlaceholder": "Title",
+      "mediaHint": "Capture a short video or photo, or write something instead.",
+      "textMode": "Text only",
+      "mediaMode": "Video or photo",
+      "textPlaceholder": "Write something for your future self",
+      "unlockDateLabel": "Open on this day",
+      "save": "Save and seal",
+      "cancel": "Cancel",
+      "captureReady": "Got it — we will seal this with your other details.",
+      "dateMustBeFuture": "Choose a time in the future for when this should open."
+    },
+    "card": {
+      "lockedStatus": "Sealed",
+      "unlockedStatus": "Ready",
+      "opensOn": "Opens {{date}}",
+      "viewCta": "View",
+      "a11y": "Time capsule: {{title}}. {{state}}"
+    },
+    "reveal": {
+      "title": "A message for you",
+      "subtitle": "You recorded this for yourself, for a day that might need it.",
+      "dismiss": "Close"
+    }
+  },
   "notifications": {
     "channels": {
       "dailyReminder": "Daily check-in"
+    },
+    "capsule": {
+      "channelName": "Time capsule",
+      "title": "Your capsule \"{{title}}\" is ready",
+      "body": "Your time capsule is ready — you recorded this for yourself."
     },
     "permission": {
       "rationale": "Get a gentle reminder to log a moment for your goal. You can turn this off anytime in system settings."

@@ -1,14 +1,19 @@
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { Body, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
+import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
+import { useCapsulesByGoal } from '@/features/capsule/hooks/useCapsulesByGoal';
 import {
   BadgeRow,
   EmotionHeatmap,
   StreakCounter,
   useActiveGoal,
 } from '@/features/streak';
+import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
 
 function daysUntilTargetEnd(target: Date): number {
@@ -22,6 +27,9 @@ export function HomeScreen() {
   const { t } = useTranslation();
   const activeGoalId = useGoalStore((s) => s.activeGoalId);
   const goal = useActiveGoal();
+  const tabNav = useNavigation();
+  const rootNav = tabNav.getParent<NativeStackNavigationProp<RootStackParamList>>();
+  const capsules = useCapsulesByGoal(activeGoalId);
 
   if (!activeGoalId) {
     return (
@@ -77,6 +85,38 @@ export function HomeScreen() {
           <StreakCounter activeGoalId={activeGoalId} />
           <EmotionHeatmap activeGoalId={activeGoalId} />
           <BadgeRow activeGoalId={activeGoalId} />
+        </View>
+
+        <View className="mt-8">
+          <Heading className="mb-2 px-2 text-lg">{t('capsule.list.title')}</Heading>
+          {capsules.length === 0 ? (
+            <Body className="mb-4 px-2 text-slate-500">{t('capsule.list.empty')}</Body>
+          ) : (
+            <View className="mb-3">
+              {capsules.map((c) => (
+                <CapsuleCard
+                  key={c.id}
+                  capsule={c}
+                  onView={(id) => {
+                    rootNav?.navigate('CapsuleReveal', { capsuleId: id });
+                  }}
+                />
+              ))}
+            </View>
+          )}
+          <Pressable
+            testID="home:capsule:create-cta"
+            onPress={() => {
+              if (activeGoalId) {
+                rootNav?.navigate('CapsuleCreate', { goalId: activeGoalId });
+              }
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={t('capsule.list.createCta')}
+            className="items-center rounded-2xl border border-orange-500/40 bg-orange-500/10 py-4"
+          >
+            <Body className="font-semibold text-orange-300">{t('capsule.list.createCta')}</Body>
+          </Pressable>
         </View>
       </ScrollView>
     </SafeScreen>

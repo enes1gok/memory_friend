@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { PlaceholderModalScreen } from '@/screens/PlaceholderModalScreen';
+import { CapsuleCreateScreen } from '@/screens/CapsuleCreateScreen';
+import { CapsuleRevealScreen } from '@/screens/CapsuleRevealScreen';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { colors } from '@/theme/colors';
 
@@ -31,6 +33,22 @@ export function RootNavigator() {
           presentation: 'modal',
           title: '',
           headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="CapsuleCreate"
+        component={CapsuleCreateScreen}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CapsuleReveal"
+        component={CapsuleRevealScreen}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

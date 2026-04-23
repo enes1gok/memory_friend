@@ -16,3 +16,10 @@ export {
   setPreferredReminderHour,
 } from './logic/scheduleDaily';
 export type { ScheduleOrRescheduleParams } from './logic/scheduleDaily';
+export { cancelCapsuleNotification } from './logic/cancelCapsuleNotification';
+export {
+  getCapsuleNotificationFireTime,
+  scheduleCapsuleUnlock,
+} from './logic/scheduleCapsuleUnlock';
+export type { ScheduleCapsuleUnlockParams } from './logic/scheduleCapsuleUnlock';
+export { useCapsuleNotificationHandler } from './hooks/useCapsuleNotificationHandler';

@@ -29,4 +29,7 @@ export const MMKV_KEYS = {
 
   /** logout — JSON string array of Notifee notification ids to cancel on reschedule. */
   notifScheduledIds: 'notification:scheduledIds',
+
+  /** logout — JSON map of capsule id → notif id for capsule unlock triggers. */
+  capsuleScheduledIds: 'capsule:scheduledIds',
 } as const;

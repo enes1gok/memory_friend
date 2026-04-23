@@ -17,6 +17,8 @@ export type RootStackParamList = {
   Onboarding: undefined;
   MainTabs: NavigatorScreenParams<TabParamList> | undefined;
   PlaceholderModal: undefined;
+  CapsuleCreate: { goalId: string };
+  CapsuleReveal: { capsuleId: string };
 };
 
 export {};
