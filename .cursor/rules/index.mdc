@@ -73,6 +73,14 @@ Adjust names to match the repo as it grows; keep **feature boundaries** clear.
 - **Subscription:** Freemium vs Pro gates live in one place (`FeatureLimits` + `can*` helpers); see [.cursor/skills/subscription-gate/SKILL.md](../skills/subscription-gate/SKILL.md).
 - **Empathetic UX:** Notifications and empty states follow [.cursor/rules/behavioral-psychology.mdc](behavioral-psychology.mdc) — invite, don’t shame.
 
+## Agent efficiency and accuracy
+
+- Read files before editing; avoid re-reading the same file in one task unless it changed or you need a different region after a substantive edit.
+- Reason thoroughly internally; keep user-facing replies concise.
+- No performative praise, filler openers, or closing pleasantries.
+- No emojis; avoid em-dashes in user-visible copy.
+- Do not assert APIs, CLI flags, versions, package names, or commit SHAs from memory; confirm against this repo (source, `package.json`, lockfile, or project docs) before stating them as fact.
+
 ## Cross-links
 
 - Rule routing: [master.mdc](master.mdc)

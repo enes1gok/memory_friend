@@ -12,6 +12,7 @@ alwaysApply: true
 | You are working on | Activate |
 |--------------------|----------|
 | Project-wide identity, stack, storage invariants | `index.mdc` (always) |
+| Agent efficiency, verified facts, concise communication | `index.mdc` (Agent efficiency and accuracy) |
 | TypeScript, Zustand, WatermelonDB/MMKV usage, performance | `technical-excellence.mdc` |
 | Screens, layout, styling, motion, design tokens | `ui-ux-design.mdc` |
 | WatermelonDB models, migrations, MMKV keys, stores vs DB | `data-layer.mdc` |
