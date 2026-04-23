@@ -1,0 +1,35 @@
+{
+  "tabs": {
+    "home": "Home",
+    "capture": "Capture",
+    "journal": "Journal",
+    "profile": "Profile"
+  },
+  "screens": {
+    "home": {
+      "title": "Home",
+      "placeholder": "Your emotion heatmap and streak will live here."
+    },
+    "capture": {
+      "title": "Capture",
+      "placeholder": "Quick capture will live here."
+    },
+    "journal": {
+      "title": "Journal",
+      "placeholder": "Your journal history will live here."
+    },
+    "profile": {
+      "title": "Profile",
+      "placeholder": "Settings and account will live here.",
+      "openModal": "Open sample modal"
+    },
+    "placeholderModal": {
+      "title": "Sample modal",
+      "body": "Modal routes are wired on the root stack for future flows."
+    }
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong"
+  }
+}
