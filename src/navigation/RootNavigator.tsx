@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PlaceholderModalScreen } from '@/screens/PlaceholderModalScreen';
 import { CapsuleCreateScreen } from '@/screens/CapsuleCreateScreen';
 import { CapsuleRevealScreen } from '@/screens/CapsuleRevealScreen';
+import { CollagePremiereScreen } from '@/screens/CollagePremiereScreen';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { colors } from '@/theme/colors';
 
@@ -48,6 +49,14 @@ export function RootNavigator() {
         component={CapsuleRevealScreen}
         options={{
           presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CollageFinale"
+        component={CollagePremiereScreen}
+        options={{
+          presentation: 'fullScreenModal',
           headerShown: false,
         }}
       />

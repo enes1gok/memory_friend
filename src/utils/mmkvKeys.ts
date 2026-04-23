@@ -38,4 +38,10 @@ export const MMKV_KEYS = {
 
   /** device — last journal entry id that triggered companion nudge dedup. */
   aiLastEnrichmentContextId: 'ai:lastEnrichmentContextId',
+
+  /** device — last exported collage video path (file URI); rebuild by re-running export. */
+  collageExportPath: 'collage:exportPath',
+
+  /** logout — goal id the cached collage export belongs to. */
+  collageGeneratedForGoalId: 'collage:generatedForGoalId',
 } as const;

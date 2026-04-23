@@ -18,6 +18,33 @@
     "daysLeft_other": "{{count}} days left until your target",
     "targetDay": "Target day — you made it. Celebrate however feels right."
   },
+  "collage": {
+    "banner": {
+      "title": "Your journey collage is ready",
+      "cta": "Open Cinema Hall"
+    },
+    "progress": {
+      "title": "Creating your finale",
+      "preparing": "Preparing your moments…",
+      "merging": "Stitching your story…",
+      "addingMusic": "Layering your soundtrack…",
+      "finishing": "Finishing your film…",
+      "cancel": "Cancel"
+    },
+    "premiere": {
+      "share": "Share video",
+      "replay": "Watch again",
+      "retry": "Try again",
+      "retryA11y": "Try creating the video again",
+      "close": "Done",
+      "closeA11y": "Close premiere and go home"
+    },
+    "error": {
+      "noMedia": "Add a few video or photo check-ins first, then come back for your collage.",
+      "assembly": "We could not finish the video. Try again in a moment.",
+      "cancelled": "Export stopped. You can try again whenever you are ready."
+    }
+  },
   "streak": {
     "dayStreak": "day streak",
     "bestStreak": "Best streak: {{count}} days",
@@ -157,7 +184,8 @@
   },
   "common": {
     "loading": "Loading…",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "retry": "Try again"
   },
   "capsule": {
     "list": {

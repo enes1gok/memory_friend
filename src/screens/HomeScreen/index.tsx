@@ -95,6 +95,21 @@ export function HomeScreen() {
             : t('home.daysLeft', { count: Math.max(1, daysLeft) })}
         </Body>
 
+        {daysLeft <= 0 ? (
+          <Pressable
+            testID="home:finale:banner"
+            accessibilityRole="button"
+            accessibilityLabel={t('collage.banner.cta')}
+            onPress={() => {
+              rootNav?.navigate('CollageFinale', { goalId: activeGoalId });
+            }}
+            className="mb-6 rounded-2xl border border-orange-500/50 bg-orange-500/15 px-4 py-4"
+          >
+            <Heading className="mb-1 text-lg text-orange-200">{t('collage.banner.title')}</Heading>
+            <Body className="font-semibold text-orange-300">{t('collage.banner.cta')}</Body>
+          </Pressable>
+        ) : null}
+
         <View className="gap-4">
           <StreakCounter activeGoalId={activeGoalId} />
           <CompanionCard activeGoalId={activeGoalId} />

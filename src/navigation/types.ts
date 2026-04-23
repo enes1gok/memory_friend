@@ -19,6 +19,7 @@ export type RootStackParamList = {
   PlaceholderModal: undefined;
   CapsuleCreate: { goalId: string };
   CapsuleReveal: { capsuleId: string };
+  CollageFinale: { goalId: string };
 };
 
 export {};
