@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Your rhythm",
-      "subtitle": "Mood, encouragement, and small wins from your check-ins."
+      "subtitle": "Mood, encouragement, and small wins from your check-ins.",
+      "detailsCta": "View details",
+      "chipMood": "Latest mood",
+      "chipWindow": "This range",
+      "chipBadges": "Badges",
+      "noMoodYet": "None yet",
+      "daysLogged_one": "{{count}} day",
+      "daysLogged_other": "{{count}} days"
     },
     "capsulesSection": {
       "subtitle": "Messages you seal for a future day."

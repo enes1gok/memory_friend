@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Ton rythme",
-      "subtitle": "Humeur, encouragements et petites victoires de tes check-ins."
+      "subtitle": "Humeur, encouragements et petites victoires de tes check-ins.",
+      "detailsCta": "Voir le détail",
+      "chipMood": "Dernière humeur",
+      "chipWindow": "Cette période",
+      "chipBadges": "Badges",
+      "noMoodYet": "Pas encore",
+      "daysLogged_one": "{{count}} jour",
+      "daysLogged_other": "{{count}} jours"
     },
     "capsulesSection": {
       "subtitle": "Messages que tu scelles pour un jour plus tard."

@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "你的节奏",
-      "subtitle": "来自打卡的心情、鼓励和点滴收获。"
+      "subtitle": "来自打卡的心情、鼓励和点滴收获。",
+      "detailsCta": "查看详情",
+      "chipMood": "最近心情",
+      "chipWindow": "本区间",
+      "chipBadges": "徽章",
+      "noMoodYet": "暂无",
+      "daysLogged_one": "{{count}} 天",
+      "daysLogged_other": "{{count}} 天"
     },
     "capsulesSection": {
       "subtitle": "留给未来某一天的话。"

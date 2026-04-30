@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Tu ritmo",
-      "subtitle": "Estado de ánimo, ánimo y pequeñas victorias de tus registros."
+      "subtitle": "Estado de ánimo, ánimo y pequeñas victorias de tus registros.",
+      "detailsCta": "Ver detalles",
+      "chipMood": "Último estado",
+      "chipWindow": "Este periodo",
+      "chipBadges": "Insignias",
+      "noMoodYet": "Aún no",
+      "daysLogged_one": "{{count}} día",
+      "daysLogged_other": "{{count}} días"
     },
     "capsulesSection": {
       "subtitle": "Mensajes que sellas para un día futuro."

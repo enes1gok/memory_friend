@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Ritmin",
-      "subtitle": "Check-in'lerinden ruh hali, destek ve küçük zaferler."
+      "subtitle": "Check-in'lerinden ruh hali, destek ve küçük zaferler.",
+      "detailsCta": "Detaylar",
+      "chipMood": "Son ruh hali",
+      "chipWindow": "Bu aralık",
+      "chipBadges": "Rozetler",
+      "noMoodYet": "Henüz yok",
+      "daysLogged_one": "{{count}} gün",
+      "daysLogged_other": "{{count}} gün"
     },
     "capsulesSection": {
       "subtitle": "Gelecekteki kendine mühürlediğin mesajlar."

@@ -14,16 +14,10 @@ import { SafeScreen } from '@/components/SafeScreen';
 import { SectionHeader } from '@/components/SectionHeader';
 import { Skeleton } from '@/components/Skeleton';
 import { Body, Caption, Display, Heading } from '@/components/Typography';
-import { CompanionCard, HypeManModal } from '@/features/ai';
+import { HypeManModal } from '@/features/ai';
 import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
 import { useCapsulesByGoal } from '@/features/capsule/hooks/useCapsulesByGoal';
-import {
-  BadgeRow,
-  EmotionHeatmap,
-  journeyPercent,
-  useActiveGoal,
-  useStreakState,
-} from '@/features/streak';
+import { journeyPercent, useActiveGoal, useStreakState } from '@/features/streak';
 import type { Goal } from '@/models/Goal';
 import type { RootStackParamList, TabParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
@@ -31,6 +25,8 @@ import { useUIStore } from '@/stores/useUIStore';
 import { getAccentColor } from '@/theme/accent';
 import { colors } from '@/theme/colors';
 import { enterAnimation } from '@/theme/motion';
+
+import { RhythmSection } from './RhythmSection';
 
 const homeStyles = StyleSheet.create({
   scroll: {
@@ -93,10 +89,7 @@ const homeStyles = StyleSheet.create({
     backgroundColor: 'rgba(249, 115, 22, 0.12)',
   },
   sectionBlock: {
-    marginBottom: 28,
-  },
-  insightsStack: {
-    gap: 14,
+    marginBottom: 22,
   },
   capsuleCreateCta: {
     alignItems: 'center',
@@ -322,6 +315,7 @@ export function HomeScreen() {
               <PrimaryButton
                 testID="home:capture:cta"
                 variant="orange"
+                gradient
                 className="mt-2"
                 onPress={openCapture}
                 accessibilityLabel={t('home.checkInCta')}
@@ -354,12 +348,7 @@ export function HomeScreen() {
         ) : null}
 
         <Animated.View entering={enterAnimation(1)} style={homeStyles.sectionBlock}>
-          <SectionHeader title={t('home.insights.title')} className="mb-1 px-0" />
-          <View style={homeStyles.insightsStack}>
-            <CompanionCard activeGoalId={activeGoalId} />
-            <EmotionHeatmap activeGoalId={activeGoalId} />
-            <BadgeRow activeGoalId={activeGoalId} />
-          </View>
+          <RhythmSection activeGoalId={activeGoalId} />
         </Animated.View>
 
         <Animated.View entering={enterAnimation(2)} style={homeStyles.sectionBlock}>

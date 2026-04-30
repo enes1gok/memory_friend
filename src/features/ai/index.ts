@@ -1,6 +1,7 @@
 /** OpenAI, Whisper, companion UI (Phase 7+). */
 export { getOpenAIClient } from './client';
 export { CompanionCard } from './components/CompanionCard';
+export { useCompanionLine } from './hooks/useCompanionLine';
 export { HypeManModal } from './components/HypeManModal';
 export { useAiCompanionNudge } from './hooks/useAiCompanionNudge';
 export { useEnrichJournalEntry } from './hooks/useEnrichJournalEntry';

@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Dein Rhythmus",
-      "subtitle": "Stimmung, Ermutigung und kleine Siege aus deinen Check-ins."
+      "subtitle": "Stimmung, Ermutigung und kleine Siege aus deinen Check-ins.",
+      "detailsCta": "Details",
+      "chipMood": "Letzte Stimmung",
+      "chipWindow": "Dieser Zeitraum",
+      "chipBadges": "Abzeichen",
+      "noMoodYet": "Noch keine",
+      "daysLogged_one": "{{count}} Tag",
+      "daysLogged_other": "{{count}} Tage"
     },
     "capsulesSection": {
       "subtitle": "Nachrichten, die du für einen künftigen Tag versiegelst."

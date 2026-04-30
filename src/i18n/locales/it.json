@@ -12,7 +12,14 @@
     },
     "insights": {
       "title": "Il tuo ritmo",
-      "subtitle": "Umore, incoraggiamento e piccoli traguardi dai check-in."
+      "subtitle": "Umore, incoraggiamento e piccoli traguardi dai check-in.",
+      "detailsCta": "Dettagli",
+      "chipMood": "Ultimo umore",
+      "chipWindow": "In questo periodo",
+      "chipBadges": "Badge",
+      "noMoodYet": "Ancora nessuno",
+      "daysLogged_one": "{{count}} giorno",
+      "daysLogged_other": "{{count}} giorni"
     },
     "capsulesSection": {
       "subtitle": "Messaggi che sigilli per un giorno futuro."
