@@ -2,6 +2,13 @@ import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import { Directory, File, Paths } from 'expo-file-system';
 import { Platform } from 'react-native';
 
+/**
+ * Finale collage export uses FFmpegKit: photo-to-video segments, scale/pad, concat,
+ * optional Pro music mux (AAC). Lightweight trim/compress/thumbnails use
+ * `react-native-media-toolkit` via `@/services/mediaToolkit` elsewhere — do not replace
+ * this pipeline until native alternatives cover merge + audio mix + still segments.
+ */
+
 export type CollageTier = 'free' | 'pro';
 
 export type CollageAspectRatio = '16:9' | '9:16';

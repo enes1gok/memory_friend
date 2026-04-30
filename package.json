@@ -41,6 +41,7 @@
     "react-i18next": "^16.5.0",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
+    "react-native-media-toolkit": "^2.1.1",
     "react-native-mmkv": "^4.1.0",
     "react-native-nitro-modules": "^0.35.5",
     "react-native-reanimated": "~4.1.1",
@@ -58,7 +59,8 @@
           "@nozbe/watermelondb",
           "@notifee/react-native",
           "ffmpeg-kit-react-native",
-          "openai"
+          "openai",
+          "react-native-media-toolkit"
         ],
         "listUnknownPackages": false
       }

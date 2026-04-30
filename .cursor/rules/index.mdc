@@ -30,7 +30,7 @@ Update bundle identifiers, slug, and deep links in `app.config.js` / `app.json` 
 | Persistent data | WatermelonDB | Offline-first entities (entries, goals, capsules, badges) |
 | Fast cache | react-native-mmkv | Timers, streak display cache, session flags |
 | Camera | react-native-vision-camera | Video/photo capture |
-| Media processing | FFmpegKit (or maintained fork) | Trim, merge, assemble locally |
+| Media processing | FFmpegKit + react-native-media-toolkit | FFmpegKit for collage merge/mux; toolkit for lightweight trim/compress/thumbnails (via `src/services/mediaToolkit.ts`) |
 | Notifications | Notifee | Local + push channels, scheduling |
 | AI | OpenAI API (Whisper / GPT) | Speech-to-text, emotion tagging, companion copy |
 | Files | expo-file-system (or equivalent) | Document vs cache paths for media |

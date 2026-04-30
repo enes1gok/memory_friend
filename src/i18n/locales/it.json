@@ -162,6 +162,9 @@
     }
   },
   "journal": {
+    "entry": {
+      "videoThumbLoadingA11y": "Caricamento anteprima video"
+    },
     "listTitle": "I tuoi momenti",
     "empty": {
       "title": "Ancora nessuna voce",

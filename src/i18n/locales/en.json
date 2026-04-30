@@ -162,6 +162,9 @@
     }
   },
   "journal": {
+    "entry": {
+      "videoThumbLoadingA11y": "Loading video preview"
+    },
     "listTitle": "Your moments",
     "empty": {
       "title": "No entries yet",

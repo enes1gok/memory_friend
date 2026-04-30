@@ -162,6 +162,9 @@
     }
   },
   "journal": {
+    "entry": {
+      "videoThumbLoadingA11y": "Video önizlemesi yükleniyor"
+    },
     "listTitle": "Anların",
     "empty": {
       "title": "Henüz kayıt yok",

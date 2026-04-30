@@ -1,12 +1,12 @@
 ---
-description: Vision Camera, FFmpegKit, and file lifecycle patterns for memory_friend media features
-globs: "src/features/{capture,collage}/**/*.{ts,tsx}"
+description: Vision Camera, FFmpegKit, react-native-media-toolkit, and file lifecycle patterns for memory_friend media features
+globs: "src/features/{capture,collage,journal}/**/*.{ts,tsx}"
 alwaysApply: false
 ---
 
 # Media processing — camera, FFmpeg, files
 
-Use this rule when touching capture, journal recording, or collage/export pipelines. If a new folder holds camera/FFmpeg code, extend the glob in [master.mdc](master.mdc).
+Use this rule when touching capture, journal recording, collage/export pipelines, or journal previews using native media tooling. If a new folder holds camera/FFmpeg/native media code, extend the glob in [master.mdc](master.mdc).
 
 ## Vision Camera (react-native-vision-camera)
 
@@ -14,6 +14,11 @@ Use this rule when touching capture, journal recording, or collage/export pipeli
 - Use `useCameraDevice`, `useMicrophonePermission`, `useCameraPermission` (or project wrappers) and **release** / **pause** session on blur or background to save battery.
 - Prefer **preset configs** (format, fps) defined in one module — avoid per-screen magic numbers.
 - Do not hold stale refs: clear callbacks on unmount.
+
+## Lightweight native edits (`react-native-media-toolkit`)
+
+- Prefer [`src/services/mediaToolkit.ts`](../../src/services/mediaToolkit.ts) instead of importing `MediaToolkit` directly from the package (consistent URIs and future swaps).
+- Use for trim, crop, compress, thumbnails — **not** for collage concat, photo-loop segments, or audio mux (still FFmpegKit in collage logic).
 
 ## FFmpegKit
 

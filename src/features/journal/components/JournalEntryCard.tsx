@@ -1,8 +1,11 @@
+import { Directory, File, Paths } from 'expo-file-system';
 import { useTranslation } from 'react-i18next';
-import { Image, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, Platform, View } from 'react-native';
 
 import { Body } from '@/components/Typography';
 import type { JournalEntry } from '@/models/JournalEntry';
+import { toolkitGetThumbnail } from '@/services/mediaToolkit';
 
 import { emojiForMoodTag } from '../constants/moods';
 
@@ -13,6 +16,13 @@ export type JournalEntryCardProps = {
 function mediaUri(path?: string): string | undefined {
   if (!path) return undefined;
   return path.startsWith('file://') ? path : `file://${path}`;
+}
+
+function stripFileScheme(uri: string): string {
+  if (uri.startsWith('file://')) {
+    return decodeURI(uri.replace(/^file:\/\//, ''));
+  }
+  return uri;
 }
 
 export function JournalEntryCard({ entry }: JournalEntryCardProps) {
@@ -28,6 +38,54 @@ export function JournalEntryCard({ entry }: JournalEntryCardProps) {
   const isPhoto = entry.mediaType === 'photo';
   const isVideo = entry.mediaType === 'video';
 
+  const [videoThumbUri, setVideoThumbUri] = useState<string | null>(null);
+  const [videoThumbLoading, setVideoThumbLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isVideo || !uri || Platform.OS === 'web') {
+      setVideoThumbUri(null);
+      setVideoThumbLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setVideoThumbLoading(true);
+    setVideoThumbUri(null);
+
+    void (async () => {
+      try {
+        const safeId = entry.id.replace(/[^a-zA-Z0-9_-]/g, '_');
+        const dir = new Directory(Paths.cache, 'journal_thumbs');
+        dir.create({ intermediates: true, idempotent: true });
+        const thumbFile = new File(dir, `${safeId}.jpg`);
+        const outputPath = stripFileScheme(thumbFile.uri);
+
+        const result = await toolkitGetThumbnail(uri, {
+          timeMs: 0,
+          maxWidth: 192,
+          quality: 78,
+          outputPath,
+        });
+
+        if (!cancelled) {
+          setVideoThumbUri(result.uri);
+        }
+      } catch {
+        if (!cancelled) {
+          setVideoThumbUri(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setVideoThumbLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [entry.id, isVideo, uri]);
+
   return (
     <View
       testID={`journal:entry:${entry.id}`}
@@ -36,6 +94,17 @@ export function JournalEntryCard({ entry }: JournalEntryCardProps) {
       <View className="w-24 items-center justify-center bg-slate-800">
         {isPhoto && uri ? (
           <Image source={{ uri }} className="h-full w-full" resizeMode="cover" />
+        ) : isVideo && uri ? (
+          videoThumbUri ? (
+            <Image source={{ uri: videoThumbUri }} className="h-full w-full" resizeMode="cover" />
+          ) : videoThumbLoading ? (
+            <ActivityIndicator
+              color="#f8fafc"
+              accessibilityLabel={t('journal.entry.videoThumbLoadingA11y')}
+            />
+          ) : (
+            <Body className="text-2xl">{'🎬'}</Body>
+          )
         ) : (
           <Body className="text-2xl">{isVideo ? '🎬' : '📝'}</Body>
         )}

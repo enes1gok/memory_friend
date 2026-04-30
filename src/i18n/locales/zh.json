@@ -162,6 +162,9 @@
     }
   },
   "journal": {
+    "entry": {
+      "videoThumbLoadingA11y": "正在加载视频预览"
+    },
     "listTitle": "你的瞬间",
     "empty": {
       "title": "还没有记录",

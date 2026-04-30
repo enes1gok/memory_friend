@@ -162,6 +162,9 @@
     }
   },
   "journal": {
+    "entry": {
+      "videoThumbLoadingA11y": "Chargement de l'aperçu vidéo"
+    },
     "listTitle": "Tes moments",
     "empty": {
       "title": "Pas encore d'entrées",

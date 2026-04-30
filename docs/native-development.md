@@ -6,7 +6,8 @@ This app uses **Continuous Native Generation (CNG)**. The `ios/` and `android/` 
 
 - **[`app.config.js`](../app.config.js)** — bundle IDs, icons, splash, permissions copy, Expo plugins.
 - **`plugins/`** — custom **config plugins** that patch generated native projects at prebuild time (see files in that folder).
-- **`package.json`** — native modules (Vision Camera, Notifee, WatermelonDB, MMKV, etc.).
+- **`package.json`** — native modules (Vision Camera, Notifee, WatermelonDB, MMKV, FFmpegKit, react-native-media-toolkit for lightweight thumbnails and edits, etc.).
+- **[`native-media-stack-evaluation.md`](native-media-stack-evaluation.md)** — FFmpeg vs Nitro media toolkit boundaries and nitro-media-kit spike notes.
 
 Do **not** rely on hand-edits inside generated `ios/` or `android/` folders; those changes are lost on the next `expo prebuild --clean`. Encode durable fixes in `app.config.js` or a config plugin.
 
