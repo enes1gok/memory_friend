@@ -16,6 +16,10 @@ module.exports = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.memoryfriend.app',
+    buildNumber: '1',
+    config: {
+      usesNonExemptEncryption: false,
+    },
     infoPlist: {
       NSCameraUsageDescription:
         'memory_friend needs camera access to capture your journey.',
@@ -29,6 +33,12 @@ module.exports = {
       backgroundColor: '#07070f',
     },
     package: 'com.memoryfriend.app',
+    versionCode: 1,
+    permissions: [
+      'android.permission.CAMERA',
+      'android.permission.RECORD_AUDIO',
+      'android.permission.POST_NOTIFICATIONS',
+    ],
     edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
   },
@@ -37,6 +47,13 @@ module.exports = {
   },
   plugins: [
     './plugins/withFfmpegKitIosMirrorPod.js',
+    'expo-dev-client',
+    [
+      'expo-system-ui',
+      {
+        userInterfaceStyle: 'dark',
+      },
+    ],
     'expo-font',
     '@react-native-community/datetimepicker',
     [
