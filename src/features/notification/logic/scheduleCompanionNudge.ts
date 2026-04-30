@@ -1,39 +1,32 @@
-import notifee, { AuthorizationStatus, TriggerType } from '@notifee/react-native';
+import notifee, { TriggerType } from '@notifee/react-native';
 
 import { CHANNEL_IDS, ensureChannels } from '../channels';
+import { buildAiCompanionData } from './payloads';
+import { canScheduleNotification, isDateTimeInQuietWindow, QUIET_BEFORE_HOUR } from './policy';
 import i18n from '@/i18n';
 import { storage } from '@/utils/mmkv';
 import { MMKV_KEYS } from '@/utils/mmkvKeys';
 
 const NOTIF_ID_COMPANION = 'notif-ai-companion';
 
-function isDateInQuietWindow(d: Date): boolean {
-  const h = d.getHours();
-  return h < 9 || h > 20;
-}
-
 /**
- * Picks a fire time: ~15m from now, outside 9am–8pm (local) is rolled to 9:00, capped within ~24h for edge cases.
+ * Fire ~15 minutes from now, rolling outside the quiet window to the next eligible time (baseline policy).
  */
 function computeCompanionFireTime(now: Date = new Date()): Date {
   let t = new Date(now.getTime() + 15 * 60 * 1000);
   for (let i = 0; i < 48; i += 1) {
-    if (!isDateInQuietWindow(t)) {
+    if (!isDateTimeInQuietWindow(t)) {
       return t;
     }
-    if (t.getHours() < 9) {
-      t.setHours(9, 0, 0, 0);
+    if (t.getHours() < QUIET_BEFORE_HOUR) {
+      t.setHours(QUIET_BEFORE_HOUR, 0, 0, 0);
     } else {
       t = new Date(t);
       t.setDate(t.getDate() + 1);
-      t.setHours(9, 0, 0, 0);
+      t.setHours(QUIET_BEFORE_HOUR, 0, 0, 0);
     }
   }
   return new Date(now.getTime() + 60 * 60 * 1000);
-}
-
-function canSchedule(status: AuthorizationStatus): boolean {
-  return status === AuthorizationStatus.AUTHORIZED || status === AuthorizationStatus.PROVISIONAL;
 }
 
 /**
@@ -47,7 +40,7 @@ export async function scheduleCompanionNudge(params?: { goalId?: string }): Prom
   }
 
   const settings = await notifee.getNotificationSettings();
-  if (!canSchedule(settings.authorizationStatus)) {
+  if (!canScheduleNotification(settings.authorizationStatus)) {
     return;
   }
 
@@ -70,11 +63,7 @@ export async function scheduleCompanionNudge(params?: { goalId?: string }): Prom
         id: NOTIF_ID_COMPANION,
         title,
         body,
-        data: {
-          screen: 'Home',
-          type: 'ai_companion',
-          ...(params?.goalId ? { goalId: params.goalId } : {}),
-        } as Record<string, string>,
+        data: buildAiCompanionData({ goalId: params?.goalId }),
         android: {
           channelId: CHANNEL_IDS.AI_COMPANION,
           pressAction: { id: 'default' },

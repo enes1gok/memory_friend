@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useAiCompanionNudge } from '@/features/ai/hooks/useAiCompanionNudge';
-import { useCapsuleNotificationHandler } from '@/features/notification/hooks/useCapsuleNotificationHandler';
+import { useNotificationResponseHandler } from '@/features/notification/hooks/useNotificationResponseHandler';
 import { useScheduleReminders } from '@/features/notification/hooks/useScheduleReminders';
 import { CaptureScreen } from '@/screens/CaptureScreen';
 import { HomeScreen } from '@/screens/HomeScreen';
@@ -20,7 +20,7 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 export function TabNavigator() {
   useScheduleReminders();
-  useCapsuleNotificationHandler();
+  useNotificationResponseHandler();
   useAiCompanionNudge();
   const { t } = useTranslation();
   const accentProgress = useUIStore(useShallow((s) => s.accentProgress));

@@ -3,13 +3,8 @@ import notifee from '@notifee/react-native';
 import { storage } from '@/utils/mmkv';
 import { MMKV_KEYS } from '@/utils/mmkvKeys';
 
-/**
- * True when `hour` (0-23) falls in the default quiet window (after 8pm or before 9am local).
- * Reminders are not scheduled in this window; pick another hour in settings later.
- */
-export function isInQuietHours(hour: number): boolean {
-  return hour < 9 || hour > 20;
-}
+/** @see logic/policy.ts for quiet-hour defaults until user prefs ship */
+export { isHourInQuietWindow, isInQuietHours } from './policy';
 
 function readScheduledIds(): string[] {
   const raw = storage.getString(MMKV_KEYS.notifScheduledIds);

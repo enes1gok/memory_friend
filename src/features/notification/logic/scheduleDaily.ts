@@ -1,7 +1,9 @@
-import notifee, { AuthorizationStatus, TriggerType } from '@notifee/react-native';
+import notifee, { TriggerType } from '@notifee/react-native';
 
 import { CHANNEL_IDS, ensureChannels } from '../channels';
-import { cancelAllReminders, isInQuietHours, setScheduledIds } from './cancelReminders';
+import { cancelAllReminders, setScheduledIds } from './cancelReminders';
+import { buildDailyReminderData } from './payloads';
+import { canScheduleNotification, clampReminderHourToEligibleWindow } from './policy';
 import { getDailyReminderCopy } from './copyFactory';
 import { getCalendarDaysDiff } from '@/features/streak/logic/computeStreak';
 import { storage } from '@/utils/mmkv';
@@ -15,7 +17,7 @@ export type ScheduleOrRescheduleParams = {
   goalId: string;
   goalTitle: string;
   targetDate: Date;
-  /** Local hour 0-23, default 20. */
+  /** Local hour 0-23, default 20; clamped to eligible quiet-hours window for scheduling. */
   reminderHour?: number;
   streakCount: number;
   now?: Date;
@@ -60,12 +62,6 @@ export function getNextFireTime(
   return null;
 }
 
-function canSchedule(authorization: AuthorizationStatus): boolean {
-  return (
-    authorization === AuthorizationStatus.AUTHORIZED || authorization === AuthorizationStatus.PROVISIONAL
-  );
-}
-
 /**
  * Idempotent: cancels previous daily triggers, then schedules the next one with contextual copy.
  */
@@ -74,15 +70,15 @@ export async function scheduleOrReschedule(params: ScheduleOrRescheduleParams): 
   await cancelAllReminders();
 
   const settings = await notifee.getNotificationSettings();
-  if (!canSchedule(settings.authorizationStatus)) {
+  if (!canScheduleNotification(settings.authorizationStatus)) {
     console.info('[scheduleDaily] notification permission not granted, skip');
     return;
   }
 
-  const reminderHour = params.reminderHour ?? DEFAULT_REMINDER_HOUR;
-  if (isInQuietHours(reminderHour)) {
-    console.info('[scheduleDaily] reminder hour in quiet window, skip', reminderHour);
-    return;
+  const preferredHour = params.reminderHour ?? DEFAULT_REMINDER_HOUR;
+  const reminderHour = clampReminderHourToEligibleWindow(preferredHour);
+  if (reminderHour !== preferredHour) {
+    console.info('[scheduleDaily] reminder hour clamped to eligible window', preferredHour, reminderHour);
   }
 
   await ensureChannels();
@@ -106,7 +102,7 @@ export async function scheduleOrReschedule(params: ScheduleOrRescheduleParams): 
         id: notificationId,
         title,
         body,
-        data: { screen: 'Capture', type: 'daily_reminder' } as Record<string, string>,
+        data: buildDailyReminderData({ goalId: params.goalId }),
         android: {
           channelId: CHANNEL_IDS.DAILY_REMINDER,
           pressAction: { id: 'default' },

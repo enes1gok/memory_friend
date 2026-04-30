@@ -1,17 +1,14 @@
-import notifee, { AuthorizationStatus, TriggerType } from '@notifee/react-native';
+import notifee, { TriggerType } from '@notifee/react-native';
 
 import { CHANNEL_IDS, ensureChannels } from '../channels';
+import { clearCapsuleScheduledMapEntry } from './cancelCapsuleNotification';
+import { buildCapsuleUnlockData } from './payloads';
+import { adjustUnlockDateOutOfQuietWindow, canScheduleNotification } from './policy';
 import i18n from '@/i18n';
 import { storage } from '@/utils/mmkv';
 import { MMKV_KEYS } from '@/utils/mmkvKeys';
 
 const NOTIF_PREFIX = 'capsule-unlock-';
-
-function canSchedule(authorization: AuthorizationStatus): boolean {
-  return (
-    authorization === AuthorizationStatus.AUTHORIZED || authorization === AuthorizationStatus.PROVISIONAL
-  );
-}
 
 export type ScheduleCapsuleUnlockParams = {
   capsuleId: string;
@@ -22,22 +19,11 @@ export type ScheduleCapsuleUnlockParams = {
 };
 
 /**
- * Picks a fire time: respects quiet hours (before 9 / after 20 local) by moving to 9:00
- * the same or next day; ensures strictly after `now`.
+ * Computes fire time: eligible window adjustment + strictly after `now`.
+ * Exported for callers that must predict the scheduled moment.
  */
 export function getCapsuleNotificationFireTime(unlocksAt: Date, now: Date = new Date()): Date {
-  const d = new Date(unlocksAt);
-  const h = d.getHours();
-  if (h < 9) {
-    d.setHours(9, 0, 0, 0);
-  } else if (h > 20) {
-    d.setDate(d.getDate() + 1);
-    d.setHours(9, 0, 0, 0);
-  }
-  if (d.getTime() <= now.getTime()) {
-    return new Date(now.getTime() + 60_000);
-  }
-  return d;
+  return adjustUnlockDateOutOfQuietWindow(unlocksAt, now);
 }
 
 type CapsuleIdMap = Record<string, string>;
@@ -76,14 +62,16 @@ export async function scheduleCapsuleUnlock(params: ScheduleCapsuleUnlockParams)
   }
 
   const settings = await notifee.getNotificationSettings();
-  if (!canSchedule(settings.authorizationStatus)) {
+  if (!canScheduleNotification(settings.authorizationStatus)) {
     console.info('[scheduleCapsuleUnlock] permission not granted, skip');
+    clearCapsuleScheduledMapEntry(params.capsuleId);
     return;
   }
 
   const fireAt = getCapsuleNotificationFireTime(params.unlocksAt, now);
   if (fireAt.getTime() <= now.getTime()) {
     console.info('[scheduleCapsuleUnlock] no valid future fire time');
+    clearCapsuleScheduledMapEntry(params.capsuleId);
     return;
   }
 
@@ -98,11 +86,7 @@ export async function scheduleCapsuleUnlock(params: ScheduleCapsuleUnlockParams)
         id: notifId,
         title,
         body,
-        data: {
-          type: 'capsule_unlock',
-          screen: 'CapsuleReveal',
-          capsuleId: params.capsuleId,
-        } as Record<string, string>,
+        data: buildCapsuleUnlockData({ capsuleId: params.capsuleId }),
         android: {
           channelId: CHANNEL_IDS.CAPSULE_DELIVERY,
           pressAction: { id: 'default' },
@@ -118,5 +102,6 @@ export async function scheduleCapsuleUnlock(params: ScheduleCapsuleUnlockParams)
     setCapsuleScheduledId(params.capsuleId, notifId);
   } catch (e) {
     console.error('[scheduleCapsuleUnlock] createTriggerNotification failed', e);
+    clearCapsuleScheduledMapEntry(params.capsuleId);
   }
 }

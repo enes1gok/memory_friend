@@ -36,6 +36,11 @@ export async function cancelCapsuleNotification(capsuleId: string): Promise<void
   } catch (e) {
     console.warn('[cancelCapsuleNotification] cancel failed', e);
   }
+  clearCapsuleScheduledMapEntry(capsuleId);
+}
+
+/** Clears MMKV mapping only (no Notifee cancel). Use when schedule failed after OS trigger was already cleared. */
+export function clearCapsuleScheduledMapEntry(capsuleId: string): void {
   const map = readCapsuleIdMap();
   if (map[capsuleId]) {
     delete map[capsuleId];

@@ -1,20 +1,17 @@
-import notifee, { AuthorizationStatus } from '@notifee/react-native';
+import notifee from '@notifee/react-native';
 import { useEffect, useRef } from 'react';
 import { AppState, type AppStateStatus } from 'react-native';
 
 import { useActiveGoal } from '@/features/streak/hooks/useActiveGoal';
 import { cancelAllReminders } from '../logic/cancelReminders';
+import { canScheduleNotification } from '../logic/policy';
 import { getPreferredReminderHour, scheduleOrReschedule } from '../logic/scheduleDaily';
 import { storage } from '@/utils/mmkv';
 import { MMKV_KEYS } from '@/utils/mmkvKeys';
 
-function isAuthorizedForSchedule(status: AuthorizationStatus): boolean {
-  return status === AuthorizationStatus.AUTHORIZED || status === AuthorizationStatus.PROVISIONAL;
-}
-
 /**
  * Keeps the next daily reminder aligned with the active goal, streak cache, and reminder hour.
- * Resyncs when the app returns to the foreground.
+ * Resyncs when the app returns to the foreground; also when reminder hour MMKV changes.
  */
 export function useScheduleReminders() {
   const goal = useActiveGoal();
@@ -37,7 +34,8 @@ export function useScheduleReminders() {
       if (cancelled) {
         return;
       }
-      if (!isAuthorizedForSchedule(settings.authorizationStatus)) {
+      if (!canScheduleNotification(settings.authorizationStatus)) {
+        await cancelAllReminders();
         return;
       }
 
@@ -61,9 +59,16 @@ export function useScheduleReminders() {
       appState.current = next;
     });
 
+    const mmkvSub = storage.addOnValueChangedListener((changedKey: string) => {
+      if (changedKey === MMKV_KEYS.notifReminderHour) {
+        void sync();
+      }
+    });
+
     return () => {
       cancelled = true;
       sub.remove();
+      mmkvSub.remove();
     };
   }, [goal, goal?.id, goal?.isCompleted, goal?.title, targetTime]);
 }

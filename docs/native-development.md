@@ -42,3 +42,12 @@ This runs lint, `expo doctor`, and a clean prebuild. It does **not** replace a f
 npm run lint
 npm run doctor
 ```
+
+## Manual QA: local notifications (Notifee)
+
+Run on physical devices after changing notification logic. Core flows:
+
+- **Daily reminder**: After onboarding with permission granted, confirm one trigger at the next boundary; tap notification from **cold start** and **foreground**; expect Capture tab (`MainTabs` → Capture). Change `notification:reminderHour` equivalent in app (if surfaced) or MMKV-backed hour and verify reschedule without waiting for reinstall.
+- **Capsule unlock**: Create capsule with unlock in near future (respect quiet-hours adjustment); tap notification; expect `CapsuleReveal`. If scheduling fails mid-flight, capsule MMKV schedule map stays consistent—no orphaned false positive in storage.
+- **AI companion**: When stress heuristic fires, verify one companion nudge per day; tap leads to Home tab.
+- **Permission revoke**: In system settings revoke notification permission; return to app; daily triggers should cancel (no lingering MMKV IDs implying active alarms). Restore permission; foreground resume should reschedule for active goals.

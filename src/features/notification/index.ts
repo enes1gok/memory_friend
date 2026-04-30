@@ -22,5 +22,5 @@ export {
   scheduleCapsuleUnlock,
 } from './logic/scheduleCapsuleUnlock';
 export type { ScheduleCapsuleUnlockParams } from './logic/scheduleCapsuleUnlock';
-export { useCapsuleNotificationHandler } from './hooks/useCapsuleNotificationHandler';
+export { useNotificationResponseHandler } from './hooks/useNotificationResponseHandler';
 export { getCompanionNotificationId, scheduleCompanionNudge } from './logic/scheduleCompanionNudge';
