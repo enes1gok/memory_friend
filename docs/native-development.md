@@ -5,7 +5,7 @@ This app uses **Continuous Native Generation (CNG)**. The `ios/` and `android/` 
 ## Source of truth
 
 - **[`app.config.js`](../app.config.js)** — bundle IDs, icons, splash, permissions copy, Expo plugins.
-- **`plugins/`** — custom **config plugins** that patch generated native projects at prebuild time (see files in that folder).
+- **`plugins/`** — custom **config plugins** that patch generated native projects at prebuild time (for example `withAndroidMavenRepos.js` for Notifee plus FFmpegKit Maven resolution, and `withFfmpegKitIosMirrorPod.js` for iOS FFmpeg binaries).
 - **`package.json`** — native modules (Vision Camera, Notifee, WatermelonDB, MMKV, FFmpegKit, react-native-media-toolkit for lightweight thumbnails and edits, etc.).
 - **[`native-media-stack-evaluation.md`](native-media-stack-evaluation.md)** — FFmpeg vs Nitro media toolkit boundaries and nitro-media-kit spike notes.
 
@@ -34,7 +34,7 @@ This runs lint, `expo doctor`, and a clean prebuild. It does **not** replace a f
 
 ## Android builds and FFmpegKit
 
-`ffmpeg-kit-react-native` pulls native binaries that are no longer on Maven Central. Resolving that for **release Android Gradle builds** is part of the **media processing** track, not this CNG checklist. Until that is addressed, expect `./gradlew :app:assemble*` to fail at dependency resolution for `com.arthenica:ffmpeg-kit-https`. iOS CocoaPods can still succeed when the existing iOS mirror plugin applies.
+`ffmpeg-kit-react-native` pulls `com.arthenica:ffmpeg-kit-https`, which was removed from Maven Central when FFmpegKit retired. **`plugins/withAndroidMavenRepos.js`** adds a Central mirror plus Notifee’s local Maven repo during prebuild so `./gradlew :app:assemble*` and `npx expo run:android` can resolve those artifacts. iOS uses **`plugins/withFfmpegKitIosMirrorPod.js`** for the vendored FFmpegKit podspec.
 
 ## Useful checks
 

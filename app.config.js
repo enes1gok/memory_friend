@@ -46,6 +46,7 @@ module.exports = {
     favicon: './assets/favicon.png',
   },
   plugins: [
+    './plugins/withAndroidMavenRepos.js',
     './plugins/withFfmpegKitIosMirrorPod.js',
     'expo-dev-client',
     [
