@@ -18,6 +18,7 @@ alwaysApply: true
 | WatermelonDB models, migrations, MMKV keys, stores vs DB | `data-layer.mdc` |
 | Vision Camera, FFmpeg, file paths, cache vs document | `media-processing.mdc` |
 | Streaks, notifications tone, AI companion UX, empathy | `behavioral-psychology.mdc` |
+| Notifee channels, triggers, payloads, handlers, reschedule/cancel semantics | `notification-system.mdc` |
 
 ## Skills
 
@@ -29,7 +30,7 @@ Project skills live in `.cursor/skills/{name}/SKILL.md`. Read the matching skill
 | `add-screen` | New React Navigation screen (stack, tab, modal) |
 | `add-domain-feature` | Feature work under `src/features/*` (journal, streak, capsule, etc.) |
 | `add-watermelondb-model` | New table, model class, or WatermelonDB migration |
-| `add-notification` | Notifee channel, schedule, or notification copy |
+| `add-notification` | Notifee channels, triggers, foreground/initial handlers, i18n copy, or notification-related native permission config |
 | `subscription-gate` | Free vs Pro limits, paywall, `can*` helpers |
 | `add-ai-feature` | OpenAI / Whisper / GPT integration or prompts |
 

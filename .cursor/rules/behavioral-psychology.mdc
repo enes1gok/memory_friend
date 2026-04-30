@@ -38,5 +38,5 @@ memory_friend is a **goal-linked journal**: triggers should **invite** return an
 
 ## Cross-links
 
-- Notifications implementation: [.cursor/skills/add-notification/SKILL.md](../skills/add-notification/SKILL.md)
+- Notifications implementation: [.cursor/skills/add-notification/SKILL.md](../skills/add-notification/SKILL.md) plus [.cursor/rules/notification-system.mdc](notification-system.mdc)
 - AI patterns: [.cursor/skills/add-ai-feature/SKILL.md](../skills/add-ai-feature/SKILL.md)

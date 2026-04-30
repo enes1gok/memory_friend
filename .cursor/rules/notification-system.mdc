@@ -1,0 +1,75 @@
+---
+description: Notifee-based notifications — permissions, scheduling lifecycle, payloads, quiet hours, and platform robustness for memory_friend
+globs: "src/features/notification/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Notification system (Notifee)
+
+Applies when editing [`src/features/notification/`](../../src/features/notification/). For native notification permissions on Android (`POST_NOTIFICATIONS` etc.), align changes in [`app.config.js`](../../app.config.js) with the **Permissions** section below.
+
+**Also read:** [behavioral-psychology.mdc](behavioral-psychology.mdc) (tone), [index.mdc](index.mdc) (local-first default), [.cursor/skills/add-notification/SKILL.md](../skills/add-notification/SKILL.md) (workflow).
+
+## Default: local-first
+
+- Prefer **scheduled local notifications** via Notifee (`createTriggerNotification`, channels). Core reminders work **without** network.
+- **Remote push** (FCM / APNs) is **out of scope** unless there is an explicit backend, device token lifecycle, consent, and privacy/security doc. Do not add push assumptions in notification code without that design.
+
+## Quiet hours
+
+- **Product rule:** Respect user-controlled quiet windows for non-critical pings. Persist start/end (or equivalent) in user preferences or MMKV; **do not** scatter magic hour literals across unrelated modules without a shared helper or constants.
+- **Engineering baseline:** Until full prefs exist, documented code defaults (e.g. defer outside 09:00–20:59 local) must live in **one place** (e.g. `notification/logic/`) with comments pointing to replacing with stored prefs later.
+
+## Permissions
+
+- Read `notifee.getNotificationSettings()` before scheduling; treat **AUTHORIZED** and **.PROVISIONAL** (when applicable) as schedulable; otherwise **no-op** with optional log — never assume permission after a cold start.
+- **UX:** Offer a single path to **request permission** (`requestPermission`) and, when denied/blocked, a clear path to **system settings** (Linking deep link).
+- Track whether the rationale prompt was shown (e.g. MMKV) so onboarding does not spam.
+- Android: declare `POST_NOTIFICATIONS` where required; verify on API 33+ hardware.
+
+## Android channels
+
+- Use **stable** `CHANNEL_IDS`; document each in [`channels.ts`](../../src/features/notification/channels.ts) or project equivalent.
+- Choose `AndroidImportance` deliberately; bumping importance is easier than downgrading perceived behavior after ship.
+- Avoid renaming channel IDs casually; OS behavior is tied to the id the user already accepted.
+
+## iOS
+
+- Add **notification categories / actions** only when the PRD requires buttons; otherwise defaults are fine.
+- Test **authorization** states and provisional delivery expectations per current iOS docs.
+
+## Payloads and deep links
+
+- Every notification **`data`** should include at minimum:
+  - `type` — discriminant string (e.g. `daily_reminder`, `capsule_unlock`, `ai_companion`).
+  - `screen` — target route name aligned with navigators.
+  - Entity IDs as needed (`goalId`, `capsuleId`, …) as plain strings for Notifee.
+- Implement **handlers** for: foreground (`onForegroundEvent` + `PRESS`), cold start (`getInitialNotification`), and background delivery as required by RN/Notifee patterns.
+
+## Scheduling contract
+
+- **Idempotent:** cancel or replace existing trigger ids for that logical notification before creating a new one.
+- **Future-only:** timestamps must be strictly after `now`; if not, reschedule, skip + log, or clamp per product rules (see capsule unlock edge cases).
+- **Resync:** re-run reconcile when **app foregrounds**, **active goal/target changes**, **reminder hour or quiet prefs change**, **timezone/date line** context changes, **permission grants**, **goal completion/delete**, **capsule delete**, **logout** (cancel what product says to cancel).
+- Use `alarmManager.allowWhileIdle` on Android where delivery matters after idle (match existing capsule/daily patterns).
+- On failure (`createTriggerNotification` throws), **log** and leave OS state predictable (do not leave orphan ids if cancellation already ran unless documented).
+
+## Cancellation
+
+- Daily reminders: cancel when goal completed, no active goal, or user disables reminders.
+- Capsules: cancel/replace when `unlocks_at` changes or capsule is deleted.
+- AI companion / one-shot: dedupe keys (e.g. per-calendar-day in MMKV) as product requires.
+
+## Storage
+
+- MMKV keys for scheduled ids maps must stay in **[`mmkvKeys.ts`](../../src/utils/mmkvKeys.ts)** with scope comments (`logout` vs `device`).
+
+## Testing (manual baseline)
+
+- **Android:** Physical device — channels visible, triggers fire after reboot where expected, denial path, API 33+ permission.
+- **iOS:** Physical device — first launch prompt, denial, provisional if used, foreground tap vs cold start tap for each `type`.
+
+## Cross-links
+
+- Tone: [behavioral-psychology.mdc](behavioral-psychology.mdc)
+- Strings: [.cursor/skills/add-i18n-key/SKILL.md](../skills/add-i18n-key/SKILL.md); locale parity: [.cursor/skills/sync-locales/SKILL.md](../skills/sync-locales/SKILL.md)

@@ -31,7 +31,7 @@ Update bundle identifiers, slug, and deep links in `app.config.js` / `app.json` 
 | Fast cache | react-native-mmkv | Timers, streak display cache, session flags |
 | Camera | react-native-vision-camera | Video/photo capture |
 | Media processing | FFmpegKit + react-native-media-toolkit | FFmpegKit for collage merge/mux; toolkit for lightweight trim/compress/thumbnails (via `src/services/mediaToolkit.ts`) |
-| Notifications | Notifee | Local + push channels, scheduling |
+| Notifications | Notifee | **Local-first** scheduling and channels by default (works offline); **remote push** only with explicit backend/token/consent/privacy design — see [.cursor/rules/notification-system.mdc](notification-system.mdc) |
 | AI | OpenAI API (Whisper / GPT) | Speech-to-text, emotion tagging, companion copy |
 | Files | expo-file-system (or equivalent) | Document vs cache paths for media |
 
@@ -72,6 +72,7 @@ Adjust names to match the repo as it grows; keep **feature boundaries** clear.
 - **Local media:** Prefer on-device FFmpeg over server for cost and privacy unless spec says otherwise.
 - **Subscription:** Freemium vs Pro gates live in one place (`FeatureLimits` + `can*` helpers); see [.cursor/skills/subscription-gate/SKILL.md](../skills/subscription-gate/SKILL.md).
 - **Empathetic UX:** Notifications and empty states follow [.cursor/rules/behavioral-psychology.mdc](behavioral-psychology.mdc) — invite, don’t shame.
+- **Notifications (technical):** Permission handling, payloads, reschedule/cancel semantics, quiet hours policy, and platform testing live in [.cursor/rules/notification-system.mdc](notification-system.mdc) — read alongside [.cursor/skills/add-notification/SKILL.md](skills/add-notification/SKILL.md).
 
 ## Agent efficiency and accuracy
 
@@ -84,5 +85,6 @@ Adjust names to match the repo as it grows; keep **feature boundaries** clear.
 ## Cross-links
 
 - Rule routing: [master.mdc](master.mdc)
+- Notifications: [notification-system.mdc](notification-system.mdc)
 - Data layer: [data-layer.mdc](data-layer.mdc)
 - Media: [media-processing.mdc](media-processing.mdc)

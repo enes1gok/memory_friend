@@ -15,7 +15,7 @@ todos:
     content: "Phase 4: Streak engine, badges, heatmap calendar on Home screen"
     status: pending
   - id: phase-5-notifications
-    content: "Phase 5: Notifee channels, contextual scheduling, empathetic copy"
+    content: "Phase 5: Notifee — channels, contextual scheduling, payloads/deep links, permission UX, reschedule/cancel, quiet-hours policy, foreground+initial handlers, Android+iOS device tests"
     status: pending
   - id: phase-6-capsule
     content: "Phase 6: Time capsule — create, lock/unlock, delivery notification"
@@ -117,13 +117,20 @@ flowchart TD
 
 ## Phase 5 — Empathetic Notification System
 
-**Goal:** Contextual, motivational reminders — never guilt-tripping.
+**Goal:** Contextual, motivational reminders — never guilt-tripping — with predictable OS behavior across permission states and app lifecycle.
 
-- Notifee channel setup in `src/features/notification/`
-- Daily reminder scheduling with contextual copy (distance-to-goal aware)
-- Final-stretch messages: "We're in the final week — how are you doing today?"
-- Behavioral psychology rules: no accusatory copy, invite-don't-shame tone
-- Notification permission prompt wired into onboarding
+- Notifee channel setup and **stable Android channel IDs** in `src/features/notification/` (document importance)
+- Typed **notification data** (`type`, `screen`, entity ids) and **handlers** (`getInitialNotification`, foreground press) aligned with navigators
+- Daily reminder scheduling with contextual copy (distance-to-goal aware); **idempotent** cancel/replace before each schedule
+- Final-stretch messages: “final week — how are you doing today?” (and similar)
+- **Permission UX:** onboarding prompt, denial → optional settings deep link; handle authorized / provisional / denied
+- **Resync:** on app foreground and when goal, target date, reminder hour, or prefs change — OS triggers match Watermelon/MMKV intent
+- **Quiet hours:** policy centralized or prefs-backed (.cursor/rules/notification-system.mdc)
+- Clear **cancellation** paths: goal complete/delete, user disables reminders, logout (per product), capsule delete/date change
+- **Empathetic copy** per behavioral-psychology; all strings via i18n (+ sync locales)
+- **Manual tests:** Android (channels, denial, Post Notifications where applicable); iOS (cold start tap vs foreground tap)
+
+**Cursor guidance:** [.cursor/rules/notification-system.mdc](../rules/notification-system.mdc), [.cursor/skills/add-notification/SKILL.md](../skills/add-notification/SKILL.md)
 
 ---
 

@@ -46,7 +46,7 @@ Shared services: `src/services/`. Shared UI: `src/components/`. Screens: `src/sc
 - [ ] i18n: all shipped locales ([add-i18n-key](../add-i18n-key/SKILL.md))
 - [ ] testID on new interactives
 - [ ] Subscription gate if Pro surface ([subscription-gate](../subscription-gate/SKILL.md))
-- [ ] Notifications copy aligns with behavioral rule if scheduling ([add-notification](../add-notification/SKILL.md))
+- [ ] Notifications: engineering contract + reschedule/cancel if scheduling ([notification-system](../../rules/notification-system.mdc), [add-notification](../add-notification/SKILL.md)); copy aligns with behavioral rule
 ```
 
 ## Related skills
