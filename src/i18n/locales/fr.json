@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "Accueil",
-    "capture": "Capturer",
+    "stats": "Statistiques",
     "journal": "Journal",
     "profile": "Profil"
   },
   "home": {
     "hero": {
       "kicker": "Ton parcours",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "Ajouter un souvenir",
+    "addMemoryHint": "Vidéo ou photo, puis choisis ton humeur.",
+    "addMemoryIntro": "Enregistre un court check-in pour ton parcours.",
+    "loading": {
+      "body": "Chargement de ton objectif et de ta série."
+    },
+    "stats": {
+      "streakLabel": "Série",
+      "journeyLabel": "Avancement",
+      "journeyHint": "Temps entre ton début et la date cible."
+    },
+    "noGoal": {
+      "title": "Définis un objectif pour voir ta série",
+      "body": "Termine l'introduction avec un objectif et une date cible. Ajoute des souvenirs depuis l'accueil, puis ouvre l'onglet Statistiques pour ta série et ton calendrier d'humeur.",
+      "cta": "Commencer la configuration"
+    },
+    "missingGoal": {
+      "title": "Objectif introuvable",
+      "body": "Nous n'avons pas pu charger ton objectif actif. Essaie d'en définir un nouveau depuis l'introduction.",
+      "cta": "Aller à la configuration"
+    },
+    "daysLeft_one": "Il reste {{count}} jour avant ton objectif",
+    "daysLeft_other": "Il reste {{count}} jours avant ton objectif",
+    "targetDay": "Jour J — tu as réussi. Célèbre comme tu le sens."
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "Jour J"
       }
     },
-    "checkInCta": "Pointe aujourd'hui",
-    "checkInHint": "Quelques secondes en vidéo ou une photo suffisent.",
-    "loading": {
-      "body": "Chargement de ton objectif et de ta série."
-    },
     "stats": {
       "streakLabel": "Série",
       "journeyLabel": "Avancement",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "Définis un objectif pour voir ta série",
-      "body": "Termine l'introduction avec un objectif et une date cible, puis l'accueil affichera ta série et ton calendrier d'humeur.",
+      "body": "Termine l'introduction avec un objectif et une date cible. Ajoute des souvenirs depuis l'accueil, puis ouvre l'onglet Statistiques pour ta série et ton calendrier d'humeur.",
       "cta": "Commencer la configuration"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "Accueil",
-      "placeholder": "Ta carte de chaleur émotionnelle et ta série seront ici."
+      "placeholder": "Ajoute des souvenirs pour ton parcours depuis ici."
+    },
+    "stats": {
+      "title": "Statistiques",
+      "placeholder": "Ta série, ton rythme et tes capsules sont ici."
     },
     "capture": {
       "title": "Capturer",
@@ -210,6 +238,7 @@
       "openSettings": "Ouvrir les réglages"
     },
     "noDevice": "Aucune caméra trouvée sur cet appareil.",
+    "closeA11y": "Fermer et revenir",
     "prompt": "Un petit check-in pour ton futur toi.",
     "mode": {
       "video": "Vidéo",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "Chargement de l'aperçu vidéo"
     },
     "listTitle": "Tes moments",
+    "addMemoryCta": "Ajouter un souvenir",
     "empty": {
       "title": "Pas encore d'entrées",
       "body": "Quand tu es prêt, capture un court clip ou une photo. Cet espace se remplira de ton parcours, pas de pression.",
-      "cta": "Pointer maintenant"
+      "cta": "Ajouter un souvenir"
     },
     "noGoal": {
       "title": "Définis un objectif pour commencer",

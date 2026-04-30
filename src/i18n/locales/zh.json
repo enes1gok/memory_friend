@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "首页",
-    "capture": "记录",
+    "stats": "统计",
     "journal": "日记",
     "profile": "个人资料"
   },
   "home": {
     "hero": {
       "kicker": "你的旅程",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "添加回忆",
+    "addMemoryHint": "先录视频或拍照，再选择心情。",
+    "addMemoryIntro": "为旅程留下一次简短打卡。",
+    "loading": {
+      "body": "正在加载目标与连续记录。"
+    },
+    "stats": {
+      "streakLabel": "连续",
+      "journeyLabel": "进度",
+      "journeyHint": "从开始日期到目标日的时间进度。"
+    },
+    "noGoal": {
+      "title": "设定目标以查看连续记录",
+      "body": "完成引导并设置目标与截止日期。在首页添加回忆，然后打开「统计」标签查看连续记录与心情日历。",
+      "cta": "开始设置"
+    },
+    "missingGoal": {
+      "title": "未找到目标",
+      "body": "无法加载你的当前目标。请尝试在引导流程中重新设置。",
+      "cta": "前往设置"
+    },
+    "daysLeft_one": "距离目标还有 {{count}} 天",
+    "daysLeft_other": "距离目标还有 {{count}} 天",
+    "targetDay": "目标日——你做到了。按你喜欢的方式庆祝吧。"
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "目标日"
       }
     },
-    "checkInCta": "今日打卡",
-    "checkInHint": "几秒视频或一张照片都可以。",
-    "loading": {
-      "body": "正在加载目标与连续记录。"
-    },
     "stats": {
       "streakLabel": "连续",
       "journeyLabel": "进度",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "设定目标以查看连续记录",
-      "body": "完成引导并设置目标与截止日期后，首页将显示你的连续记录与心情日历。",
+      "body": "完成引导并设置目标与截止日期。在首页添加回忆，然后打开「统计」标签查看连续记录与心情日历。",
       "cta": "开始设置"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "首页",
-      "placeholder": "你的情绪热力图与连续记录将显示在这里。"
+      "placeholder": "在这里为旅程记录回忆。"
+    },
+    "stats": {
+      "title": "统计",
+      "placeholder": "连续记录、节奏与胶囊都在这里。"
     },
     "capture": {
       "title": "记录",
@@ -210,6 +238,7 @@
       "openSettings": "打开设置"
     },
     "noDevice": "此设备未找到相机。",
+    "closeA11y": "关闭并返回",
     "prompt": "给未来的自己一个快速记录。",
     "mode": {
       "video": "视频",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "正在加载视频预览"
     },
     "listTitle": "你的瞬间",
+    "addMemoryCta": "添加回忆",
     "empty": {
       "title": "还没有记录",
       "body": "准备好时，拍一段短视频或一张照片。这里会填满你的旅程，而不是压力。",
-      "cta": "立即打卡"
+      "cta": "添加回忆"
     },
     "noGoal": {
       "title": "先设定目标再开始",

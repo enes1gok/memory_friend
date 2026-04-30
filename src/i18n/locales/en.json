@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "Home",
-    "capture": "Capture",
+    "stats": "Stats",
     "journal": "Journal",
     "profile": "Profile"
   },
   "home": {
     "hero": {
       "kicker": "Your journey",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "Add memory",
+    "addMemoryHint": "Video or photo, then pick a mood.",
+    "addMemoryIntro": "Capture a quick check-in for your journey.",
+    "loading": {
+      "body": "Pulling up your goal and latest streak."
+    },
+    "stats": {
+      "streakLabel": "Streak",
+      "journeyLabel": "Progress",
+      "journeyHint": "Time from your start date to target."
+    },
+    "noGoal": {
+      "title": "Set a goal to see your streak",
+      "body": "Finish onboarding with a goal and target date. Add memories from Home, then open the Stats tab for your streak and mood calendar.",
+      "cta": "Start setup"
+    },
+    "missingGoal": {
+      "title": "Goal not found",
+      "body": "We could not load your active goal. Try setting a new goal from onboarding.",
+      "cta": "Go to setup"
+    },
+    "daysLeft_one": "{{count}} day left until your target",
+    "daysLeft_other": "{{count}} days left until your target",
+    "targetDay": "Target day — you made it. Celebrate however feels right."
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "Target day"
       }
     },
-    "checkInCta": "Check in today",
-    "checkInHint": "A few seconds of video or a photo counts.",
-    "loading": {
-      "body": "Pulling up your goal and latest streak."
-    },
     "stats": {
       "streakLabel": "Streak",
       "journeyLabel": "Progress",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "Set a goal to see your streak",
-      "body": "Finish onboarding with a goal and target date, then your home dashboard will show your streak and mood calendar.",
+      "body": "Finish onboarding with a goal and target date. Add memories from Home, then open the Stats tab for your streak and mood calendar.",
       "cta": "Start setup"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "Home",
-      "placeholder": "Your emotion heatmap and streak will live here."
+      "placeholder": "Capture memories for your journey."
+    },
+    "stats": {
+      "title": "Stats",
+      "placeholder": "Your streak, rhythm, and capsules live here."
     },
     "capture": {
       "title": "Capture",
@@ -210,6 +238,7 @@
       "openSettings": "Open settings"
     },
     "noDevice": "No camera found on this device.",
+    "closeA11y": "Close and go back",
     "prompt": "Quick check-in for your future self.",
     "mode": {
       "video": "Video",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "Loading video preview"
     },
     "listTitle": "Your moments",
+    "addMemoryCta": "Add memory",
     "empty": {
       "title": "No entries yet",
       "body": "When you are ready, capture a short clip or photo. This space will fill with your journey, not pressure.",
-      "cta": "Check in now"
+      "cta": "Add memory"
     },
     "noGoal": {
       "title": "Set a goal to begin",

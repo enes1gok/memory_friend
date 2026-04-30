@@ -8,7 +8,7 @@ export type OnboardingStackParamList = {
 
 export type TabParamList = {
   Home: undefined;
-  Capture: undefined;
+  Stats: undefined;
   Journal: undefined;
   Profile: undefined;
 };
@@ -16,6 +16,7 @@ export type TabParamList = {
 export type RootStackParamList = {
   Onboarding: undefined;
   MainTabs: NavigatorScreenParams<TabParamList> | undefined;
+  Capture: undefined;
   PlaceholderModal: undefined;
   LanguageSettings: undefined;
   CapsuleCreate: { goalId: string };

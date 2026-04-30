@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "Ana sayfa",
-    "capture": "Yakala",
+    "stats": "İstatistikler",
     "journal": "Günlük",
     "profile": "Profil"
   },
   "home": {
     "hero": {
       "kicker": "Yolculuğun",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "Anı ekle",
+    "addMemoryHint": "Video veya fotoğraf, sonra ruh halini seç.",
+    "addMemoryIntro": "Yolculuğun için kısa bir check-in kaydet.",
+    "loading": {
+      "body": "Hedefin ve son serin yükleniyor."
+    },
+    "stats": {
+      "streakLabel": "Seri",
+      "journeyLabel": "İlerleme",
+      "journeyHint": "Başlangıç tarihinden hedefe kadar geçen süre."
+    },
+    "noGoal": {
+      "title": "Serini görmek için bir hedef belirle",
+      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla. Anıları Ana sayfadan ekle; seri ve ruh hali takvimin için İstatistikler sekmesini aç.",
+      "cta": "Kuruluma başla"
+    },
+    "missingGoal": {
+      "title": "Hedef bulunamadı",
+      "body": "Aktif hedefini yükleyemedik. Tanıtımdan yeni bir hedef deneyebilirsin.",
+      "cta": "Kuruluma git"
+    },
+    "daysLeft_one": "Hedefine {{count}} gün kaldı",
+    "daysLeft_other": "Hedefine {{count}} gün kaldı",
+    "targetDay": "Hedef gün — başardın. Nasıl hissediyorsan öyle kutla."
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "Hedef gün"
       }
     },
-    "checkInCta": "Bugün işaretle",
-    "checkInHint": "Birkaç saniyelik video veya foto yeter.",
-    "loading": {
-      "body": "Hedefin ve son serin yükleniyor."
-    },
     "stats": {
       "streakLabel": "Seri",
       "journeyLabel": "İlerleme",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "Serini görmek için bir hedef belirle",
-      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla; ardından ana ekranında serin ve ruh hali takvimin görünür.",
+      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla. Anıları Ana sayfadan ekle; seri ve ruh hali takvimin için İstatistikler sekmesini aç.",
       "cta": "Kuruluma başla"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "Ana sayfa",
-      "placeholder": "Duygu haritan ve serin burada olacak."
+      "placeholder": "Yolculuğun için anıları buradan kaydet."
+    },
+    "stats": {
+      "title": "İstatistikler",
+      "placeholder": "Serin, ritmin ve kapsüllerin burada."
     },
     "capture": {
       "title": "Yakala",
@@ -210,6 +238,7 @@
       "openSettings": "Ayarları aç"
     },
     "noDevice": "Bu cihazda kamera bulunamadı.",
+    "closeA11y": "Kapat ve geri dön",
     "prompt": "Gelecekteki benliğin için hızlı bir işaret.",
     "mode": {
       "video": "Video",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "Video önizlemesi yükleniyor"
     },
     "listTitle": "Anların",
+    "addMemoryCta": "Anı ekle",
     "empty": {
       "title": "Henüz kayıt yok",
       "body": "Hazır olduğunda kısa bir klip veya fotoğraf yakala. Bu alan yolculuğunla dolar, baskıyla değil.",
-      "cta": "Şimdi işaretle"
+      "cta": "Anı ekle"
     },
     "noGoal": {
       "title": "Başlamak için bir hedef belirle",

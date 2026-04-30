@@ -1,32 +1,27 @@
 import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { EmptyState } from '@/components/EmptyState';
 import { GradientCard } from '@/components/GradientCard';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { SafeScreen } from '@/components/SafeScreen';
-import { SectionHeader } from '@/components/SectionHeader';
 import { Skeleton } from '@/components/Skeleton';
-import { Body, Caption, Display, Heading } from '@/components/Typography';
+import { Body, Display } from '@/components/Typography';
 import { HypeManModal } from '@/features/ai';
-import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
-import { useCapsulesByGoal } from '@/features/capsule/hooks/useCapsulesByGoal';
-import { journeyPercent, useActiveGoal, useStreakState } from '@/features/streak';
+import { journeyPercent, useActiveGoal } from '@/features/streak';
 import type { Goal } from '@/models/Goal';
-import type { RootStackParamList, TabParamList } from '@/navigation/types';
+import { TAB_BAR_FLOATING_OVERLAY_DP } from '@/navigation/tabBarMetrics';
+import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { useUIStore } from '@/stores/useUIStore';
 import { getAccentColor } from '@/theme/accent';
 import { colors } from '@/theme/colors';
 import { enterAnimation } from '@/theme/motion';
-
-import { RhythmSection } from './RhythmSection';
 
 const homeStyles = StyleSheet.create({
   scroll: {
@@ -35,7 +30,6 @@ const homeStyles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 20,
     paddingTop: 16,
-    paddingBottom: 36,
   },
   heroGlowWrap: {
     marginBottom: 20,
@@ -61,39 +55,7 @@ const homeStyles = StyleSheet.create({
   heroInner: {
     paddingHorizontal: 18,
     paddingTop: 20,
-    paddingBottom: 18,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    alignItems: 'stretch',
-  },
-  statItem: {
-    flex: 1,
-    minWidth: 0,
-    alignItems: 'center',
-  },
-  statDivider: {
-    width: 1,
-    height: 32,
-    alignSelf: 'center',
-    backgroundColor: colors.borderSubtle,
-  },
-  finaleBanner: {
-    marginBottom: 24,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(249, 115, 22, 0.45)',
-    backgroundColor: 'rgba(249, 115, 22, 0.12)',
-  },
-  sectionBlock: {
-    marginBottom: 22,
-  },
-  capsuleCreateCta: {
-    alignItems: 'center',
-    paddingVertical: 14,
+    paddingBottom: 22,
   },
 });
 
@@ -131,14 +93,13 @@ function AnimatedProgressFill({ percent, color }: { percent: number; color: stri
 
 export function HomeScreen() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const activeGoalId = useGoalStore((s) => s.activeGoalId);
   const goal = useActiveGoal();
-  const tabNav = useNavigation<BottomTabNavigationProp<TabParamList>>();
-  const rootNav = tabNav.getParent<NativeStackNavigationProp<RootStackParamList>>();
-  const capsules = useCapsulesByGoal(activeGoalId);
+  const navigation = useNavigation();
+  const rootNav = navigation.getParent<NativeStackNavigationProp<RootStackParamList>>();
   const [hypeOpen, setHypeOpen] = useState(false);
   const setAccentProgress = useUIStore((s) => s.setAccentProgress);
-  const { currentStreak, isHydrating: streakHydrating } = useStreakState(activeGoalId);
 
   const goalProgress = useMemo(() => {
     if (goal == null || goal === undefined) {
@@ -175,8 +136,8 @@ export function HomeScreen() {
   }, [rootNav]);
 
   const openCapture = useCallback(() => {
-    tabNav.navigate('Capture');
-  }, [tabNav]);
+    rootNav?.navigate('Capture');
+  }, [rootNav]);
 
   if (!activeGoalId) {
     return (
@@ -196,10 +157,9 @@ export function HomeScreen() {
     return (
       <SafeScreen testID="home:screen:root">
         <View className="flex-1 px-lg pt-xl">
-          <Skeleton variant="block" height={220} style={{ marginBottom: 20 }} />
-          <Skeleton variant="line" width="58%" style={{ marginBottom: 12 }} />
-          <Skeleton variant="block" height={96} style={{ marginBottom: 16 }} />
-          <Skeleton variant="block" height={132} />
+          <Skeleton variant="block" height={200} style={{ marginBottom: 20 }} />
+          <Skeleton variant="line" width="70%" style={{ marginBottom: 16 }} />
+          <Skeleton variant="block" height={52} style={{ marginBottom: 12 }} />
         </View>
       </SafeScreen>
     );
@@ -226,7 +186,10 @@ export function HomeScreen() {
     <SafeScreen testID="home:screen:root">
       <ScrollView
         style={homeStyles.scroll}
-        contentContainerStyle={homeStyles.scrollContent}
+        contentContainerStyle={[
+          homeStyles.scrollContent,
+          { paddingBottom: TAB_BAR_FLOATING_OVERLAY_DP + Math.max(insets.bottom, 8) },
+        ]}
         showsVerticalScrollIndicator={false}
         className="flex-1"
       >
@@ -258,134 +221,31 @@ export function HomeScreen() {
             </View>
 
             <View style={homeStyles.heroInner}>
-              <Display className="mb-3 text-[26px] leading-[32px]" numberOfLines={3}>
+              <Display className="mb-2 text-[26px] leading-[32px]" numberOfLines={3}>
                 {goal.title}
               </Display>
 
-              <Body className="mb-5 text-base text-secondary">
+              <Body className="mb-4 text-base text-secondary">
                 {daysLeft <= 0
                   ? t('home.targetDay')
                   : t('home.daysLeft', { count: Math.max(1, daysLeft) })}
               </Body>
 
-              <View style={homeStyles.statsRow}>
-                <View
-                  style={homeStyles.statItem}
-                  accessibilityLabel={
-                    streakHydrating
-                      ? t('home.chip.a11y.streakLoading')
-                      : t('home.chip.a11y.streak', { count: currentStreak })
-                  }
-                >
-                  <Display className="text-2xl leading-8">
-                    {streakHydrating ? '…' : currentStreak}
-                  </Display>
-                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
-                    {t('home.stats.streakLabel')}
-                  </Caption>
-                </View>
-                <View style={homeStyles.statDivider} />
-                <View
-                  style={homeStyles.statItem}
-                  accessibilityLabel={t('home.chip.a11y.progress', { percent: journeyPct })}
-                >
-                  <Display className="text-2xl leading-8">{`${journeyPct}%`}</Display>
-                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
-                    {t('home.stats.journeyLabel')}
-                  </Caption>
-                </View>
-                <View style={homeStyles.statDivider} />
-                <View
-                  style={homeStyles.statItem}
-                  accessibilityLabel={
-                    daysLeft <= 0
-                      ? t('home.chip.a11y.target')
-                      : t('home.chip.a11y.days', { count: Math.max(1, daysLeft) })
-                  }
-                >
-                  <Display className="text-2xl leading-8" numberOfLines={1}>
-                    {daysLeft <= 0 ? t('home.chip.atTarget') : String(Math.max(1, daysLeft))}
-                  </Display>
-                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
-                    {t('home.chip.daysLabel')}
-                  </Caption>
-                </View>
-              </View>
+              <Body className="mb-5 text-sm text-muted">{t('home.addMemoryIntro')}</Body>
 
               <PrimaryButton
-                testID="home:capture:cta"
+                testID="home:add-memory:cta"
                 variant="orange"
                 gradient
-                className="mt-2"
+                className="mt-1"
                 onPress={openCapture}
-                accessibilityLabel={t('home.checkInCta')}
+                accessibilityLabel={t('home.addMemoryCta')}
               >
-                {t('home.checkInCta')}
+                {t('home.addMemoryCta')}
               </PrimaryButton>
+              <Body className="mt-2 text-center text-sm text-muted">{t('home.addMemoryHint')}</Body>
             </View>
           </GradientCard>
-        </Animated.View>
-
-        {daysLeft <= 0 ? (
-          <AnimatedPressable
-            testID="home:finale:banner"
-            haptic
-            accessibilityRole="button"
-            accessibilityLabel={t('collage.banner.cta')}
-            onPress={() => {
-              rootNav?.navigate('CollageFinale', { goalId: activeGoalId });
-            }}
-            className="mb-2xl"
-          >
-            <GradientCard
-              colors={[`${colors.accentOrange}55`, `${colors.accentRed}22`, colors.surface]}
-              contentStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
-            >
-              <Heading className="mb-1 text-lg text-orange-200">{t('collage.banner.title')}</Heading>
-              <Body className="font-semibold text-accentOrange">{t('collage.banner.cta')}</Body>
-            </GradientCard>
-          </AnimatedPressable>
-        ) : null}
-
-        <Animated.View entering={enterAnimation(1)} style={homeStyles.sectionBlock}>
-          <RhythmSection activeGoalId={activeGoalId} />
-        </Animated.View>
-
-        <Animated.View entering={enterAnimation(2)} style={homeStyles.sectionBlock}>
-          <SectionHeader
-            title={t('capsule.list.title')}
-            subtitle={t('home.capsulesSection.subtitle')}
-            className="mb-1 px-0"
-          />
-          {capsules.length === 0 ? (
-            <Body className="mb-4 text-muted">{t('capsule.list.empty')}</Body>
-          ) : (
-            <View className="mb-3">
-              {capsules.map((c) => (
-                <CapsuleCard
-                  key={c.id}
-                  capsule={c}
-                  onView={(id) => {
-                    rootNav?.navigate('CapsuleReveal', { capsuleId: id });
-                  }}
-                />
-              ))}
-            </View>
-          )}
-          <AnimatedPressable
-            testID="home:capsule:create-cta"
-            haptic
-            onPress={() => {
-              if (activeGoalId) {
-                rootNav?.navigate('CapsuleCreate', { goalId: activeGoalId });
-              }
-            }}
-            accessibilityRole="button"
-            accessibilityLabel={t('capsule.list.createCta')}
-            style={homeStyles.capsuleCreateCta}
-          >
-            <Body className="font-semibold text-accentOrange">{t('capsule.list.createCta')}</Body>
-          </AnimatedPressable>
         </Animated.View>
       </ScrollView>
 

@@ -8,7 +8,7 @@ import type { RootStackParamList } from '@/navigation/types';
 
 /**
  * Cold start + foreground notification press: navigates according to typed `data` payload.
- * Mount from TabNavigator so `getParent` reaches the root stack.
+ * Mount from TabNavigator so `getParent` reaches the root stack (includes `Capture` modal).
  */
 export function useNotificationResponseHandler() {
   const nav = useNavigation();
@@ -22,7 +22,7 @@ export function useNotificationResponseHandler() {
       if (!root) return;
       switch (parsed.type) {
         case NOTIFICATION_DATA_TYPE.DAILY_REMINDER:
-          root.navigate('MainTabs', { screen: 'Capture' });
+          root.navigate('Capture');
           break;
         case NOTIFICATION_DATA_TYPE.CAPSULE_UNLOCK:
           root.navigate('CapsuleReveal', { capsuleId: parsed.capsuleId });

@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "Home",
-    "capture": "Cattura",
+    "stats": "Statistiche",
     "journal": "Diario",
     "profile": "Profilo"
   },
   "home": {
     "hero": {
       "kicker": "Il tuo viaggio",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "Aggiungi un ricordo",
+    "addMemoryHint": "Video o foto, poi scegli l'umore.",
+    "addMemoryIntro": "Registra un check-in veloce per il tuo viaggio.",
+    "loading": {
+      "body": "Caricamento obiettivo e serie."
+    },
+    "stats": {
+      "streakLabel": "Serie",
+      "journeyLabel": "Progresso",
+      "journeyHint": "Tempo dall'inizio alla data obiettivo."
+    },
+    "noGoal": {
+      "title": "Imposta un obiettivo per vedere la tua serie",
+      "body": "Completa l'onboarding con obiettivo e data. Aggiungi ricordi dalla Home, poi apri la scheda Statistiche per serie e calendario dell'umore.",
+      "cta": "Inizia configurazione"
+    },
+    "missingGoal": {
+      "title": "Obiettivo non trovato",
+      "body": "Non siamo riusciti a caricare il tuo obiettivo attivo. Prova a impostarne uno nuovo dall'onboarding.",
+      "cta": "Vai alla configurazione"
+    },
+    "daysLeft_one": "Manca {{count}} giorno al tuo obiettivo",
+    "daysLeft_other": "Mancano {{count}} giorni al tuo obiettivo",
+    "targetDay": "Giorno obiettivo — ce l'hai fatta. Festeggia come ti sembra giusto."
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "Giorno obiettivo"
       }
     },
-    "checkInCta": "Segna oggi",
-    "checkInHint": "Bastano pochi secondi di video o una foto.",
-    "loading": {
-      "body": "Caricamento obiettivo e serie."
-    },
     "stats": {
       "streakLabel": "Serie",
       "journeyLabel": "Progresso",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "Imposta un obiettivo per vedere la tua serie",
-      "body": "Completa l'onboarding con obiettivo e data, poi la home mostrerà la serie e il calendario dell'umore.",
+      "body": "Completa l'onboarding con obiettivo e data. Aggiungi ricordi dalla Home, poi apri la scheda Statistiche per serie e calendario dell'umore.",
       "cta": "Inizia configurazione"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "Home",
-      "placeholder": "Qui vivranno la heatmap delle emozioni e la serie."
+      "placeholder": "Aggiungi ricordi per il tuo viaggio da qui."
+    },
+    "stats": {
+      "title": "Statistiche",
+      "placeholder": "Serie, ritmo e capsule sono qui."
     },
     "capture": {
       "title": "Cattura",
@@ -210,6 +238,7 @@
       "openSettings": "Apri impostazioni"
     },
     "noDevice": "Nessuna fotocamera trovata su questo dispositivo.",
+    "closeA11y": "Chiudi e torna indietro",
     "prompt": "Un check-in veloce per il tuo futuro te.",
     "mode": {
       "video": "Video",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "Caricamento anteprima video"
     },
     "listTitle": "I tuoi momenti",
+    "addMemoryCta": "Aggiungi un ricordo",
     "empty": {
       "title": "Ancora nessuna voce",
       "body": "Quando sei pronto, cattura una clip breve o una foto. Questo spazio si riempirà del tuo viaggio, non di pressione.",
-      "cta": "Segna ora"
+      "cta": "Aggiungi un ricordo"
     },
     "noGoal": {
       "title": "Imposta un obiettivo per iniziare",

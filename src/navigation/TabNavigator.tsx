@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useAiCompanionNudge } from '@/features/ai/hooks/useAiCompanionNudge';
 import { useNotificationResponseHandler } from '@/features/notification/hooks/useNotificationResponseHandler';
 import { useScheduleReminders } from '@/features/notification/hooks/useScheduleReminders';
-import { CaptureScreen } from '@/screens/CaptureScreen';
 import { HomeScreen } from '@/screens/HomeScreen';
 import { JournalScreen } from '@/screens/JournalScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
+import { StatsScreen } from '@/screens/StatsScreen';
 
 import { AppTabBar } from './AppTabBar';
 import type { TabParamList } from './types';
@@ -36,19 +36,19 @@ export function TabNavigator() {
         }}
       />
       <Tab.Screen
+        name="Stats"
+        component={StatsScreen}
+        options={{
+          tabBarLabel: t('tabs.stats'),
+          tabBarAccessibilityLabel: t('tabs.stats'),
+        }}
+      />
+      <Tab.Screen
         name="Journal"
         component={JournalScreen}
         options={{
           tabBarLabel: t('tabs.journal'),
           tabBarAccessibilityLabel: t('tabs.journal'),
-        }}
-      />
-      <Tab.Screen
-        name="Capture"
-        component={CaptureScreen}
-        options={{
-          tabBarLabel: t('tabs.capture'),
-          tabBarAccessibilityLabel: t('tabs.capture'),
         }}
       />
       <Tab.Screen

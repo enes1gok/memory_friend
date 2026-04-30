@@ -1,5 +1,4 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { type Database, Q } from '@nozbe/watermelondb';
 import { withDatabase, withObservables } from '@nozbe/watermelondb/react';
@@ -7,14 +6,17 @@ import type { ComponentType } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, SectionList, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { of } from 'rxjs';
 
+import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { EmptyState } from '@/components/EmptyState';
-import { Caption, Heading } from '@/components/Typography';
+import { Body, Caption, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
 import { JournalEntryCard } from '@/features/journal/components/JournalEntryCard';
 import type { JournalEntry } from '@/models/JournalEntry';
-import type { RootStackParamList, TabParamList } from '@/navigation/types';
+import { TAB_BAR_FLOATING_OVERLAY_DP } from '@/navigation/tabBarMetrics';
+import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
 
 type ListProps = {
@@ -55,9 +57,10 @@ function sectionTitle(date: Date, language: string, t: (key: string) => string):
 
 function JournalListView({ entries, activeGoalId }: ListProps) {
   const { t, i18n } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [refreshing, setRefreshing] = useState(false);
-  const tabNav = useNavigation<BottomTabNavigationProp<TabParamList>>();
-  const rootNav = tabNav.getParent<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation();
+  const rootNav = navigation.getParent<NativeStackNavigationProp<RootStackParamList>>();
 
   const goOnboarding = useCallback(() => {
     rootNav?.dispatch(
@@ -69,8 +72,8 @@ function JournalListView({ entries, activeGoalId }: ListProps) {
   }, [rootNav]);
 
   const openCapture = useCallback(() => {
-    tabNav.navigate('Capture');
-  }, [tabNav]);
+    rootNav?.navigate('Capture');
+  }, [rootNav]);
 
   const sections = useMemo<JournalSection[]>(() => {
     const grouped = new Map<string, JournalEntry[]>();
@@ -122,7 +125,20 @@ function JournalListView({ entries, activeGoalId }: ListProps) {
   return (
     <SafeScreen testID="journal:screen:root">
       <View className="flex-1 px-4 pt-4">
-        <Heading className="mb-1 px-1 text-2xl">{t('journal.listTitle')}</Heading>
+        <View className="mb-2 flex-row items-start justify-between gap-2 px-1">
+          <Heading className="min-w-0 flex-1 text-2xl">{t('journal.listTitle')}</Heading>
+          <AnimatedPressable
+            testID="journal:add-memory:press"
+            haptic
+            accessibilityRole="button"
+            accessibilityLabel={t('journal.addMemoryCta')}
+            onPress={openCapture}
+            className="shrink-0 pt-1"
+            hitSlop={8}
+          >
+            <Body className="text-sm font-semibold text-accentOrange">{t('journal.addMemoryCta')}</Body>
+          </AnimatedPressable>
+        </View>
         <SectionList
           testID="journal:list"
           sections={sections}
@@ -134,7 +150,10 @@ function JournalListView({ entries, activeGoalId }: ListProps) {
           showsVerticalScrollIndicator={false}
           stickySectionHeadersEnabled={false}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#f5f5f5" />}
-          contentContainerStyle={{ paddingTop: 8, paddingBottom: 24 }}
+          contentContainerStyle={{
+            paddingTop: 8,
+            paddingBottom: TAB_BAR_FLOATING_OVERLAY_DP + Math.max(insets.bottom, 8),
+          }}
         />
       </View>
     </SafeScreen>

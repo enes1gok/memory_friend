@@ -1,13 +1,42 @@
 {
   "tabs": {
     "home": "Start",
-    "capture": "Erfassen",
+    "stats": "Statistik",
     "journal": "Tagebuch",
     "profile": "Profil"
   },
   "home": {
     "hero": {
       "kicker": "Deine Reise",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "addMemoryCta": "Erinnerung hinzufügen",
+    "addMemoryHint": "Video oder Foto, dann Stimmung wählen.",
+    "addMemoryIntro": "Halte einen kurzen Check-in für deine Reise fest.",
+    "loading": {
+      "body": "Wir laden Ziel und Serie."
+    },
+    "stats": {
+      "streakLabel": "Serie",
+      "journeyLabel": "Fortschritt",
+      "journeyHint": "Zeit vom Start bis zum Zieldatum."
+    },
+    "noGoal": {
+      "title": "Lege ein Ziel fest, um deine Serie zu sehen",
+      "body": "Schließe die Einführung mit Ziel und Zieldatum ab. Erinnerungen nimmst du unter Start auf; Serie und Stimmungskalender findest du unter Statistik.",
+      "cta": "Einrichtung starten"
+    },
+    "missingGoal": {
+      "title": "Ziel nicht gefunden",
+      "body": "Wir konnten dein aktives Ziel nicht laden. Versuche in der Einführung ein neues Ziel zu setzen.",
+      "cta": "Zur Einrichtung"
+    },
+    "daysLeft_one": "Noch {{count}} Tag bis zu deinem Ziel",
+    "daysLeft_other": "Noch {{count}} Tage bis zu deinem Ziel",
+    "targetDay": "Zieltag — du hast es geschafft. Feiere, wie es sich für dich richtig anfühlt."
+  },
+  "stats": {
+    "hero": {
       "a11y": "{{goal}} — {{status}}"
     },
     "insights": {
@@ -38,11 +67,6 @@
         "target": "Zieltag"
       }
     },
-    "checkInCta": "Heute eintragen",
-    "checkInHint": "Ein paar Sekunden Video oder ein Foto reichen.",
-    "loading": {
-      "body": "Wir laden Ziel und Serie."
-    },
     "stats": {
       "streakLabel": "Serie",
       "journeyLabel": "Fortschritt",
@@ -50,7 +74,7 @@
     },
     "noGoal": {
       "title": "Lege ein Ziel fest, um deine Serie zu sehen",
-      "body": "Schließe die Einführung mit Ziel und Zieldatum ab, dann zeigt dein Startbildschirm Serie und Stimmungskalender.",
+      "body": "Schließe die Einführung mit Ziel und Zieldatum ab. Erinnerungen nimmst du unter Start auf; Serie und Stimmungskalender findest du unter Statistik.",
       "cta": "Einrichtung starten"
     },
     "missingGoal": {
@@ -144,7 +168,11 @@
   "screens": {
     "home": {
       "title": "Start",
-      "placeholder": "Deine Emotions-Heatmap und Serie werden hier erscheinen."
+      "placeholder": "Halte Erinnerungen für deine Reise fest."
+    },
+    "stats": {
+      "title": "Statistik",
+      "placeholder": "Serie, Rhythmus und Kapseln findest du hier."
     },
     "capture": {
       "title": "Erfassen",
@@ -210,6 +238,7 @@
       "openSettings": "Einstellungen öffnen"
     },
     "noDevice": "Auf diesem Gerät wurde keine Kamera gefunden.",
+    "closeA11y": "Schließen und zurück",
     "prompt": "Schneller Check-in für dein zukünftiges Ich.",
     "mode": {
       "video": "Video",
@@ -233,10 +262,11 @@
       "videoThumbLoadingA11y": "Videovorschau wird geladen"
     },
     "listTitle": "Deine Momente",
+    "addMemoryCta": "Erinnerung hinzufügen",
     "empty": {
       "title": "Noch keine Einträge",
       "body": "Wenn du bereit bist, nimm einen kurzen Clip oder ein Foto auf. Dieser Raum füllt sich mit deiner Reise, nicht mit Druck.",
-      "cta": "Jetzt eintragen"
+      "cta": "Erinnerung hinzufügen"
     },
     "noGoal": {
       "title": "Lege ein Ziel fest, um zu starten",

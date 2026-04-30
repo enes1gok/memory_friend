@@ -1,4 +1,5 @@
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -39,6 +40,33 @@ function formatDuration(seconds: number): string {
   return `${min}:${String(sec).padStart(2, '0')}`;
 }
 
+function CaptureClosePressable({
+  topInset,
+  onClose,
+  label,
+  chromeClassName,
+}: {
+  topInset: number;
+  onClose: () => void;
+  label: string;
+  chromeClassName: string;
+}) {
+  return (
+    <View pointerEvents="box-none" className="absolute left-0 right-0 z-10" style={{ top: topInset + 6 }}>
+      <Pressable
+        testID="capture:close:press"
+        onPress={onClose}
+        hitSlop={12}
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        className={`ml-3 h-10 w-10 items-center justify-center rounded-full ${chromeClassName}`}
+      >
+        <Ionicons name="close" size={24} color={colors.textPrimary} />
+      </Pressable>
+    </View>
+  );
+}
+
 function AnimatedShutter({ mode, isRecording }: { mode: CaptureMode; isRecording: boolean }) {
   const outerStyle = useAnimatedStyle(() => ({
     borderColor: withTiming(isRecording ? colors.error : colors.textPrimary, { duration: 180 }),
@@ -64,6 +92,7 @@ function AnimatedShutter({ mode, isRecording }: { mode: CaptureMode; isRecording
 
 export function CaptureScreen() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const cameraRef = useRef<Camera>(null);
   const device = useCameraDevice('back');
@@ -199,34 +228,43 @@ export function CaptureScreen() {
 
   if (!hasCamPermission) {
     return (
-      <View
-        testID="capture:screen:permission"
-        className="flex-1 justify-center px-6"
-        style={{ backgroundColor: colors.canvas, paddingTop: insets.top }}
-      >
-        <Heading className="mb-2">{t('capture.permission.title')}</Heading>
-        <Body className="mb-6 text-muted">{t('capture.permission.cameraBody')}</Body>
-        <PrimaryButton
-          testID="capture:permission:request"
-          onPress={() => {
-            void requestCamPermission();
-          }}
-          gradient
-          accessibilityLabel={t('capture.permission.openSettings')}
-        >
-          {t('capture.permission.cta')}
-        </PrimaryButton>
+      <View testID="capture:screen:permission" className="flex-1" style={{ backgroundColor: colors.canvas }}>
+        <CaptureClosePressable
+          topInset={insets.top}
+          onClose={() => navigation.goBack()}
+          label={t('capture.closeA11y')}
+          chromeClassName="bg-white/10"
+        />
+        <View className="flex-1 justify-center px-6">
+          <Heading className="mb-2">{t('capture.permission.title')}</Heading>
+          <Body className="mb-6 text-muted">{t('capture.permission.cameraBody')}</Body>
+          <PrimaryButton
+            testID="capture:permission:request"
+            onPress={() => {
+              void requestCamPermission();
+            }}
+            gradient
+            accessibilityLabel={t('capture.permission.openSettings')}
+          >
+            {t('capture.permission.cta')}
+          </PrimaryButton>
+        </View>
       </View>
     );
   }
 
   if (device == null) {
     return (
-      <View
-        className="flex-1 items-center justify-center px-6"
-        style={{ backgroundColor: colors.canvas }}
-      >
-        <Body>{t('capture.noDevice')}</Body>
+      <View className="flex-1" style={{ backgroundColor: colors.canvas }}>
+        <CaptureClosePressable
+          topInset={insets.top}
+          onClose={() => navigation.goBack()}
+          label={t('capture.closeA11y')}
+          chromeClassName="bg-white/10"
+        />
+        <View className="flex-1 items-center justify-center px-6">
+          <Body>{t('capture.noDevice')}</Body>
+        </View>
       </View>
     );
   }
@@ -255,26 +293,38 @@ export function CaptureScreen() {
       />
 
       <View
-        className="absolute left-0 right-0 px-4"
+        className="absolute left-0 right-0 flex-row items-start px-2"
         style={{ top: insets.top + 8 }}
         pointerEvents="box-none"
       >
-        <Caption className="mb-2 text-center text-sm text-white/90">{t('capture.prompt')}</Caption>
-        {isRecording ? (
-          <Caption className="mb-2 text-center text-sm font-semibold text-error">
-            {formatDuration(recordingSeconds)}
-          </Caption>
-        ) : null}
-        <SegmentedControl
-          testID="capture:mode"
-          disabled={isRecording}
-          value={mode}
-          options={[
-            { value: 'video', label: t('capture.mode.video') },
-            { value: 'photo', label: t('capture.mode.photo') },
-          ]}
-          onChange={setMode}
-        />
+        <Pressable
+          testID="capture:close:press"
+          onPress={() => navigation.goBack()}
+          hitSlop={12}
+          accessibilityRole="button"
+          accessibilityLabel={t('capture.closeA11y')}
+          className="h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black/45"
+        >
+          <Ionicons name="close" size={24} color={colors.textPrimary} />
+        </Pressable>
+        <View className="min-w-0 flex-1 px-2">
+          <Caption className="mb-2 text-center text-sm text-white/90">{t('capture.prompt')}</Caption>
+          {isRecording ? (
+            <Caption className="mb-2 text-center text-sm font-semibold text-error">
+              {formatDuration(recordingSeconds)}
+            </Caption>
+          ) : null}
+          <SegmentedControl
+            testID="capture:mode"
+            disabled={isRecording}
+            value={mode}
+            options={[
+              { value: 'video', label: t('capture.mode.video') },
+              { value: 'photo', label: t('capture.mode.photo') },
+            ]}
+            onChange={setMode}
+          />
+        </View>
       </View>
 
       <View

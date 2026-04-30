@@ -4,6 +4,7 @@ import { PlaceholderModalScreen } from '@/screens/PlaceholderModalScreen';
 import { CapsuleCreateScreen } from '@/screens/CapsuleCreateScreen';
 import { CapsuleRevealScreen } from '@/screens/CapsuleRevealScreen';
 import { CollagePremiereScreen } from '@/screens/CollagePremiereScreen';
+import { CaptureScreen } from '@/screens/CaptureScreen';
 import { LanguageSettingsScreen } from '@/screens/LanguageSettingsScreen';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { colors } from '@/theme/colors';
@@ -28,6 +29,15 @@ export function RootNavigator() {
     >
       <Stack.Screen name="Onboarding" component={OnboardingNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Capture"
+        component={CaptureScreen}
+        options={{
+          headerShown: false,
+          presentation: 'fullScreenModal',
+          animation: 'slide_from_bottom',
+        }}
+      />
       <Stack.Screen
         name="PlaceholderModal"
         component={PlaceholderModalScreen}

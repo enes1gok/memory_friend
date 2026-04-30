@@ -84,28 +84,28 @@ export function RhythmSection({ activeGoalId }: Props) {
   const moodLabel =
     latestMood != null && isKnownMoodTag(latestMood)
       ? t(`moods.${latestMood}`)
-      : t('home.insights.noMoodYet');
+      : t('stats.insights.noMoodYet');
   const badgesSummary = badgesHydrating ? '…' : `${earnedIds.length}/${ORDERED_BADGE_TYPES.length}`;
 
   return (
     <>
-      <AppCard className="overflow-hidden p-0" testID="home:rhythm:section" accessibilityRole="none">
+      <AppCard className="overflow-hidden p-0" testID="stats:rhythm:section" accessibilityRole="none">
         <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.sm }}>
           <View className="flex-row items-start justify-between gap-2">
             <View className="min-w-0 flex-1">
-              <Heading className="mb-0.5 text-lg">{t('home.insights.title')}</Heading>
-              <Body className="text-sm text-muted">{t('home.insights.subtitle')}</Body>
+              <Heading className="mb-0.5 text-lg">{t('stats.insights.title')}</Heading>
+              <Body className="text-sm text-muted">{t('stats.insights.subtitle')}</Body>
             </View>
             <Pressable
               onPress={() => {
                 setDetailsOpen(true);
               }}
               accessibilityRole="button"
-              accessibilityLabel={t('home.insights.detailsCta')}
+              accessibilityLabel={t('stats.insights.detailsCta')}
               hitSlop={8}
               className="shrink-0 pt-0.5"
             >
-              <Caption className="text-xs font-semibold text-accentBlue">{t('home.insights.detailsCta')}</Caption>
+              <Caption className="text-xs font-semibold text-accentBlue">{t('stats.insights.detailsCta')}</Caption>
             </Pressable>
           </View>
         </View>
@@ -132,7 +132,7 @@ export function RhythmSection({ activeGoalId }: Props) {
           <View style={styles.chipRow}>
             <View style={styles.chip} accessibilityRole="text">
               <Caption className="mb-0.5 text-[10px] uppercase tracking-wide text-muted">
-                {t('home.insights.chipMood')}
+                {t('stats.insights.chipMood')}
               </Caption>
               <Body className="text-sm font-semibold text-primary" numberOfLines={1}>
                 {moodLabel}
@@ -140,15 +140,15 @@ export function RhythmSection({ activeGoalId }: Props) {
             </View>
             <View style={styles.chip} accessibilityRole="text">
               <Caption className="mb-0.5 text-[10px] uppercase tracking-wide text-muted">
-                {t('home.insights.chipWindow')}
+                {t('stats.insights.chipWindow')}
               </Caption>
               <Body className="text-sm font-semibold text-primary" numberOfLines={1}>
-                {t('home.insights.daysLogged', { count: daysLogged })}
+                {t('stats.insights.daysLogged', { count: daysLogged })}
               </Body>
             </View>
             <View style={styles.chip} accessibilityRole="text">
               <Caption className="mb-0.5 text-[10px] uppercase tracking-wide text-muted">
-                {t('home.insights.chipBadges')}
+                {t('stats.insights.chipBadges')}
               </Caption>
               <Body className="text-sm font-semibold text-primary" numberOfLines={1}>
                 {badgesSummary}
@@ -163,7 +163,7 @@ export function RhythmSection({ activeGoalId }: Props) {
       </AppCard>
 
       <AppSheet
-        testID="home:rhythm:sheet"
+        testID="stats:rhythm:sheet"
         visible={detailsOpen}
         snapPoints={['72%', '92%']}
         onDismiss={() => {
@@ -171,8 +171,8 @@ export function RhythmSection({ activeGoalId }: Props) {
         }}
       >
         <View className="px-lg pb-4xl pt-md">
-          <Heading className="mb-1 text-xl">{t('home.insights.title')}</Heading>
-          <Body className="mb-4 text-sm text-muted">{t('home.insights.subtitle')}</Body>
+          <Heading className="mb-1 text-xl">{t('stats.insights.title')}</Heading>
+          <Body className="mb-4 text-sm text-muted">{t('stats.insights.subtitle')}</Body>
 
           <EmotionHeatmap activeGoalId={activeGoalId} variant="embedded" dayMoods={dayToMood} />
 
