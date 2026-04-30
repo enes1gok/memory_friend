@@ -10,7 +10,7 @@ import {
   useMicrophonePermission,
 } from 'react-native-vision-camera';
 
-import { Body, Heading } from '@/components/Typography';
+import { Body, Caption, Heading } from '@/components/Typography';
 import { useEnrichJournalEntry } from '@/features/ai/hooks/useEnrichJournalEntry';
 import { MoodPicker } from '@/features/journal/components/MoodPicker';
 import { useSaveJournalEntry } from '@/features/journal/hooks/useSaveJournalEntry';
@@ -156,7 +156,7 @@ export function CaptureScreen() {
       <View
         testID="capture:screen:permission"
         className="flex-1 justify-center px-6"
-        style={{ backgroundColor: colors.background, paddingTop: insets.top }}
+        style={{ backgroundColor: colors.canvas, paddingTop: insets.top }}
       >
         <Heading className="mb-2">{t('capture.permission.title')}</Heading>
         <Body className="mb-6 text-slate-400">{t('capture.permission.cameraBody')}</Body>
@@ -179,7 +179,7 @@ export function CaptureScreen() {
     return (
       <View
         className="flex-1 items-center justify-center px-6"
-        style={{ backgroundColor: colors.background }}
+        style={{ backgroundColor: colors.canvas }}
       >
         <Body>{t('capture.noDevice')}</Body>
       </View>
@@ -203,6 +203,7 @@ export function CaptureScreen() {
         style={{ top: insets.top + 8 }}
         pointerEvents="box-none"
       >
+        <Caption className="mb-2 text-center text-sm text-white/90">{t('capture.prompt')}</Caption>
         <View className="flex-row justify-center gap-2 rounded-full bg-black/50 p-1">
           <Pressable
             testID="capture:mode:video"

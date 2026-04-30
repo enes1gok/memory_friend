@@ -23,7 +23,7 @@ export function RootNavigator() {
       screenOptions={{
         headerStyle: { backgroundColor: colors.surface },
         headerTintColor: colors.textPrimary,
-        contentStyle: { backgroundColor: colors.background },
+        contentStyle: { backgroundColor: colors.canvas },
       }}
     >
       <Stack.Screen name="Onboarding" component={OnboardingNavigator} options={{ headerShown: false }} />

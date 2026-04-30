@@ -15,7 +15,7 @@ export function OnboardingNavigator() {
       initialRouteName="OnboardingGoalName"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: colors.background },
+        contentStyle: { backgroundColor: colors.canvas },
         animation: 'slide_from_right',
       }}
     >

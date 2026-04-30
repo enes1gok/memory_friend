@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
-import { Body, Heading } from '@/components/Typography';
+import { AppCard } from '@/components/AppCard';
 import { SafeScreen } from '@/components/SafeScreen';
+import { ScreenHeader } from '@/components/ScreenHeader';
+import { Body, Caption } from '@/components/Typography';
 import { useAppLanguage } from '@/hooks/useAppLanguage';
 import { nativeNameForLocale } from '@/i18n/appLocales';
 import type { RootStackParamList } from '@/navigation/types';
-import { colors } from '@/theme/colors';
-import { fontFamilies } from '@/theme/fonts';
 
 export function ProfileScreen() {
   const { t } = useTranslation();
@@ -23,45 +23,28 @@ export function ProfileScreen() {
     rootNavigation?.navigate('LanguageSettings');
   }, [rootNavigation]);
 
-  const openModal = useCallback(() => {
-    tabNavigation.navigate('PlaceholderModal');
-  }, [tabNavigation]);
-
   return (
     <SafeScreen testID="profile:screen:root">
-      <View className="flex-1 justify-center px-6">
-        <Heading className="mb-2">{t('screens.profile.title')}</Heading>
-        <Body className="mb-6">{t('screens.profile.placeholder')}</Body>
+      <View className="flex-1 px-4 pt-4">
+        <ScreenHeader title={t('screens.profile.title')} subtitle={t('screens.profile.subtitle')} />
 
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('settings.language.rowA11y', { language: currentLanguageLabel })}
-          testID="profile:language:press"
-          onPress={openLanguageSettings}
-          className="mb-3 flex-row items-center justify-between rounded-xl border border-white/10 bg-surface/80 px-4 py-4 active:opacity-80"
-        >
-          <Body className="font-medium text-slate-100">{t('settings.language.rowLabel')}</Body>
-          <Body className="text-slate-400">{currentLanguageLabel}</Body>
-        </Pressable>
-
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('screens.profile.openModal')}
-          testID="profile:open-modal:press"
-          onPress={openModal}
-          className="rounded-xl bg-accentBlue px-4 py-3 active:opacity-80"
-        >
-          <Text
-            style={{
-              color: colors.textPrimary,
-              fontFamily: fontFamilies.body,
-              fontSize: 16,
-              textAlign: 'center',
-            }}
+        <Caption className="mb-2 px-1 uppercase tracking-wide text-muted">
+          {t('screens.profile.languageSection')}
+        </Caption>
+        <AppCard className="mb-4 p-0">
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.language.rowA11y', { language: currentLanguageLabel })}
+            testID="profile:language:press"
+            onPress={openLanguageSettings}
+            className="flex-row items-center justify-between px-4 py-4 active:opacity-80"
           >
-            {t('screens.profile.openModal')}
-          </Text>
-        </Pressable>
+            <Body className="font-medium text-primary">{t('settings.language.rowLabel')}</Body>
+            <Body className="text-muted">{currentLanguageLabel}</Body>
+          </Pressable>
+        </AppCard>
+
+        <Caption className="px-1 text-center text-muted">memory_friend</Caption>
       </View>
     </SafeScreen>
   );

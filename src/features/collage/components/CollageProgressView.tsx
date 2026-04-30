@@ -45,7 +45,7 @@ export function CollageProgressView({ progress, onCancel }: Props) {
 
   return (
     <View
-      className="flex-1 justify-center bg-[#07070f] px-6"
+      className="flex-1 justify-center bg-canvas px-6"
       style={{ paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }}
       testID="collage:progress:root"
     >

@@ -1,8 +1,12 @@
 import './global.css';
 
 import { DatabaseProvider } from '@nozbe/watermelondb/react';
-import { Inter_400Regular } from '@expo-google-fonts/inter';
-import { Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins';
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+} from '@expo-google-fonts/inter';
+import { Poppins_600SemiBold, Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { I18nextProvider, useTranslation } from 'react-i18next';
@@ -21,7 +25,7 @@ function LoadingShell() {
   return (
     <View
       className="flex-1 items-center justify-center"
-      style={{ backgroundColor: colors.background }}
+      style={{ backgroundColor: colors.canvas }}
       accessibilityLabel={t('common.loading')}
     >
       <ActivityIndicator size="large" color={colors.accentBlue} />
@@ -31,8 +35,11 @@ function LoadingShell() {
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    Poppins_600SemiBold,
     Poppins_700Bold,
     Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
   });
 
   return (

@@ -6,13 +6,28 @@
     "profile": "Profilo"
   },
   "home": {
+    "hero": {
+      "kicker": "Il tuo viaggio"
+    },
+    "checkInCta": "Segna oggi",
+    "checkInHint": "Bastano pochi secondi di video o una foto.",
+    "loading": {
+      "body": "Caricamento obiettivo e serie."
+    },
+    "stats": {
+      "streakLabel": "Serie",
+      "journeyLabel": "Progresso",
+      "journeyHint": "Tempo dall'inizio alla data obiettivo."
+    },
     "noGoal": {
       "title": "Imposta un obiettivo per vedere la tua serie",
-      "body": "Completa l'onboarding con obiettivo e data, poi la home mostrerà la serie e il calendario dell'umore."
+      "body": "Completa l'onboarding con obiettivo e data, poi la home mostrerà la serie e il calendario dell'umore.",
+      "cta": "Inizia configurazione"
     },
     "missingGoal": {
       "title": "Obiettivo non trovato",
-      "body": "Non siamo riusciti a caricare il tuo obiettivo attivo. Prova a impostarne uno nuovo dall'onboarding."
+      "body": "Non siamo riusciti a caricare il tuo obiettivo attivo. Prova a impostarne uno nuovo dall'onboarding.",
+      "cta": "Vai alla configurazione"
     },
     "daysLeft_one": "Manca {{count}} giorno al tuo obiettivo",
     "daysLeft_other": "Mancano {{count}} giorni al tuo obiettivo",
@@ -46,7 +61,8 @@
     }
   },
   "streak": {
-    "dayStreak": "giorni di serie",
+    "dayStreak": "giorni di fila",
+    "dayStreakShort": "giorni",
     "bestStreak": "Miglior serie: {{count}} giorni",
     "flameA11y": "Icona fiamma serie",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "Qui vivrà la cronologia del diario."
     },
     "profile": {
-      "title": "Profilo",
-      "placeholder": "Qui vivranno impostazioni e account.",
-      "openModal": "Apri modale di esempio"
+      "title": "Tu",
+      "subtitle": "Lingua e preferenze.",
+      "languageSection": "Preferenze"
     },
     "placeholderModal": {
       "title": "Modale di esempio",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Passo {{current}} di {{total}}"
+    },
     "goalName": {
       "title": "Qual è il tuo obiettivo?",
       "subtitle": "Basta una riga. Puoi sempre affinarlo dopo.",
@@ -148,6 +167,7 @@
       "openSettings": "Apri impostazioni"
     },
     "noDevice": "Nessuna fotocamera trovata su questo dispositivo.",
+    "prompt": "Un check-in veloce per il tuo futuro te.",
     "mode": {
       "video": "Video",
       "photo": "Foto"
@@ -168,11 +188,13 @@
     "listTitle": "I tuoi momenti",
     "empty": {
       "title": "Ancora nessuna voce",
-      "body": "Quando sei pronto, cattura una clip breve o una foto. Questo spazio si riempirà del tuo viaggio, non di pressione."
+      "body": "Quando sei pronto, cattura una clip breve o una foto. Questo spazio si riempirà del tuo viaggio, non di pressione.",
+      "cta": "Segna ora"
     },
     "noGoal": {
       "title": "Imposta un obiettivo per iniziare",
-      "body": "Quando aggiungi un obiettivo, le voci del diario appariranno qui."
+      "body": "Quando aggiungi un obiettivo, le voci del diario appariranno qui.",
+      "cta": "Inizia configurazione"
     }
   },
   "moods": {

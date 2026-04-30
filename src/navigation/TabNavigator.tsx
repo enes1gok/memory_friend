@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useAiCompanionNudge } from '@/features/ai/hooks/useAiCompanionNudge';
@@ -32,10 +33,13 @@ export function TabNavigator() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.surface,
-          borderTopColor: colors.surface,
+          borderTopColor: 'rgba(255,255,255,0.08)',
+          paddingTop: 6,
+          height: 62,
         },
         tabBarActiveTintColor: activeTint,
         tabBarInactiveTintColor: colors.textMuted,
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
       }}
     >
       <Tab.Screen
@@ -48,17 +52,6 @@ export function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Capture"
-        component={CaptureScreen}
-        options={{
-          tabBarLabel: t('tabs.capture'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle-outline" color={color} size={size} />
-          ),
-          tabBarAccessibilityLabel: t('tabs.capture'),
-        }}
-      />
-      <Tab.Screen
         name="Journal"
         component={JournalScreen}
         options={{
@@ -67,6 +60,34 @@ export function TabNavigator() {
             <Ionicons name="book-outline" color={color} size={size} />
           ),
           tabBarAccessibilityLabel: t('tabs.journal'),
+        }}
+      />
+      <Tab.Screen
+        name="Capture"
+        component={CaptureScreen}
+        options={{
+          tabBarLabel: t('tabs.capture'),
+          tabBarIcon: ({ focused }) => (
+            <View
+              className="items-center justify-center rounded-full"
+              style={{
+                width: 58,
+                height: 58,
+                marginTop: -26,
+                backgroundColor: focused ? activeTint : colors.accentOrange,
+                borderWidth: 3,
+                borderColor: colors.canvas,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.35,
+                shadowRadius: 6,
+                elevation: 8,
+              }}
+            >
+              <Ionicons name="add" color={colors.textPrimary} size={32} />
+            </View>
+          ),
+          tabBarAccessibilityLabel: t('tabs.capture'),
         }}
       />
       <Tab.Screen

@@ -6,13 +6,28 @@
     "profile": "个人资料"
   },
   "home": {
+    "hero": {
+      "kicker": "你的旅程"
+    },
+    "checkInCta": "今日打卡",
+    "checkInHint": "几秒视频或一张照片都可以。",
+    "loading": {
+      "body": "正在加载目标与连续记录。"
+    },
+    "stats": {
+      "streakLabel": "连续",
+      "journeyLabel": "进度",
+      "journeyHint": "从开始日期到目标日的时间进度。"
+    },
     "noGoal": {
       "title": "设定目标以查看连续记录",
-      "body": "完成引导并设置目标与截止日期后，首页将显示你的连续记录与心情日历。"
+      "body": "完成引导并设置目标与截止日期后，首页将显示你的连续记录与心情日历。",
+      "cta": "开始设置"
     },
     "missingGoal": {
       "title": "未找到目标",
-      "body": "无法加载你的当前目标。请尝试在引导流程中重新设置。"
+      "body": "无法加载你的当前目标。请尝试在引导流程中重新设置。",
+      "cta": "前往设置"
     },
     "daysLeft_one": "距离目标还有 {{count}} 天",
     "daysLeft_other": "距离目标还有 {{count}} 天",
@@ -47,6 +62,7 @@
   },
   "streak": {
     "dayStreak": "天连续",
+    "dayStreakShort": "天",
     "bestStreak": "最佳连续：{{count}} 天",
     "flameA11y": "连续火焰图标",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "你的日记历史将显示在这里。"
     },
     "profile": {
-      "title": "个人资料",
-      "placeholder": "设置与账户将显示在这里。",
-      "openModal": "打开示例弹窗"
+      "title": "你",
+      "subtitle": "语言与偏好。",
+      "languageSection": "偏好"
     },
     "placeholderModal": {
       "title": "示例弹窗",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "第 {{current}} 步，共 {{total}} 步"
+    },
     "goalName": {
       "title": "你的目标是什么？",
       "subtitle": "一句话就够。你随时可以再完善。",
@@ -148,6 +167,7 @@
       "openSettings": "打开设置"
     },
     "noDevice": "此设备未找到相机。",
+    "prompt": "给未来的自己一个快速记录。",
     "mode": {
       "video": "视频",
       "photo": "照片"
@@ -168,11 +188,13 @@
     "listTitle": "你的瞬间",
     "empty": {
       "title": "还没有记录",
-      "body": "准备好时，拍一段短视频或一张照片。这里会填满你的旅程，而不是压力。"
+      "body": "准备好时，拍一段短视频或一张照片。这里会填满你的旅程，而不是压力。",
+      "cta": "立即打卡"
     },
     "noGoal": {
       "title": "先设定目标再开始",
-      "body": "添加目标后，你的日记记录会显示在这里。"
+      "body": "添加目标后，你的日记记录会显示在这里。",
+      "cta": "开始设置"
     }
   },
   "moods": {

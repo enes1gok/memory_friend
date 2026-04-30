@@ -3,6 +3,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      'nativewind/babel',
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       [
         'module-resolver',

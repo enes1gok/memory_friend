@@ -6,8 +6,11 @@ module.exports = {
     extend: {
       colors: {
         canvas: '#07070f',
+        background: '#07070f',
         surface: '#0f0f1a',
+        surfaceElevated: '#151528',
         primary: '#f5f5f5',
+        secondary: '#c8c8d8',
         muted: '#8888a0',
         accentBlue: '#3b82f6',
         accentOrange: '#f97316',

@@ -66,7 +66,7 @@ export function HypeManModal({ visible, onDismiss, activeGoalId }: Props) {
     >
       <View
         className="flex-1 justify-between px-4 pt-14 pb-10"
-        style={{ backgroundColor: colors.background, minHeight: height }}
+        style={{ backgroundColor: colors.canvas, minHeight: height }}
       >
         <View>
           <Heading className="mb-2 text-2xl">{t('ai.hypeMan.title')}</Heading>

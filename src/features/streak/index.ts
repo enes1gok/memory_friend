@@ -7,6 +7,7 @@ export { MOOD_HEATMAP_COLORS, heatmapColorForMoodTag } from './constants/moodHea
 export { BadgeRow } from './components/BadgeRow';
 export { CelebrationOverlay } from './components/CelebrationOverlay';
 export { EmotionHeatmap } from './components/EmotionHeatmap';
+export { JourneyProgressCard } from './components/JourneyProgressCard';
 export { StreakCounter } from './components/StreakCounter';
 
 export { useActiveGoal } from './hooks/useActiveGoal';

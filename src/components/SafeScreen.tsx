@@ -15,7 +15,7 @@ export function SafeScreen({ children, style, testID }: SafeScreenProps) {
     <SafeAreaView
       testID={testID}
       edges={['top', 'right', 'bottom', 'left']}
-      style={[{ flex: 1, backgroundColor: colors.background }, style]}
+      style={[{ flex: 1, backgroundColor: colors.canvas }, style]}
     >
       {children}
     </SafeAreaView>

@@ -6,13 +6,28 @@
     "profile": "Profil"
   },
   "home": {
+    "hero": {
+      "kicker": "Yolculuğun"
+    },
+    "checkInCta": "Bugün işaretle",
+    "checkInHint": "Birkaç saniyelik video veya foto yeter.",
+    "loading": {
+      "body": "Hedefin ve son serin yükleniyor."
+    },
+    "stats": {
+      "streakLabel": "Seri",
+      "journeyLabel": "İlerleme",
+      "journeyHint": "Başlangıç tarihinden hedefe kadar geçen süre."
+    },
     "noGoal": {
       "title": "Serini görmek için bir hedef belirle",
-      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla; ardından ana ekranında serin ve ruh hali takvimin görünür."
+      "body": "Tanıtımı bir hedef ve hedef tarihle tamamla; ardından ana ekranında serin ve ruh hali takvimin görünür.",
+      "cta": "Kuruluma başla"
     },
     "missingGoal": {
       "title": "Hedef bulunamadı",
-      "body": "Aktif hedefini yükleyemedik. Tanıtımdan yeni bir hedef deneyebilirsin."
+      "body": "Aktif hedefini yükleyemedik. Tanıtımdan yeni bir hedef deneyebilirsin.",
+      "cta": "Kuruluma git"
     },
     "daysLeft_one": "Hedefine {{count}} gün kaldı",
     "daysLeft_other": "Hedefine {{count}} gün kaldı",
@@ -47,6 +62,7 @@
   },
   "streak": {
     "dayStreak": "günlük seri",
+    "dayStreakShort": "gün",
     "bestStreak": "En iyi seri: {{count}} gün",
     "flameA11y": "Seri alev simgesi",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "Günlük geçmişin burada olacak."
     },
     "profile": {
-      "title": "Profil",
-      "placeholder": "Ayarlar ve hesap burada olacak.",
-      "openModal": "Örnek modalı aç"
+      "title": "Sen",
+      "subtitle": "Dil ve tercihler.",
+      "languageSection": "Tercihler"
     },
     "placeholderModal": {
       "title": "Örnek modal",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Adım {{current}} / {{total}}"
+    },
     "goalName": {
       "title": "Hedefin ne?",
       "subtitle": "Bir satır yeter. Sonra her zaman netleştirebilirsin.",
@@ -148,6 +167,7 @@
       "openSettings": "Ayarları aç"
     },
     "noDevice": "Bu cihazda kamera bulunamadı.",
+    "prompt": "Gelecekteki benliğin için hızlı bir işaret.",
     "mode": {
       "video": "Video",
       "photo": "Fotoğraf"
@@ -168,11 +188,13 @@
     "listTitle": "Anların",
     "empty": {
       "title": "Henüz kayıt yok",
-      "body": "Hazır olduğunda kısa bir klip veya fotoğraf yakala. Bu alan yolculuğunla dolar, baskıyla değil."
+      "body": "Hazır olduğunda kısa bir klip veya fotoğraf yakala. Bu alan yolculuğunla dolar, baskıyla değil.",
+      "cta": "Şimdi işaretle"
     },
     "noGoal": {
       "title": "Başlamak için bir hedef belirle",
-      "body": "Bir hedef eklediğinde günlük kayıtların burada görünür."
+      "body": "Bir hedef eklediğinde günlük kayıtların burada görünür.",
+      "cta": "Kuruluma başla"
     }
   },
   "moods": {

@@ -6,13 +6,28 @@
     "profile": "Profil"
   },
   "home": {
+    "hero": {
+      "kicker": "Ton parcours"
+    },
+    "checkInCta": "Pointe aujourd'hui",
+    "checkInHint": "Quelques secondes en vidéo ou une photo suffisent.",
+    "loading": {
+      "body": "Chargement de ton objectif et de ta série."
+    },
+    "stats": {
+      "streakLabel": "Série",
+      "journeyLabel": "Avancement",
+      "journeyHint": "Temps entre ton début et la date cible."
+    },
     "noGoal": {
       "title": "Définis un objectif pour voir ta série",
-      "body": "Termine l'introduction avec un objectif et une date cible, puis l'accueil affichera ta série et ton calendrier d'humeur."
+      "body": "Termine l'introduction avec un objectif et une date cible, puis l'accueil affichera ta série et ton calendrier d'humeur.",
+      "cta": "Commencer la configuration"
     },
     "missingGoal": {
       "title": "Objectif introuvable",
-      "body": "Nous n'avons pas pu charger ton objectif actif. Essaie d'en définir un nouveau depuis l'introduction."
+      "body": "Nous n'avons pas pu charger ton objectif actif. Essaie d'en définir un nouveau depuis l'introduction.",
+      "cta": "Aller à la configuration"
     },
     "daysLeft_one": "Il reste {{count}} jour avant ton objectif",
     "daysLeft_other": "Il reste {{count}} jours avant ton objectif",
@@ -47,6 +62,7 @@
   },
   "streak": {
     "dayStreak": "jours de série",
+    "dayStreakShort": "jours",
     "bestStreak": "Meilleure série : {{count}} jours",
     "flameA11y": "Icône flamme de série",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "L'historique du journal sera ici."
     },
     "profile": {
-      "title": "Profil",
-      "placeholder": "Réglages et compte seront ici.",
-      "openModal": "Ouvrir la modale d'exemple"
+      "title": "Toi",
+      "subtitle": "Langue et préférences.",
+      "languageSection": "Préférences"
     },
     "placeholderModal": {
       "title": "Modale d'exemple",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Étape {{current}} sur {{total}}"
+    },
     "goalName": {
       "title": "Quel est ton objectif ?",
       "subtitle": "Une ligne suffit. Tu pourras l'affiner plus tard.",
@@ -148,6 +167,7 @@
       "openSettings": "Ouvrir les réglages"
     },
     "noDevice": "Aucune caméra trouvée sur cet appareil.",
+    "prompt": "Un petit check-in pour ton futur toi.",
     "mode": {
       "video": "Vidéo",
       "photo": "Photo"
@@ -168,11 +188,13 @@
     "listTitle": "Tes moments",
     "empty": {
       "title": "Pas encore d'entrées",
-      "body": "Quand tu es prêt, capture un court clip ou une photo. Cet espace se remplira de ton parcours, pas de pression."
+      "body": "Quand tu es prêt, capture un court clip ou une photo. Cet espace se remplira de ton parcours, pas de pression.",
+      "cta": "Pointer maintenant"
     },
     "noGoal": {
       "title": "Définis un objectif pour commencer",
-      "body": "Une fois l'objectif ajouté, tes entrées du journal apparaîtront ici."
+      "body": "Une fois l'objectif ajouté, tes entrées du journal apparaîtront ici.",
+      "cta": "Commencer la configuration"
     }
   },
   "moods": {

@@ -6,13 +6,28 @@
     "profile": "Profil"
   },
   "home": {
+    "hero": {
+      "kicker": "Deine Reise"
+    },
+    "checkInCta": "Heute eintragen",
+    "checkInHint": "Ein paar Sekunden Video oder ein Foto reichen.",
+    "loading": {
+      "body": "Wir laden Ziel und Serie."
+    },
+    "stats": {
+      "streakLabel": "Serie",
+      "journeyLabel": "Fortschritt",
+      "journeyHint": "Zeit vom Start bis zum Zieldatum."
+    },
     "noGoal": {
       "title": "Lege ein Ziel fest, um deine Serie zu sehen",
-      "body": "Schließe die Einführung mit Ziel und Zieldatum ab, dann zeigt dein Startbildschirm Serie und Stimmungskalender."
+      "body": "Schließe die Einführung mit Ziel und Zieldatum ab, dann zeigt dein Startbildschirm Serie und Stimmungskalender.",
+      "cta": "Einrichtung starten"
     },
     "missingGoal": {
       "title": "Ziel nicht gefunden",
-      "body": "Wir konnten dein aktives Ziel nicht laden. Versuche in der Einführung ein neues Ziel zu setzen."
+      "body": "Wir konnten dein aktives Ziel nicht laden. Versuche in der Einführung ein neues Ziel zu setzen.",
+      "cta": "Zur Einrichtung"
     },
     "daysLeft_one": "Noch {{count}} Tag bis zu deinem Ziel",
     "daysLeft_other": "Noch {{count}} Tage bis zu deinem Ziel",
@@ -46,7 +61,8 @@
     }
   },
   "streak": {
-    "dayStreak": "Tage in Serie",
+    "dayStreak": "Tage in Folge",
+    "dayStreakShort": "Tage",
     "bestStreak": "Beste Serie: {{count}} Tage",
     "flameA11y": "Serien-Flammen-Symbol",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "Deine Tagebuch-Historie wird hier erscheinen."
     },
     "profile": {
-      "title": "Profil",
-      "placeholder": "Einstellungen und Konto werden hier erscheinen.",
-      "openModal": "Beispiel-Modal öffnen"
+      "title": "Du",
+      "subtitle": "Sprache und Einstellungen.",
+      "languageSection": "Einstellungen"
     },
     "placeholderModal": {
       "title": "Beispiel-Modal",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Schritt {{current}} von {{total}}"
+    },
     "goalName": {
       "title": "Was ist dein Ziel?",
       "subtitle": "Eine Zeile reicht. Du kannst es später verfeinern.",
@@ -148,6 +167,7 @@
       "openSettings": "Einstellungen öffnen"
     },
     "noDevice": "Auf diesem Gerät wurde keine Kamera gefunden.",
+    "prompt": "Schneller Check-in für dein zukünftiges Ich.",
     "mode": {
       "video": "Video",
       "photo": "Foto"
@@ -168,11 +188,13 @@
     "listTitle": "Deine Momente",
     "empty": {
       "title": "Noch keine Einträge",
-      "body": "Wenn du bereit bist, nimm einen kurzen Clip oder ein Foto auf. Dieser Raum füllt sich mit deiner Reise, nicht mit Druck."
+      "body": "Wenn du bereit bist, nimm einen kurzen Clip oder ein Foto auf. Dieser Raum füllt sich mit deiner Reise, nicht mit Druck.",
+      "cta": "Jetzt eintragen"
     },
     "noGoal": {
       "title": "Lege ein Ziel fest, um zu starten",
-      "body": "Sobald du ein Ziel hinzufügst, erscheinen deine Tagebuch-Einträge hier."
+      "body": "Sobald du ein Ziel hinzufügst, erscheinen deine Tagebuch-Einträge hier.",
+      "cta": "Einrichtung starten"
     }
   },
   "moods": {

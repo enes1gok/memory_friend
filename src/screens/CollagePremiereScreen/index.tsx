@@ -79,7 +79,7 @@ export function CollagePremiereScreen() {
           : t('collage.error.assembly');
     return (
       <View
-        className="flex-1 justify-center bg-[#07070f] px-6"
+        className="flex-1 justify-center bg-canvas px-6"
         style={{ paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }}
         testID="collage:premiere:error"
       >

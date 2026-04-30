@@ -6,13 +6,28 @@
     "profile": "Profile"
   },
   "home": {
+    "hero": {
+      "kicker": "Your journey"
+    },
+    "checkInCta": "Check in today",
+    "checkInHint": "A few seconds of video or a photo counts.",
+    "loading": {
+      "body": "Pulling up your goal and latest streak."
+    },
+    "stats": {
+      "streakLabel": "Streak",
+      "journeyLabel": "Progress",
+      "journeyHint": "Time from your start date to target."
+    },
     "noGoal": {
       "title": "Set a goal to see your streak",
-      "body": "Finish onboarding with a goal and target date, then your home dashboard will show your streak and mood calendar."
+      "body": "Finish onboarding with a goal and target date, then your home dashboard will show your streak and mood calendar.",
+      "cta": "Start setup"
     },
     "missingGoal": {
       "title": "Goal not found",
-      "body": "We could not load your active goal. Try setting a new goal from onboarding."
+      "body": "We could not load your active goal. Try setting a new goal from onboarding.",
+      "cta": "Go to setup"
     },
     "daysLeft_one": "{{count}} day left until your target",
     "daysLeft_other": "{{count}} days left until your target",
@@ -48,6 +63,7 @@
   "streak": {
     "dayStreak": "day streak",
     "bestStreak": "Best streak: {{count}} days",
+    "dayStreakShort": "days",
     "flameA11y": "Streak flame icon",
     "accessibility": {
       "counter": "Current streak: {{count}} days"
@@ -110,9 +126,9 @@
       "placeholder": "Your journal history will live here."
     },
     "profile": {
-      "title": "Profile",
-      "placeholder": "Settings and account will live here.",
-      "openModal": "Open sample modal"
+      "title": "You",
+      "subtitle": "Language and preferences.",
+      "languageSection": "Preferences"
     },
     "placeholderModal": {
       "title": "Sample modal",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Step {{current}} of {{total}}"
+    },
     "goalName": {
       "title": "What is your goal?",
       "subtitle": "One line is enough. You can always refine it later.",
@@ -148,6 +167,7 @@
       "openSettings": "Open settings"
     },
     "noDevice": "No camera found on this device.",
+    "prompt": "Quick check-in for your future self.",
     "mode": {
       "video": "Video",
       "photo": "Photo"
@@ -168,11 +188,13 @@
     "listTitle": "Your moments",
     "empty": {
       "title": "No entries yet",
-      "body": "When you are ready, capture a short clip or photo. This space will fill with your journey, not pressure."
+      "body": "When you are ready, capture a short clip or photo. This space will fill with your journey, not pressure.",
+      "cta": "Check in now"
     },
     "noGoal": {
       "title": "Set a goal to begin",
-      "body": "Once you add a goal, your journal entries will show up here."
+      "body": "Once you add a goal, your journal entries will show up here.",
+      "cta": "Start setup"
     }
   },
   "moods": {

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, View } from 'react-native';
 
-import { Body, Heading } from '@/components/Typography';
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { Body, Caption, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
 import type { OnboardingStackParamList } from '@/navigation/types';
 import { hapticLight } from '@/utils/haptics';
@@ -39,8 +40,11 @@ export function TargetDateScreen({ navigation, route }: Props) {
   return (
     <SafeScreen testID="onboarding:target-date:root">
       <View className="flex-1 justify-center px-6">
+        <Caption className="mb-6 text-center text-muted">
+          {t('onboarding.step.label', { current: 2, total: 3 })}
+        </Caption>
         <Heading className="mb-2">{t('onboarding.targetDate.title')}</Heading>
-        <Body className="mb-6 text-slate-400">{t('onboarding.targetDate.subtitle')}</Body>
+        <Body className="mb-6 text-muted">{t('onboarding.targetDate.subtitle')}</Body>
 
         {Platform.OS === 'android' ? (
           <>
@@ -49,9 +53,9 @@ export function TargetDateScreen({ navigation, route }: Props) {
               onPress={() => setShowPicker(true)}
               accessibilityRole="button"
               accessibilityLabel={t('onboarding.targetDate.openPicker')}
-              className="mb-6 rounded-xl border border-slate-700 bg-slate-900/80 py-4"
+              className="mb-6 rounded-xl border border-white/15 bg-surfaceElevated/90 py-4"
             >
-              <Body className="text-center text-white">
+              <Body className="text-center text-primary">
                 {targetDate.toLocaleDateString()}
               </Body>
             </Pressable>
@@ -87,15 +91,13 @@ export function TargetDateScreen({ navigation, route }: Props) {
           </View>
         )}
 
-        <Pressable
+        <PrimaryButton
           testID="onboarding:target-date:next"
           onPress={onNext}
-          accessibilityRole="button"
           accessibilityLabel={t('onboarding.targetDate.next')}
-          className="items-center rounded-xl bg-blue-600 py-4"
         >
-          <Body className="font-semibold text-white">{t('onboarding.targetDate.next')}</Body>
-        </Pressable>
+          {t('onboarding.targetDate.next')}
+        </PrimaryButton>
       </View>
     </SafeScreen>
   );

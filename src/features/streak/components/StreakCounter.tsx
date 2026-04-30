@@ -1,15 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { Body, Heading } from '@/components/Typography';
+import { AppCard } from '@/components/AppCard';
+import { Body, Caption, Heading } from '@/components/Typography';
 
 import { useStreakState } from '../hooks/useStreakState';
 
 type Props = {
   activeGoalId: string | null;
+  /** Narrow card for dashboard stats row */
+  compact?: boolean;
 };
 
-export function StreakCounter({ activeGoalId }: Props) {
+export function StreakCounter({ activeGoalId, compact = false }: Props) {
   const { t } = useTranslation();
   const { currentStreak, longestStreak, isHydrating } = useStreakState(activeGoalId);
 
@@ -17,29 +20,50 @@ export function StreakCounter({ activeGoalId }: Props) {
     return null;
   }
 
+  if (compact) {
+    return (
+      <AppCard
+        testID="home:streak:counter"
+        className="flex-1 py-3"
+        accessibilityRole="summary"
+        accessibilityLabel={t('streak.accessibility.counter', { count: currentStreak })}
+      >
+        <Caption className="mb-1 text-xs uppercase tracking-wide text-muted">
+          {t('home.stats.streakLabel')}
+        </Caption>
+        <View className="flex-row items-baseline gap-1">
+          <Heading className="text-3xl font-bold">{isHydrating ? '…' : currentStreak}</Heading>
+          <Caption className="text-muted">{t('streak.dayStreakShort')}</Caption>
+        </View>
+        {longestStreak > 0 ? (
+          <Caption className="mt-2 text-xs text-muted">
+            {t('streak.bestStreak', { count: longestStreak })}
+          </Caption>
+        ) : null}
+      </AppCard>
+    );
+  }
+
   return (
-    <View
+    <AppCard
       testID="home:streak:counter"
-      className="rounded-2xl border border-white/10 bg-surface/80 px-4 py-4"
       accessibilityRole="summary"
       accessibilityLabel={t('streak.accessibility.counter', { count: currentStreak })}
     >
       <View className="flex-row items-center gap-3">
-        <Body className="text-3xl" accessibilityLabel={t('streak.flameA11y')}>
+        <Body className="text-2xl" accessibilityLabel={t('streak.flameA11y')}>
           🔥
         </Body>
         <View className="flex-1">
           <Heading className="text-3xl font-bold">
             {isHydrating ? '…' : currentStreak}
           </Heading>
-          <Body className="text-slate-400">{t('streak.dayStreak')}</Body>
+          <Body className="text-muted">{t('streak.dayStreak')}</Body>
         </View>
       </View>
       {longestStreak > 0 ? (
-        <Body className="mt-2 text-sm text-slate-500">
-          {t('streak.bestStreak', { count: longestStreak })}
-        </Body>
+        <Caption className="mt-2 text-muted">{t('streak.bestStreak', { count: longestStreak })}</Caption>
       ) : null}
-    </View>
+    </AppCard>
   );
 }

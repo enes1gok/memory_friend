@@ -6,13 +6,28 @@
     "profile": "Perfil"
   },
   "home": {
+    "hero": {
+      "kicker": "Tu camino"
+    },
+    "checkInCta": "Registrar hoy",
+    "checkInHint": "Valen unos segundos de video o una foto.",
+    "loading": {
+      "body": "Cargando tu objetivo y tu racha."
+    },
+    "stats": {
+      "streakLabel": "Racha",
+      "journeyLabel": "Progreso",
+      "journeyHint": "Tiempo desde tu inicio hasta la meta."
+    },
     "noGoal": {
       "title": "Define un objetivo para ver tu racha",
-      "body": "Termina la introducción con un objetivo y una fecha meta; entonces tu inicio mostrará tu racha y tu calendario de ánimo."
+      "body": "Termina la introducción con un objetivo y una fecha meta; entonces tu inicio mostrará tu racha y tu calendario de ánimo.",
+      "cta": "Empezar configuración"
     },
     "missingGoal": {
       "title": "Objetivo no encontrado",
-      "body": "No pudimos cargar tu objetivo activo. Prueba a definir uno nuevo en la introducción."
+      "body": "No pudimos cargar tu objetivo activo. Prueba a definir uno nuevo en la introducción.",
+      "cta": "Ir a configuración"
     },
     "daysLeft_one": "Queda {{count}} día para tu meta",
     "daysLeft_other": "Quedan {{count}} días para tu meta",
@@ -47,6 +62,7 @@
   },
   "streak": {
     "dayStreak": "días de racha",
+    "dayStreakShort": "días",
     "bestStreak": "Mejor racha: {{count}} días",
     "flameA11y": "Icono de llama de racha",
     "accessibility": {
@@ -110,9 +126,9 @@
       "placeholder": "Tu historial del diario estará aquí."
     },
     "profile": {
-      "title": "Perfil",
-      "placeholder": "Ajustes y cuenta estarán aquí.",
-      "openModal": "Abrir modal de ejemplo"
+      "title": "Tú",
+      "subtitle": "Idioma y preferencias.",
+      "languageSection": "Preferencias"
     },
     "placeholderModal": {
       "title": "Modal de ejemplo",
@@ -120,6 +136,9 @@
     }
   },
   "onboarding": {
+    "step": {
+      "label": "Paso {{current}} de {{total}}"
+    },
     "goalName": {
       "title": "¿Cuál es tu objetivo?",
       "subtitle": "Una línea basta. Siempre puedes afinarlo después.",
@@ -148,6 +167,7 @@
       "openSettings": "Abrir ajustes"
     },
     "noDevice": "No se encontró cámara en este dispositivo.",
+    "prompt": "Un check-in rápido para tu yo futuro.",
     "mode": {
       "video": "Video",
       "photo": "Foto"
@@ -168,11 +188,13 @@
     "listTitle": "Tus momentos",
     "empty": {
       "title": "Aún no hay entradas",
-      "body": "Cuando estés listo, captura un clip corto o una foto. Este espacio se llenará con tu viaje, no con presión."
+      "body": "Cuando estés listo, captura un clip corto o una foto. Este espacio se llenará con tu viaje, no con presión.",
+      "cta": "Registrar ahora"
     },
     "noGoal": {
       "title": "Define un objetivo para empezar",
-      "body": "Cuando añadas un objetivo, tus entradas del diario aparecerán aquí."
+      "body": "Cuando añadas un objetivo, tus entradas del diario aparecerán aquí.",
+      "cta": "Empezar configuración"
     }
   },
   "moods": {

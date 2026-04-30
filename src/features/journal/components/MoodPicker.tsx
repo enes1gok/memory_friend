@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
 
-import { Body, Heading } from '@/components/Typography';
+import { Body, Caption, Heading } from '@/components/Typography';
 import { hapticSelection, hapticSuccess } from '@/utils/haptics';
 
 import { MOOD_OPTIONS } from '../constants/moods';
@@ -37,11 +37,11 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
         <Pressable className="flex-1" onPress={onDismiss} accessibilityRole="button" />
         <Animated.View
           entering={FadeInUp.duration(320)}
-          className="rounded-t-3xl bg-slate-900 px-4 pb-10 pt-6"
+          className="rounded-t-3xl bg-surface px-4 pb-10 pt-6"
         >
           <Heading className="mb-1 text-center text-xl">{t('capture.mood.title')}</Heading>
-          <Body className="mb-6 text-center text-slate-400">{t('capture.mood.subtitle')}</Body>
-          <View className="flex-row flex-wrap justify-center gap-3">
+          <Body className="mb-6 text-center text-muted">{t('capture.mood.subtitle')}</Body>
+          <View className="flex-row flex-wrap justify-center" style={{ gap: 10 }}>
             {MOOD_OPTIONS.map((m) => (
               <Pressable
                 key={m.id}
@@ -54,9 +54,12 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t(`moods.${m.id}`)}
-                className="h-16 w-[22%] items-center justify-center rounded-2xl bg-slate-800"
+                className="min-w-[30%] max-w-[46%] flex-1 flex-row items-center gap-2 rounded-2xl border border-white/10 bg-surfaceElevated px-3 py-3"
               >
-                <Text className="text-3xl">{m.emoji}</Text>
+                <Text className="text-2xl">{m.emoji}</Text>
+                <Caption className="flex-1 text-sm text-secondary" numberOfLines={2}>
+                  {t(`moods.${m.id}`)}
+                </Caption>
               </Pressable>
             ))}
           </View>

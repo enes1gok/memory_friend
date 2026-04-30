@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 
-import { Body, Heading } from '@/components/Typography';
+import { AppCard } from '@/components/AppCard';
+import { Body, Caption, Heading } from '@/components/Typography';
 
 import {
   BADGE_DISPLAY,
@@ -32,20 +33,19 @@ export function BadgeRow({ activeGoalId }: Props) {
   );
 
   return (
-    <View testID="home:badges:row" className="rounded-2xl border border-white/10 bg-surface/80 px-4 py-4">
+    <AppCard testID="home:badges:row">
       <Heading className="mb-1 text-lg">{t('badges.title')}</Heading>
-      <Body className="mb-3 text-sm text-slate-400">{t('badges.subtitle')}</Body>
+      <Caption className="mb-3 text-sm">{t('badges.subtitle')}</Caption>
 
       {isHydrating ? (
-        <Body className="text-slate-500">{t('common.loading')}</Body>
+        <Body className="text-muted">{t('common.loading')}</Body>
       ) : (
         <FlatList
           horizontal
           data={items}
           keyExtractor={(it) => it.id}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 12 }}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             const def = BADGE_DISPLAY[item.id];
             const earned = item.kind === 'earned';
             return (
@@ -57,22 +57,22 @@ export function BadgeRow({ activeGoalId }: Props) {
                     ? t('badges.accessibility.earned', { name: t(def.nameKey) })
                     : t('badges.accessibility.locked', { name: t(def.nameKey) })
                 }
-                className={`min-w-[88px] items-center rounded-xl border px-3 py-3 ${
-                  earned ? 'border-orange-500/40 bg-orange-500/10' : 'border-white/10 bg-black/20 opacity-50'
+                className={`min-w-[88px] items-center rounded-xl border px-3 py-3 ${index < items.length - 1 ? 'mr-3' : ''} ${
+                  earned ? 'border-accentOrange/40 bg-accentOrange/10' : 'border-white/10 bg-black/25 opacity-55'
                 }`}
               >
                 <Body className="mb-1 text-2xl">{def.emoji}</Body>
-                <Body
-                  className={`text-center text-xs font-semibold ${earned ? 'text-white' : 'text-slate-500'}`}
+                <Caption
+                  className={`text-center text-xs ${earned ? 'text-primary' : 'text-muted'}`}
                   numberOfLines={2}
                 >
                   {t(def.nameKey)}
-                </Body>
+                </Caption>
               </Pressable>
             );
           }}
         />
       )}
-    </View>
+    </AppCard>
   );
 }

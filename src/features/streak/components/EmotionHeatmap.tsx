@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { ScrollView, View, useWindowDimensions } from 'react-native';
 
-import { Body, Heading } from '@/components/Typography';
+import { AppCard } from '@/components/AppCard';
+import { Body, Caption, Heading } from '@/components/Typography';
 import { MOOD_OPTIONS, type MoodTagId } from '@/features/journal/constants/moods';
 
 import { heatmapColorForMoodTag, MOOD_HEATMAP_COLORS } from '../constants/moodHeatmapColors';
@@ -12,11 +13,12 @@ type Props = {
   activeGoalId: string | null;
 };
 
-const CELL = 11;
-const GAP = 3;
+const CELL_GAP = 3;
+const MIN_CELL = 9;
 
 export function EmotionHeatmap({ activeGoalId }: Props) {
   const { t } = useTranslation();
+  const { width: windowWidth } = useWindowDimensions();
   const dayToMood = useHeatmapDayMoods(activeGoalId);
   const grid = buildHeatmapGrid();
 
@@ -24,18 +26,37 @@ export function EmotionHeatmap({ activeGoalId }: Props) {
     return null;
   }
 
-  return (
-    <View
-      testID="home:heatmap:root"
-      className="rounded-2xl border border-white/10 bg-surface/80 px-4 py-4"
-      accessibilityRole="none"
-    >
-      <Heading className="mb-1 text-lg">{t('heatmap.title')}</Heading>
-      <Body className="mb-3 text-sm text-slate-400">{t('heatmap.subtitle')}</Body>
+  /** Screen horizontal padding (px-4) + card padding */
+  const horizontalMargin = 32 + 32;
+  const available = Math.max(200, windowWidth - horizontalMargin);
+  const rawCell = Math.floor(
+    (available - (HEATMAP_NUM_WEEKS - 1) * CELL_GAP) / HEATMAP_NUM_WEEKS,
+  );
+  const cell = Math.max(MIN_CELL, Math.min(12, rawCell));
 
-      <View className="flex-row" style={{ gap: GAP }}>
+  return (
+    <AppCard testID="home:heatmap:root" accessibilityRole="none">
+      <Heading className="mb-1 text-lg">{t('heatmap.title')}</Heading>
+      <Body className="mb-3 text-sm text-muted">{t('heatmap.subtitle')}</Body>
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          flexDirection: 'row',
+          paddingVertical: 4,
+        }}
+        accessibilityRole="none"
+      >
         {Array.from({ length: grid.columns }, (_, col) => (
-          <View key={col} className="flex-col" style={{ gap: GAP }}>
+          <View
+            key={col}
+            style={{
+              width: cell,
+              marginRight: col < grid.columns - 1 ? CELL_GAP : 0,
+              flexDirection: 'column',
+            }}
+          >
             {Array.from({ length: HEATMAP_ROWS }, (_, row) => {
               const { dateIso, isFuture } = grid.getCell(col, row);
               const mood = dayToMood.get(dateIso);
@@ -44,18 +65,19 @@ export function EmotionHeatmap({ activeGoalId }: Props) {
                 : mood
                   ? heatmapColorForMoodTag(mood)
                   : '#1e293b';
-              const border = isFuture ? 'border border-white/5' : '';
 
               return (
                 <View
                   key={`${col}-${row}`}
                   style={{
-                    width: CELL,
-                    height: CELL,
+                    width: cell,
+                    height: cell,
+                    marginBottom: row < HEATMAP_ROWS - 1 ? CELL_GAP : 0,
                     borderRadius: 2,
-                    backgroundColor: isFuture ? 'rgba(255,255,255,0.04)' : bg,
+                    backgroundColor: isFuture ? 'rgba(255,255,255,0.06)' : bg,
+                    borderWidth: isFuture ? 1 : 0,
+                    borderColor: 'rgba(255,255,255,0.08)',
                   }}
-                  className={border}
                   accessibilityLabel={t('heatmap.cellA11y', {
                     date: dateIso,
                     mood: mood ? t(`moods.${mood as MoodTagId}`) : t('heatmap.noEntry'),
@@ -65,11 +87,11 @@ export function EmotionHeatmap({ activeGoalId }: Props) {
             })}
           </View>
         ))}
-      </View>
+      </ScrollView>
 
-      <View className="mt-4 flex-row flex-wrap gap-x-3 gap-y-2">
+      <View className="mt-4 flex-row flex-wrap" style={{ gap: 10 }}>
         {MOOD_OPTIONS.map((m) => (
-          <View key={m.id} className="flex-row items-center gap-1.5">
+          <View key={m.id} className="flex-row items-center" style={{ gap: 6 }}>
             <View
               style={{
                 width: 10,
@@ -80,14 +102,14 @@ export function EmotionHeatmap({ activeGoalId }: Props) {
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
             />
-            <Body className="text-xs text-slate-400">{t(`moods.${m.id}`)}</Body>
+            <Caption className="text-xs text-muted">{t(`moods.${m.id}`)}</Caption>
           </View>
         ))}
       </View>
 
-      <Body className="mt-2 text-xs text-slate-600">
+      <Caption className="mt-3 text-xs opacity-80">
         {t('heatmap.weeksShown', { count: HEATMAP_NUM_WEEKS })}
-      </Body>
-    </View>
+      </Caption>
+    </AppCard>
   );
 }

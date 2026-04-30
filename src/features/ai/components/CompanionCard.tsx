@@ -2,8 +2,8 @@ import { Q } from '@nozbe/watermelondb';
 import { useDatabase } from '@nozbe/watermelondb/react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
 
+import { AppCard } from '@/components/AppCard';
 import { Body, Heading } from '@/components/Typography';
 import type { AiEnrichment } from '@/models/AiEnrichment';
 import type { JournalEntry } from '@/models/JournalEntry';
@@ -54,13 +54,9 @@ export function CompanionCard({ activeGoalId }: Props) {
   }
 
   return (
-    <View
-      testID="home:ai:companion:card"
-      className="rounded-2xl border border-blue-500/30 bg-blue-500/10 px-4 py-4"
-      accessibilityLabel={`${t('ai.companion.title')}. ${companion}`}
-    >
+    <AppCard testID="home:ai:companion:card" accessibilityLabel={`${t('ai.companion.title')}. ${companion}`}>
       <Heading className="mb-2 text-lg">{t('ai.companion.title')}</Heading>
-      <Body className="text-slate-200 leading-relaxed">{companion}</Body>
-    </View>
+      <Body className="leading-relaxed text-secondary">{companion}</Body>
+    </AppCard>
   );
 }
