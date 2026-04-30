@@ -36,6 +36,7 @@ module.exports = {
     favicon: './assets/favicon.png',
   },
   plugins: [
+    './plugins/withFfmpegKitIosMirrorPod.js',
     'expo-font',
     '@react-native-community/datetimepicker',
     [
