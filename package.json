@@ -14,8 +14,11 @@
     "lint": "expo lint",
     "doctor": "npx expo-doctor",
     "prebuild:clean": "expo prebuild --clean",
+    "prebuild:android": "expo prebuild --clean --platform android",
+    "prebuild:ios": "expo prebuild --clean --platform ios",
     "verify:native-config": "npm run lint && npm run doctor && CI=1 expo prebuild --clean"
   },
+  "_nativeRebuildHint": "After adding any dependency with native code: npm run prebuild:android && npm run android (or prebuild:ios && npm run ios).",
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",
     "@expo-google-fonts/poppins": "^0.4.1",

@@ -1,7 +1,6 @@
-import { BlurView } from 'expo-blur';
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { useCallback, useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 
 import { colors } from '@/theme/colors';
@@ -15,9 +14,6 @@ type Props = {
 };
 
 const styles = StyleSheet.create({
-  blur: {
-    ...StyleSheet.absoluteFillObject,
-  },
   background: {
     backgroundColor: colors.surface,
     borderTopLeftRadius: 24,
@@ -32,6 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Bottom sheet wrapper. Uses controlled `index` only (no imperative snap/close)
+ * to avoid Fabric mount races. Backdrop is self-contained — do not nest BlurView
+ * inside BottomSheetBackdrop; that caused IllegalViewOperationException on Android.
+ */
 export function AppSheet({
   visible,
   children,
@@ -39,16 +40,7 @@ export function AppSheet({
   onDismiss,
   testID,
 }: Props) {
-  const sheetRef = useRef<BottomSheet>(null);
   const points = useMemo(() => snapPoints, [snapPoints]);
-
-  useEffect(() => {
-    if (visible) {
-      sheetRef.current?.snapToIndex(0);
-    } else {
-      sheetRef.current?.close();
-    }
-  }, [visible]);
 
   const renderBackdrop = useCallback(
     (props: Parameters<typeof BottomSheetBackdrop>[0]) => (
@@ -58,16 +50,13 @@ export function AppSheet({
         disappearsOnIndex={-1}
         pressBehavior="close"
         opacity={0.55}
-      >
-        {Platform.OS === 'ios' ? <BlurView intensity={18} tint="dark" style={styles.blur} /> : null}
-      </BottomSheetBackdrop>
+      />
     ),
     [],
   );
 
   return (
     <BottomSheet
-      ref={sheetRef}
       index={visible ? 0 : -1}
       snapPoints={points}
       enablePanDownToClose

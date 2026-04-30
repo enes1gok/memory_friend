@@ -41,7 +41,6 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
               className="min-w-[30%] max-w-[46%] flex-1"
             >
               <AnimatedPressable
-                key={m.id}
                 testID={`capture:mood:${m.id}`}
                 haptic
                 onPressIn={() => {

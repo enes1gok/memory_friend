@@ -20,6 +20,15 @@ npx expo run:ios
 npx expo run:android
 ```
 
+Platform-only clean prebuild (same as full clean, scoped to one platform):
+
+```bash
+npm run prebuild:android && npm run android
+npm run prebuild:ios && npm run ios
+```
+
+**Stale dev client:** If you add a dependency with native views but keep an old dev client on device, Fabric can crash at startup with `IllegalViewOperationException` from `ViewManagerRegistry.get(...)`. The JS bundle references a native view type that the APK never linked. Run the matching `prebuild:*` + `npm run android` / `npm run ios` after any native npm change. See `_nativeRebuildHint` in `package.json`.
+
 ## EAS builds
 
 Store and internal builds run prebuild on EAS servers from the same config. See **[`eas.json`](../eas.json)** and [Expo EAS Build docs](https://docs.expo.dev/build/introduction/).
@@ -35,6 +44,12 @@ This runs lint, `expo doctor`, and a clean prebuild. It does **not** replace a f
 ## Android builds and FFmpegKit
 
 `ffmpeg-kit-react-native` pulls `com.arthenica:ffmpeg-kit-https`, which was removed from Maven Central when FFmpegKit retired. **`plugins/withAndroidMavenRepos.js`** adds a Central mirror plus Notifee’s local Maven repo during prebuild so `./gradlew :app:assemble*` and `npx expo run:android` can resolve those artifacts. iOS uses **`plugins/withFfmpegKitIosMirrorPod.js`** for the vendored FFmpegKit podspec.
+
+### New Architecture (Fabric) note
+
+`ffmpeg-kit-react-native` has no Fabric codegen; with `newArchEnabled: true` it relies on bridge interop. It does not register Fabric ViewManagers, so it is unrelated to `ViewManagerRegistry` crashes, but TurboModule calls can still fail if the binary is stale or the library lags RN.
+
+**Smoke test after each native rebuild:** run a collage finale that hits the FFmpeg path (`src/features/collage/`, e.g. `assembleCollage.ts`). Confirm cancel and success paths. If FFmpeg fails at runtime or maintenance becomes untenable, prefer extending **`react-native-media-toolkit`** / Nitro paths per **[`native-media-stack-evaluation.md`](native-media-stack-evaluation.md)** instead of growing FFmpeg usage.
 
 ## Useful checks
 
