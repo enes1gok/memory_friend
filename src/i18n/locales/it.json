@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Il tuo viaggio"
+      "kicker": "Il tuo viaggio",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Il tuo ritmo",
+      "subtitle": "Umore, incoraggiamento e piccoli traguardi dai check-in."
+    },
+    "capsulesSection": {
+      "subtitle": "Messaggi che sigilli per un giorno futuro."
+    },
+    "chip": {
+      "daysLabel": "Conto alla rovescia",
+      "daysLeftCaption": "all'obiettivo",
+      "atTarget": "Oggi",
+      "targetDayHint": "Giorno obiettivo",
+      "progressFootnote": "della tua timeline finora",
+      "a11y": {
+        "streak": "Serie attuale: {{count}} giorni",
+        "streakLoading": "Caricamento serie",
+        "progress": "Progresso del percorso: {{percent}} percento",
+        "days": "{{count}} giorni all'obiettivo",
+        "target": "Giorno obiettivo"
+      }
     },
     "checkInCta": "Segna oggi",
     "checkInHint": "Bastano pochi secondi di video o una foto.",

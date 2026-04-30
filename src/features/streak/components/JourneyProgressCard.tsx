@@ -5,16 +5,7 @@ import { AppCard } from '@/components/AppCard';
 import { Caption, Heading } from '@/components/Typography';
 import type { Goal } from '@/models/Goal';
 
-function journeyPercent(goal: Goal): number {
-  const start = goal.startDate.getTime();
-  const end = goal.targetDate.getTime();
-  const now = Date.now();
-  if (end <= start) {
-    return 100;
-  }
-  const t = (now - start) / (end - start);
-  return Math.min(100, Math.max(0, Math.round(t * 100)));
-}
+import { journeyPercent } from '../logic/journeyPercent';
 
 type Props = {
   goal: Goal;

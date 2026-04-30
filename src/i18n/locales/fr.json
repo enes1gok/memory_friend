@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Ton parcours"
+      "kicker": "Ton parcours",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Ton rythme",
+      "subtitle": "Humeur, encouragements et petites victoires de tes check-ins."
+    },
+    "capsulesSection": {
+      "subtitle": "Messages que tu scelles pour un jour plus tard."
+    },
+    "chip": {
+      "daysLabel": "Compte à rebours",
+      "daysLeftCaption": "avant l'objectif",
+      "atTarget": "Aujourd'hui",
+      "targetDayHint": "Jour J",
+      "progressFootnote": "de ta ligne du temps jusqu'ici",
+      "a11y": {
+        "streak": "Série actuelle : {{count}} jours",
+        "streakLoading": "Chargement de la série",
+        "progress": "Avancement du parcours : {{percent}} pour cent",
+        "days": "{{count}} jours avant ton objectif",
+        "target": "Jour J"
+      }
     },
     "checkInCta": "Pointe aujourd'hui",
     "checkInHint": "Quelques secondes en vidéo ou une photo suffisent.",

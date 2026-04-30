@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Your journey"
+      "kicker": "Your journey",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Your rhythm",
+      "subtitle": "Mood, encouragement, and small wins from your check-ins."
+    },
+    "capsulesSection": {
+      "subtitle": "Messages you seal for a future day."
+    },
+    "chip": {
+      "daysLabel": "Countdown",
+      "daysLeftCaption": "until target",
+      "atTarget": "Today",
+      "targetDayHint": "Target day",
+      "progressFootnote": "of your timeline so far",
+      "a11y": {
+        "streak": "Current streak: {{count}} days",
+        "streakLoading": "Loading streak",
+        "progress": "Journey progress: {{percent}} percent",
+        "days": "{{count}} days until your target",
+        "target": "Target day"
+      }
     },
     "checkInCta": "Check in today",
     "checkInHint": "A few seconds of video or a photo counts.",

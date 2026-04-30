@@ -1,8 +1,32 @@
 import type { ReactNode } from 'react';
-import { ActivityIndicator, Pressable, type PressableProps } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  type PressableProps,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 
 import { ButtonText } from '@/components/Typography';
 import { colors } from '@/theme/colors';
+
+const styles = StyleSheet.create({
+  pressableBase: {
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    minHeight: 52,
+  },
+  pressed: {
+    opacity: 0.92,
+  },
+  disabled: {
+    opacity: 0.45,
+  },
+});
 
 type Props = PressableProps & {
   children: ReactNode;
@@ -18,17 +42,29 @@ export function PrimaryButton({
   disabled,
   testID,
   className = '',
+  style,
   ...rest
 }: Props) {
-  const bgClass =
-    variant === 'orange' ? 'bg-accentOrange active:opacity-90' : 'bg-accentBlue active:opacity-90';
   const isDisabled = disabled === true || loading;
+  const fillColor = variant === 'orange' ? colors.accentOrange : colors.accentBlue;
 
   return (
     <Pressable
       testID={testID}
       disabled={isDisabled}
-      className={`items-center justify-center rounded-2xl py-3.5 px-5 ${bgClass} ${isDisabled ? 'opacity-45' : ''} ${className}`}
+      style={(state) => {
+        const base: StyleProp<ViewStyle>[] = [
+          styles.pressableBase,
+          { backgroundColor: fillColor },
+          state.pressed && !isDisabled ? styles.pressed : null,
+          isDisabled ? styles.disabled : null,
+        ];
+        if (style == null) {
+          return base;
+        }
+        return [...base, typeof style === 'function' ? style(state) : style];
+      }}
+      className={`items-center justify-center ${className}`}
       {...rest}
     >
       {loading ? (

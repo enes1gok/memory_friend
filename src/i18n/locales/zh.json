@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "你的旅程"
+      "kicker": "你的旅程",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "你的节奏",
+      "subtitle": "来自打卡的心情、鼓励和点滴收获。"
+    },
+    "capsulesSection": {
+      "subtitle": "留给未来某一天的话。"
+    },
+    "chip": {
+      "daysLabel": "倒计时",
+      "daysLeftCaption": "距离目标",
+      "atTarget": "今天",
+      "targetDayHint": "目标日",
+      "progressFootnote": "到目前为止的时间线",
+      "a11y": {
+        "streak": "当前连续：{{count}} 天",
+        "streakLoading": "正在加载连续记录",
+        "progress": "旅程进度：{{percent}}%",
+        "days": "距离目标还有 {{count}} 天",
+        "target": "目标日"
+      }
     },
     "checkInCta": "今日打卡",
     "checkInHint": "几秒视频或一张照片都可以。",

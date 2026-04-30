@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Tu camino"
+      "kicker": "Tu camino",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Tu ritmo",
+      "subtitle": "Estado de ánimo, ánimo y pequeñas victorias de tus registros."
+    },
+    "capsulesSection": {
+      "subtitle": "Mensajes que sellas para un día futuro."
+    },
+    "chip": {
+      "daysLabel": "Cuenta atrás",
+      "daysLeftCaption": "hasta la meta",
+      "atTarget": "Hoy",
+      "targetDayHint": "Día meta",
+      "progressFootnote": "de tu línea de tiempo hasta ahora",
+      "a11y": {
+        "streak": "Racha actual: {{count}} días",
+        "streakLoading": "Cargando racha",
+        "progress": "Progreso del camino: {{percent}} por ciento",
+        "days": "{{count}} días hasta tu meta",
+        "target": "Día meta"
+      }
     },
     "checkInCta": "Registrar hoy",
     "checkInHint": "Valen unos segundos de video o una foto.",

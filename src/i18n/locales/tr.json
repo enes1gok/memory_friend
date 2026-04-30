@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Yolculuğun"
+      "kicker": "Yolculuğun",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Ritmin",
+      "subtitle": "Check-in'lerinden ruh hali, destek ve küçük zaferler."
+    },
+    "capsulesSection": {
+      "subtitle": "Gelecekteki kendine mühürlediğin mesajlar."
+    },
+    "chip": {
+      "daysLabel": "Geri sayım",
+      "daysLeftCaption": "hedefe kalan",
+      "atTarget": "Bugün",
+      "targetDayHint": "Hedef gün",
+      "progressFootnote": "şu ana kadar olan zaman çizelgesi",
+      "a11y": {
+        "streak": "Mevcut seri: {{count}} gün",
+        "streakLoading": "Seri yükleniyor",
+        "progress": "Yol ilerlemesi: yüzde {{percent}}",
+        "days": "Hedefe {{count}} gün kaldı",
+        "target": "Hedef gün"
+      }
     },
     "checkInCta": "Bugün işaretle",
     "checkInHint": "Birkaç saniyelik video veya foto yeter.",

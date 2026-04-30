@@ -7,7 +7,29 @@
   },
   "home": {
     "hero": {
-      "kicker": "Deine Reise"
+      "kicker": "Deine Reise",
+      "a11y": "{{goal}} — {{status}}"
+    },
+    "insights": {
+      "title": "Dein Rhythmus",
+      "subtitle": "Stimmung, Ermutigung und kleine Siege aus deinen Check-ins."
+    },
+    "capsulesSection": {
+      "subtitle": "Nachrichten, die du für einen künftigen Tag versiegelst."
+    },
+    "chip": {
+      "daysLabel": "Countdown",
+      "daysLeftCaption": "bis zum Ziel",
+      "atTarget": "Heute",
+      "targetDayHint": "Zieltag",
+      "progressFootnote": "deiner bisherigen Zeitleiste",
+      "a11y": {
+        "streak": "Aktuelle Serie: {{count}} Tage",
+        "streakLoading": "Serie wird geladen",
+        "progress": "Reise-Fortschritt: {{percent}} Prozent",
+        "days": "Noch {{count}} Tage bis zum Ziel",
+        "target": "Zieltag"
+      }
     },
     "checkInCta": "Heute eintragen",
     "checkInHint": "Ein paar Sekunden Video oder ein Foto reichen.",
