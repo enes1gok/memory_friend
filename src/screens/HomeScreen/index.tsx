@@ -13,7 +13,6 @@ import { PrimaryButton } from '@/components/PrimaryButton';
 import { SafeScreen } from '@/components/SafeScreen';
 import { SectionHeader } from '@/components/SectionHeader';
 import { Skeleton } from '@/components/Skeleton';
-import { StatCard } from '@/components/StatCard';
 import { Body, Caption, Display, Heading } from '@/components/Typography';
 import { CompanionCard, HypeManModal } from '@/features/ai';
 import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
@@ -38,8 +37,8 @@ const homeStyles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingHorizontal: 20,
+    paddingTop: 16,
     paddingBottom: 36,
   },
   heroGlowWrap: {
@@ -55,7 +54,7 @@ const homeStyles = StyleSheet.create({
     overflow: 'hidden',
   },
   heroProgressRail: {
-    height: 4,
+    height: 5,
     width: '100%',
   },
   heroProgressFill: {
@@ -65,26 +64,24 @@ const homeStyles = StyleSheet.create({
   },
   heroInner: {
     paddingHorizontal: 18,
-    paddingTop: 16,
+    paddingTop: 20,
     paddingBottom: 18,
   },
-  chipRow: {
+  statsRow: {
     flexDirection: 'row',
-    gap: 10,
-    marginBottom: 8,
+    marginBottom: 20,
+    alignItems: 'stretch',
   },
-  chip: {
+  statItem: {
     flex: 1,
     minWidth: 0,
-    backgroundColor: 'rgba(255,255,255,0.04)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
-    borderRadius: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    alignItems: 'center',
   },
-  chipIconRow: {
-    marginBottom: 6,
+  statDivider: {
+    width: 1,
+    height: 32,
+    alignSelf: 'center',
+    backgroundColor: colors.borderSubtle,
   },
   finaleBanner: {
     marginBottom: 24,
@@ -103,11 +100,7 @@ const homeStyles = StyleSheet.create({
   },
   capsuleCreateCta: {
     alignItems: 'center',
-    paddingVertical: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(249, 115, 22, 0.4)',
-    backgroundColor: 'rgba(249, 115, 22, 0.08)',
+    paddingVertical: 14,
   },
 });
 
@@ -272,9 +265,6 @@ export function HomeScreen() {
             </View>
 
             <View style={homeStyles.heroInner}>
-              <Caption className="mb-1 text-xs uppercase tracking-wide text-muted">
-                {t('home.hero.kicker')}
-              </Caption>
               <Display className="mb-3 text-[26px] leading-[32px]" numberOfLines={3}>
                 {goal.title}
               </Display>
@@ -285,43 +275,48 @@ export function HomeScreen() {
                   : t('home.daysLeft', { count: Math.max(1, daysLeft) })}
               </Body>
 
-              <View style={homeStyles.chipRow}>
-                <StatCard
-                  icon="flame-outline"
-                  accent={accentTint}
-                  label={t('home.stats.streakLabel')}
-                  value={streakHydrating ? '…' : currentStreak}
-                  footnote={t('streak.dayStreakShort')}
+              <View style={homeStyles.statsRow}>
+                <View
+                  style={homeStyles.statItem}
                   accessibilityLabel={
                     streakHydrating
                       ? t('home.chip.a11y.streakLoading')
                       : t('home.chip.a11y.streak', { count: currentStreak })
                   }
-                />
-
-                <StatCard
-                  icon="stats-chart-outline"
-                  accent={accentTint}
-                  label={t('home.stats.journeyLabel')}
-                  value={`${journeyPct}%`}
-                  footnote={t('home.chip.progressFootnote')}
+                >
+                  <Display className="text-2xl leading-8">
+                    {streakHydrating ? '…' : currentStreak}
+                  </Display>
+                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
+                    {t('home.stats.streakLabel')}
+                  </Caption>
+                </View>
+                <View style={homeStyles.statDivider} />
+                <View
+                  style={homeStyles.statItem}
                   accessibilityLabel={t('home.chip.a11y.progress', { percent: journeyPct })}
-                />
-
-                <StatCard
-                  icon="calendar-outline"
-                  accent={accentTint}
-                  label={t('home.chip.daysLabel')}
-                  value={daysLeft <= 0 ? t('home.chip.atTarget') : String(Math.max(1, daysLeft))}
-                  footnote={
-                    daysLeft <= 0 ? t('home.chip.targetDayHint') : t('home.chip.daysLeftCaption')
-                  }
+                >
+                  <Display className="text-2xl leading-8">{`${journeyPct}%`}</Display>
+                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
+                    {t('home.stats.journeyLabel')}
+                  </Caption>
+                </View>
+                <View style={homeStyles.statDivider} />
+                <View
+                  style={homeStyles.statItem}
                   accessibilityLabel={
                     daysLeft <= 0
                       ? t('home.chip.a11y.target')
                       : t('home.chip.a11y.days', { count: Math.max(1, daysLeft) })
                   }
-                />
+                >
+                  <Display className="text-2xl leading-8" numberOfLines={1}>
+                    {daysLeft <= 0 ? t('home.chip.atTarget') : String(Math.max(1, daysLeft))}
+                  </Display>
+                  <Caption className="mt-0.5 text-center text-[11px] text-muted" numberOfLines={1}>
+                    {t('home.chip.daysLabel')}
+                  </Caption>
+                </View>
               </View>
 
               <PrimaryButton
@@ -333,7 +328,6 @@ export function HomeScreen() {
               >
                 {t('home.checkInCta')}
               </PrimaryButton>
-              <Caption className="mt-3 text-center text-muted">{t('home.checkInHint')}</Caption>
             </View>
           </GradientCard>
         </Animated.View>
@@ -360,11 +354,7 @@ export function HomeScreen() {
         ) : null}
 
         <Animated.View entering={enterAnimation(1)} style={homeStyles.sectionBlock}>
-          <SectionHeader
-            title={t('home.insights.title')}
-            subtitle={t('home.insights.subtitle')}
-            className="mb-1 px-0"
-          />
+          <SectionHeader title={t('home.insights.title')} className="mb-1 px-0" />
           <View style={homeStyles.insightsStack}>
             <CompanionCard activeGoalId={activeGoalId} />
             <EmotionHeatmap activeGoalId={activeGoalId} />
