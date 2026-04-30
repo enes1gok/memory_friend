@@ -150,7 +150,16 @@
     "profile": {
       "title": "你",
       "subtitle": "语言与偏好。",
-      "languageSection": "偏好"
+      "languageSection": "偏好",
+      "goalSection": "目标",
+      "headerTitle": "Memory Friend",
+      "memberSince": "旅程开始于 {{date}}",
+      "notStarted": "尚未开始",
+      "noGoal": "没有活跃目标",
+      "noGoalHint": "开始一个目标来解锁你的仪表盘。",
+      "proTitle": "Memory Friend Pro",
+      "proBody": "电影级导出、更丰富的拼贴和更深入的陪伴洞察即将出现在这里。",
+      "footer": "memory_friend"
     },
     "placeholderModal": {
       "title": "示例弹窗",
@@ -171,7 +180,12 @@
       "title": "截止日期？",
       "subtitle": "选择一个让你有动力、而不是有压力的日子。",
       "openPicker": "选择日期",
-      "next": "继续"
+      "next": "继续",
+      "presets": {
+        "thirty": "30 天",
+        "ninety": "90 天",
+        "custom": "自定义"
+      }
     },
     "start": {
       "title": "你准备好了",
@@ -204,6 +218,10 @@
     }
   },
   "journal": {
+    "sections": {
+      "today": "今天",
+      "yesterday": "昨天"
+    },
     "entry": {
       "videoThumbLoadingA11y": "正在加载视频预览"
     },
@@ -251,7 +269,12 @@
       "save": "保存并封存",
       "cancel": "取消",
       "captureReady": "好的——我们会把它与你的其他信息一起封存。",
-      "dateMustBeFuture": "请选择未来的打开时间。"
+      "dateMustBeFuture": "请选择未来的打开时间。",
+      "presets": {
+        "thirty": "30 天",
+        "sixMonths": "6 个月",
+        "custom": "自定义"
+      }
     },
     "card": {
       "lockedStatus": "已封存",

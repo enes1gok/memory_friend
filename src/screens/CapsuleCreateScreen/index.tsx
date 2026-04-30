@@ -10,7 +10,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  TextInput,
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,12 +20,14 @@ import {
   useMicrophonePermission,
 } from 'react-native-vision-camera';
 
+import { AppTextInput } from '@/components/AppTextInput';
 import { Body, Heading } from '@/components/Typography';
+import { PrimaryButton } from '@/components/PrimaryButton';
 import { SafeScreen } from '@/components/SafeScreen';
+import { SegmentedControl } from '@/components/SegmentedControl';
 import { useCreateCapsule } from '@/features/capsule/hooks/useCreateCapsule';
 import { isCapsuleContentValid, isUnlockDateInTheFuture } from '@/features/capsule/logic/capsuleStatus';
 import { useNotificationPermission } from '@/features/notification';
-import { colors } from '@/theme/colors';
 import { hapticLight } from '@/utils/haptics';
 import { persistJournalMedia } from '@/utils/persistJournalMedia';
 
@@ -53,6 +54,26 @@ function minPickerDate(now: Date = new Date()): Date {
   t.setDate(t.getDate() + 1);
   t.setHours(0, 0, 0, 0);
   return t;
+}
+
+function datePlusDays(days: number): Date {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  d.setHours(12, 0, 0, 0);
+  return d;
+}
+
+function datePlusMonths(months: number): Date {
+  const d = new Date();
+  d.setMonth(d.getMonth() + months);
+  d.setHours(12, 0, 0, 0);
+  return d;
+}
+
+function daysFromToday(date: Date): number {
+  const today = startOfDay(new Date()).getTime();
+  const picked = startOfDay(date).getTime();
+  return Math.round((picked - today) / (24 * 60 * 60 * 1000));
 }
 
 function unlockAtFromPickedDate(picked: Date): Date {
@@ -205,18 +226,17 @@ export function CapsuleCreateScreen({ navigation, route }: Props) {
       <SafeScreen testID="capsule:create:permission">
         <View className="flex-1 justify-center px-6" style={{ paddingTop: insets.top }}>
           <Heading className="mb-2">{t('capture.permission.title')}</Heading>
-          <Body className="mb-6 text-slate-400">{t('capture.permission.cameraBody')}</Body>
-          <Pressable
+          <Body className="mb-6 text-muted">{t('capture.permission.cameraBody')}</Body>
+          <PrimaryButton
             testID="capsule:create:request-cam"
             onPress={() => {
               void requestCamPermission();
             }}
-            className="items-center rounded-xl bg-blue-600 py-4"
-            accessibilityRole="button"
+            gradient
             accessibilityLabel={t('capture.permission.cta')}
           >
-            <Body className="font-semibold text-white">{t('capture.permission.cta')}</Body>
-          </Pressable>
+            {t('capture.permission.cta')}
+          </PrimaryButton>
         </View>
       </SafeScreen>
     );
@@ -246,55 +266,46 @@ export function CapsuleCreateScreen({ navigation, route }: Props) {
             accessibilityRole="button"
             accessibilityLabel={t('capsule.create.cancel')}
           >
-            <Body className="text-slate-400">{t('capsule.create.cancel')}</Body>
+            <Body className="text-muted">{t('capsule.create.cancel')}</Body>
           </Pressable>
         </View>
 
         <Heading className="mb-2">{t('capsule.create.title')}</Heading>
 
-        <TextInput
+        <AppTextInput
           testID="capsule:create:title-input"
           value={title}
           onChangeText={setTitle}
           placeholder={t('capsule.create.titlePlaceholder')}
-          placeholderTextColor={colors.textMuted}
-          className="mb-3 rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-base text-white"
+          style={{ marginBottom: 12 }}
         />
 
-        <Body className="mb-2 text-slate-400">{t('capsule.create.mediaHint')}</Body>
-        <View className="mb-4 flex-row gap-2">
-          <Pressable
-            testID="capsule:create:mode-text"
-            onPress={() => {
-              setInputMode('text');
-              setPendingPath(null);
+        <Body className="mb-2 text-muted">{t('capsule.create.mediaHint')}</Body>
+        <View className="mb-4">
+          <SegmentedControl
+            testID="capsule:create:mode"
+            value={inputMode}
+            options={[
+              { value: 'text', label: t('capsule.create.textMode') },
+              { value: 'media', label: t('capsule.create.mediaMode') },
+            ]}
+            onChange={(next) => {
+              setInputMode(next);
+              if (next === 'text') {
+                setPendingPath(null);
+              }
             }}
-            className={`flex-1 rounded-xl py-2 ${inputMode === 'text' ? 'bg-blue-600' : 'bg-slate-800'}`}
-            accessibilityRole="button"
-            accessibilityLabel={t('capsule.create.textMode')}
-          >
-            <Body className="text-center font-medium text-white">{t('capsule.create.textMode')}</Body>
-          </Pressable>
-          <Pressable
-            testID="capsule:create:mode-media"
-            onPress={() => setInputMode('media')}
-            className={`flex-1 rounded-xl py-2 ${inputMode === 'media' ? 'bg-blue-600' : 'bg-slate-800'}`}
-            accessibilityRole="button"
-            accessibilityLabel={t('capsule.create.mediaMode')}
-          >
-            <Body className="text-center font-medium text-white">{t('capsule.create.mediaMode')}</Body>
-          </Pressable>
+          />
         </View>
 
         {inputMode === 'text' ? (
-          <TextInput
+          <AppTextInput
             testID="capsule:create:text-input"
             value={textBody}
             onChangeText={setTextBody}
             multiline
             placeholder={t('capsule.create.textPlaceholder')}
-            placeholderTextColor={colors.textMuted}
-            className="mb-4 min-h-[120px] rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-base text-white"
+            style={{ marginBottom: 16, minHeight: 120 }}
             textAlignVertical="top"
           />
         ) : (
@@ -310,27 +321,16 @@ export function CapsuleCreateScreen({ navigation, route }: Props) {
                 audio={mediaMode === 'video'}
               />
             </View>
-            <View className="mb-2 flex-row justify-center gap-2">
-              <Pressable
-                testID="capsule:create:media-video"
-                onPress={() => setMediaMode('video')}
-                className={`rounded-full px-4 py-2 ${mediaMode === 'video' ? 'bg-white' : 'bg-slate-700'}`}
-                accessibilityLabel={t('capture.mode.video')}
-              >
-                <Body className={mediaMode === 'video' ? 'text-black' : 'text-white'}>
-                  {t('capture.mode.video')}
-                </Body>
-              </Pressable>
-              <Pressable
-                testID="capsule:create:media-photo"
-                onPress={() => setMediaMode('photo')}
-                className={`rounded-full px-4 py-2 ${mediaMode === 'photo' ? 'bg-white' : 'bg-slate-700'}`}
-                accessibilityLabel={t('capture.mode.photo')}
-              >
-                <Body className={mediaMode === 'photo' ? 'text-black' : 'text-white'}>
-                  {t('capture.mode.photo')}
-                </Body>
-              </Pressable>
+            <View className="mb-2">
+              <SegmentedControl
+                testID="capsule:create:media"
+                value={mediaMode}
+                options={[
+                  { value: 'video', label: t('capture.mode.video') },
+                  { value: 'photo', label: t('capture.mode.photo') },
+                ]}
+                onChange={setMediaMode}
+              />
             </View>
             {pendingPath ? (
               <Body className="mb-2 text-green-400" testID="capsule:create:media-captured">
@@ -356,26 +356,51 @@ export function CapsuleCreateScreen({ navigation, route }: Props) {
                 />
               </Pressable>
             </View>
-            <TextInput
+            <AppTextInput
               testID="capsule:create:optional-text"
               value={textBody}
               onChangeText={setTextBody}
               multiline
               placeholder={t('capsule.create.textPlaceholder')}
-              placeholderTextColor={colors.textMuted}
-              className="mt-4 min-h-[72px] rounded-xl border border-slate-800 bg-slate-900/40 px-3 py-2 text-sm text-slate-300"
+              style={{ marginTop: 16, minHeight: 72 }}
               textAlignVertical="top"
             />
           </View>
         )}
 
-        <Body className="mb-1 mt-2 text-slate-300">{t('capsule.create.unlockDateLabel')}</Body>
+        <Body className="mb-1 mt-2 text-secondary">{t('capsule.create.unlockDateLabel')}</Body>
+        <View className="mb-3">
+          <SegmentedControl
+            testID="capsule:create:date-presets"
+            value={
+              daysFromToday(unlockPicked) === 30
+                ? '30'
+                : daysFromToday(unlockPicked) >= 180 && daysFromToday(unlockPicked) <= 186
+                  ? 'sixMonths'
+                  : 'custom'
+            }
+            options={[
+              { value: '30', label: t('capsule.create.presets.thirty') },
+              { value: 'sixMonths', label: t('capsule.create.presets.sixMonths') },
+              { value: 'custom', label: t('capsule.create.presets.custom') },
+            ]}
+            onChange={(next) => {
+              if (next === '30') {
+                setUnlockPicked(datePlusDays(30));
+              } else if (next === 'sixMonths') {
+                setUnlockPicked(datePlusMonths(6));
+              } else {
+                setShowPicker(true);
+              }
+            }}
+          />
+        </View>
         {Platform.OS === 'android' ? (
           <>
             <Pressable
               testID="capsule:create:open-date"
               onPress={() => setShowPicker(true)}
-              className="mb-2 rounded-xl border border-slate-700 bg-slate-900/80 py-3"
+              className="mb-2 rounded-xl border border-borderSubtle bg-surfaceElevated py-3"
             >
               <Body className="text-center text-white">
                 {unlockPicked.toLocaleDateString()}
@@ -417,22 +442,22 @@ export function CapsuleCreateScreen({ navigation, route }: Props) {
 
         {error ? <Body className="mb-2 text-amber-400">{error}</Body> : null}
 
-        <Pressable
+        <PrimaryButton
           testID="capsule:create:save"
           onPress={() => {
             void onSave();
           }}
           disabled={!saveEnabled || saving}
-          className={`items-center rounded-xl py-4 ${saveEnabled && !saving ? 'bg-orange-500' : 'bg-slate-700'}`}
-          accessibilityRole="button"
           accessibilityLabel={t('capsule.create.save')}
+          gradient={saveEnabled && !saving}
+          variant="orange"
         >
           {saving ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Body className="font-semibold text-white">{t('capsule.create.save')}</Body>
+            t('capsule.create.save')
           )}
-        </Pressable>
+        </PrimaryButton>
       </ScrollView>
     </SafeScreen>
   );

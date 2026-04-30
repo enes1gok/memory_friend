@@ -1,11 +1,15 @@
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
+import { BlurView } from 'expo-blur';
 import { Video, ResizeMode } from 'expo-av';
 import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Share, View } from 'react-native';
+import { Platform, Pressable, Share, View } from 'react-native';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SecondaryButton } from '@/components/SecondaryButton';
 import { Body, Heading } from '@/components/Typography';
 import { CollageProgressView } from '@/features/collage/components/CollageProgressView';
 import { useGenerateCollage } from '@/features/collage/hooks/useGenerateCollage';
@@ -84,33 +88,36 @@ export function CollagePremiereScreen() {
         testID="collage:premiere:error"
       >
         <Heading className="mb-3 text-center text-xl">{errMessage}</Heading>
-        <Pressable
+        <PrimaryButton
           testID="collage:premiere:retry"
-          accessibilityRole="button"
           accessibilityLabel={t('collage.premiere.retryA11y')}
           onPress={() => {
             void generate();
           }}
-          className="mt-4 items-center rounded-2xl bg-orange-500 py-4"
+          className="mt-4"
+          gradient
         >
-          <Body className="font-semibold text-white">{t('collage.premiere.retry')}</Body>
-        </Pressable>
-        <Pressable
+          {t('collage.premiere.retry')}
+        </PrimaryButton>
+        <SecondaryButton
           testID="collage:premiere:close-error"
-          accessibilityRole="button"
           accessibilityLabel={t('collage.premiere.closeA11y')}
           onPress={() => navigation.goBack()}
-          className="mt-4 items-center rounded-2xl border border-slate-600 py-4"
+          className="mt-4"
         >
-          <Body className="font-semibold text-slate-200">{t('collage.premiere.close')}</Body>
-        </Pressable>
+          {t('collage.premiere.close')}
+        </SecondaryButton>
       </View>
     );
   }
 
   return (
     <View className="flex-1 bg-black" testID="collage:premiere:root">
-      <View style={{ paddingTop: insets.top }} className="absolute left-0 right-0 z-10 flex-row justify-between px-4">
+      <Animated.View
+        entering={FadeIn.duration(280)}
+        style={{ paddingTop: insets.top }}
+        className="absolute left-0 right-0 z-10 flex-row justify-between px-4"
+      >
         <Pressable
           testID="collage:premiere:close"
           accessibilityRole="button"
@@ -129,7 +136,7 @@ export function CollagePremiereScreen() {
         >
           <Body className="font-semibold text-white">{t('collage.premiere.share')}</Body>
         </Pressable>
-      </View>
+      </Animated.View>
 
       {outputPath ? (
         <Video
@@ -152,10 +159,18 @@ export function CollagePremiereScreen() {
         />
       ) : null}
 
-      <View
+      <Animated.View
+        entering={FadeInDown.duration(320)}
         style={{ paddingBottom: insets.bottom + 12 }}
         className="absolute bottom-0 left-0 right-0 items-center px-6"
       >
+        {Platform.OS === 'ios' ? (
+          <BlurView
+            intensity={24}
+            tint="dark"
+            className="absolute bottom-0 left-4 right-4 top-0 rounded-3xl overflow-hidden"
+          />
+        ) : null}
         <Pressable
           testID="collage:premiere:replay"
           accessibilityRole="button"
@@ -165,7 +180,7 @@ export function CollagePremiereScreen() {
         >
           <Body className="font-semibold text-white">{t('collage.premiere.replay')}</Body>
         </Pressable>
-      </View>
+      </Animated.View>
     </View>
   );
 }

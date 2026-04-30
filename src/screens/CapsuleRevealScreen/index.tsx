@@ -3,8 +3,11 @@ import { Video, ResizeMode } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Image, Pressable, ScrollView, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { GradientCard } from '@/components/GradientCard';
+import { SecondaryButton } from '@/components/SecondaryButton';
 import { Body, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
 import { inferMediaKind, isCapsuleViewable } from '@/features/capsule/logic/capsuleStatus';
@@ -85,16 +88,15 @@ export function CapsuleRevealScreen({ navigation, route }: Props) {
     return (
       <SafeScreen testID="capsule:reveal:error">
         <View className="flex-1 justify-center px-6" style={{ paddingTop: insets.top }}>
-          <Body className="text-slate-400">{t('common.error')}</Body>
-          <Pressable
+          <Body className="text-muted">{t('common.error')}</Body>
+          <SecondaryButton
             testID="capsule:reveal:dismiss"
             onPress={() => navigation.goBack()}
-            className="mt-6 rounded-xl bg-slate-800 py-4"
-            accessibilityRole="button"
+            className="mt-6"
             accessibilityLabel={t('capsule.reveal.dismiss')}
           >
-            <Body className="text-center font-semibold text-white">{t('capsule.reveal.dismiss')}</Body>
-          </Pressable>
+            {t('capsule.reveal.dismiss')}
+          </SecondaryButton>
         </View>
       </SafeScreen>
     );
@@ -105,15 +107,14 @@ export function CapsuleRevealScreen({ navigation, route }: Props) {
       <SafeScreen testID="capsule:reveal:locked">
         <View className="flex-1 justify-center px-6" style={{ paddingTop: insets.top }}>
           <Heading className="mb-2">{t('capsule.card.lockedStatus')}</Heading>
-          <Body className="mb-6 text-slate-400">{t('capsule.card.opensOn', { date: openDateStr })}</Body>
-          <Pressable
+          <Body className="mb-6 text-muted">{t('capsule.card.opensOn', { date: openDateStr })}</Body>
+          <SecondaryButton
             testID="capsule:reveal:dismiss"
             onPress={() => navigation.goBack()}
-            className="rounded-xl bg-slate-800 py-4"
             accessibilityLabel={t('capsule.reveal.dismiss')}
           >
-            <Body className="text-center font-semibold text-white">{t('capsule.reveal.dismiss')}</Body>
-          </Pressable>
+            {t('capsule.reveal.dismiss')}
+          </SecondaryButton>
         </View>
       </SafeScreen>
     );
@@ -139,45 +140,47 @@ export function CapsuleRevealScreen({ navigation, route }: Props) {
             accessibilityRole="button"
             accessibilityLabel={t('capsule.reveal.dismiss')}
           >
-            <Body className="text-slate-400">{t('capsule.reveal.dismiss')}</Body>
+            <Body className="text-muted">{t('capsule.reveal.dismiss')}</Body>
           </Pressable>
         </View>
 
-        <Heading className="mb-1 text-3xl" accessibilityRole="header">
-          {t('capsule.reveal.title')}
-        </Heading>
-        <Body className="mb-2 text-slate-400">
-          {t('capsule.reveal.subtitle')}
-        </Body>
-        <Body className="mb-6 text-sm text-slate-500" testID="capsule:reveal:recorded-on">
-          {recordedOn}
-        </Body>
+        <Animated.View entering={FadeInDown.springify().damping(18)}>
+          <GradientCard>
+            <Heading className="mb-1 text-3xl" accessibilityRole="header">
+              {t('capsule.reveal.title')}
+            </Heading>
+            <Body className="mb-2 text-muted">{t('capsule.reveal.subtitle')}</Body>
+            <Body className="mb-6 text-sm text-muted" testID="capsule:reveal:recorded-on">
+              {recordedOn}
+            </Body>
 
-        <Heading className="mb-3 text-xl">{capsule.title}</Heading>
+            <Heading className="mb-3 text-xl">{capsule.title}</Heading>
 
-        {mediaKind === 'video' && previewUri ? (
-          <View className="mb-6 h-64 overflow-hidden rounded-2xl bg-black">
-            <Video
-              source={previewUri}
-              style={{ width: '100%', height: '100%' }}
-              useNativeControls
-              resizeMode={ResizeMode.CONTAIN}
-            />
-          </View>
-        ) : null}
+            {mediaKind === 'video' && previewUri ? (
+              <View className="mb-6 h-64 overflow-hidden rounded-2xl bg-black">
+                <Video
+                  source={previewUri}
+                  style={{ width: '100%', height: '100%' }}
+                  useNativeControls
+                  resizeMode={ResizeMode.CONTAIN}
+                />
+              </View>
+            ) : null}
 
-        {mediaKind === 'photo' && previewUri ? (
-          <Image
-            source={previewUri}
-            className="mb-6 h-64 w-full rounded-2xl bg-slate-900"
-            resizeMode="cover"
-            accessibilityIgnoresInvertColors
-          />
-        ) : null}
+            {mediaKind === 'photo' && previewUri ? (
+              <Image
+                source={previewUri}
+                className="mb-6 h-64 w-full rounded-2xl bg-surfaceElevated"
+                resizeMode="cover"
+                accessibilityIgnoresInvertColors
+              />
+            ) : null}
 
-        {capsule.text ? (
-          <Body className="mb-8 text-lg leading-relaxed text-slate-200">{capsule.text}</Body>
-        ) : null}
+            {capsule.text ? (
+              <Body className="text-lg leading-relaxed text-secondary">{capsule.text}</Body>
+            ) : null}
+          </GradientCard>
+        </Animated.View>
       </ScrollView>
     </SafeScreen>
   );

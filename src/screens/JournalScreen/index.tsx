@@ -4,13 +4,13 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { type Database, Q } from '@nozbe/watermelondb';
 import { withDatabase, withObservables } from '@nozbe/watermelondb/react';
 import type { ComponentType } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, View } from 'react-native';
+import { RefreshControl, SectionList, View } from 'react-native';
 import { of } from 'rxjs';
 
 import { EmptyState } from '@/components/EmptyState';
-import { Heading } from '@/components/Typography';
+import { Caption, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
 import { JournalEntryCard } from '@/features/journal/components/JournalEntryCard';
 import type { JournalEntry } from '@/models/JournalEntry';
@@ -23,8 +23,39 @@ type ListProps = {
   database?: Database;
 };
 
+type JournalSection = {
+  title: string;
+  data: JournalEntry[];
+};
+
+function dateKey(date: Date): string {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d.toISOString();
+}
+
+function sectionTitle(date: Date, language: string, t: (key: string) => string): string {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const key = dateKey(date);
+  if (key === today.toISOString()) {
+    return t('journal.sections.today');
+  }
+  if (key === yesterday.toISOString()) {
+    return t('journal.sections.yesterday');
+  }
+  return date.toLocaleDateString(language, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 function JournalListView({ entries, activeGoalId }: ListProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [refreshing, setRefreshing] = useState(false);
   const tabNav = useNavigation<BottomTabNavigationProp<TabParamList>>();
   const rootNav = tabNav.getParent<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -40,6 +71,25 @@ function JournalListView({ entries, activeGoalId }: ListProps) {
   const openCapture = useCallback(() => {
     tabNav.navigate('Capture');
   }, [tabNav]);
+
+  const sections = useMemo<JournalSection[]>(() => {
+    const grouped = new Map<string, JournalEntry[]>();
+    for (const entry of entries) {
+      const key = dateKey(entry.capturedAt);
+      const bucket = grouped.get(key) ?? [];
+      bucket.push(entry);
+      grouped.set(key, bucket);
+    }
+    return Array.from(grouped.entries()).map(([key, data]) => ({
+      title: sectionTitle(new Date(key), i18n.language, t),
+      data,
+    }));
+  }, [entries, i18n.language, t]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 350);
+  }, []);
 
   if (!activeGoalId) {
     return (
@@ -73,12 +123,17 @@ function JournalListView({ entries, activeGoalId }: ListProps) {
     <SafeScreen testID="journal:screen:root">
       <View className="flex-1 px-4 pt-4">
         <Heading className="mb-1 px-1 text-2xl">{t('journal.listTitle')}</Heading>
-        <FlatList
+        <SectionList
           testID="journal:list"
-          data={entries}
+          sections={sections}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <JournalEntryCard entry={item} />}
+          renderSectionHeader={({ section }) => (
+            <Caption className="mb-2 mt-4 uppercase tracking-wide text-muted">{section.title}</Caption>
+          )}
           showsVerticalScrollIndicator={false}
+          stickySectionHeadersEnabled={false}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#f5f5f5" />}
           contentContainerStyle={{ paddingTop: 8, paddingBottom: 24 }}
         />
       </View>

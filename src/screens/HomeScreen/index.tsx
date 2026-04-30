@@ -1,16 +1,19 @@
-import { Ionicons } from '@expo/vector-icons';
 import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { AppCard } from '@/components/AppCard';
+import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { EmptyState } from '@/components/EmptyState';
+import { GradientCard } from '@/components/GradientCard';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { SafeScreen } from '@/components/SafeScreen';
 import { SectionHeader } from '@/components/SectionHeader';
+import { Skeleton } from '@/components/Skeleton';
+import { StatCard } from '@/components/StatCard';
 import { Body, Caption, Display, Heading } from '@/components/Typography';
 import { CompanionCard, HypeManModal } from '@/features/ai';
 import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
@@ -27,6 +30,8 @@ import type { RootStackParamList, TabParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
 import { useUIStore } from '@/stores/useUIStore';
 import { getAccentColor } from '@/theme/accent';
+import { colors } from '@/theme/colors';
+import { enterAnimation } from '@/theme/motion';
 
 const homeStyles = StyleSheet.create({
   scroll: {
@@ -123,6 +128,21 @@ function accentProgressForGoal(goal: Goal): number {
   return Math.min(1, Math.max(0, (now - start) / (end - start)));
 }
 
+function AnimatedProgressFill({ percent, color }: { percent: number; color: string }) {
+  const progress = useSharedValue(percent);
+
+  useEffect(() => {
+    progress.value = withTiming(percent, { duration: 420 });
+  }, [percent, progress]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    width: `${progress.value}%`,
+    backgroundColor: color,
+  }));
+
+  return <Animated.View style={[homeStyles.heroProgressFill, animatedStyle]} />;
+}
+
 export function HomeScreen() {
   const { t } = useTranslation();
   const activeGoalId = useGoalStore((s) => s.activeGoalId);
@@ -189,11 +209,12 @@ export function HomeScreen() {
   if (goal === undefined) {
     return (
       <SafeScreen testID="home:screen:root">
-        <EmptyState
-          testID="home:empty:loading"
-          title={t('common.loading')}
-          body={t('home.loading.body')}
-        />
+        <View className="flex-1 px-lg pt-xl">
+          <Skeleton variant="block" height={220} style={{ marginBottom: 20 }} />
+          <Skeleton variant="line" width="58%" style={{ marginBottom: 12 }} />
+          <Skeleton variant="block" height={96} style={{ marginBottom: 16 }} />
+          <Skeleton variant="block" height={132} />
+        </View>
       </SafeScreen>
     );
   }
@@ -223,7 +244,8 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         className="flex-1"
       >
-        <View
+        <Animated.View
+          entering={enterAnimation(0)}
           style={[
             homeStyles.heroGlowWrap,
             {
@@ -231,7 +253,7 @@ export function HomeScreen() {
             },
           ]}
         >
-          <AppCard
+          <GradientCard
             testID="home:hero:card"
             accessibilityRole="summary"
             accessibilityLabel={t('home.hero.a11y', {
@@ -242,10 +264,11 @@ export function HomeScreen() {
                   : t('home.daysLeft', { count: Math.max(1, daysLeft) }),
             })}
             style={homeStyles.heroCard}
-            className="border-white/10 p-0"
+            contentStyle={{ padding: 0 }}
+            colors={[`${accentTint}2A`, 'rgba(255,255,255,0.03)', colors.surface]}
           >
             <View style={[homeStyles.heroProgressRail, { backgroundColor: `${accentTint}33` }]}>
-              <View style={[homeStyles.heroProgressFill, { width: `${journeyPct}%`, backgroundColor: accentTint }]} />
+              <AnimatedProgressFill percent={journeyPct} color={accentTint} />
             </View>
 
             <View style={homeStyles.heroInner}>
@@ -263,66 +286,42 @@ export function HomeScreen() {
               </Body>
 
               <View style={homeStyles.chipRow}>
-                <View
-                  style={homeStyles.chip}
+                <StatCard
+                  icon="flame-outline"
+                  accent={accentTint}
+                  label={t('home.stats.streakLabel')}
+                  value={streakHydrating ? '…' : currentStreak}
+                  footnote={t('streak.dayStreakShort')}
                   accessibilityLabel={
                     streakHydrating
                       ? t('home.chip.a11y.streakLoading')
                       : t('home.chip.a11y.streak', { count: currentStreak })
                   }
-                >
-                  <View style={homeStyles.chipIconRow}>
-                    <Ionicons name="flame-outline" size={18} color={accentTint} />
-                  </View>
-                  <Caption className="mb-0.5 text-[10px] uppercase tracking-wider text-muted">
-                    {t('home.stats.streakLabel')}
-                  </Caption>
-                  <Display className="text-2xl leading-8" accessibilityRole="none">
-                    {streakHydrating ? '…' : currentStreak}
-                  </Display>
-                  <Caption className="text-[11px] text-muted">{t('streak.dayStreakShort')}</Caption>
-                </View>
+                />
 
-                <View
-                  style={homeStyles.chip}
+                <StatCard
+                  icon="stats-chart-outline"
+                  accent={accentTint}
+                  label={t('home.stats.journeyLabel')}
+                  value={`${journeyPct}%`}
+                  footnote={t('home.chip.progressFootnote')}
                   accessibilityLabel={t('home.chip.a11y.progress', { percent: journeyPct })}
-                >
-                  <View style={homeStyles.chipIconRow}>
-                    <Ionicons name="stats-chart-outline" size={18} color={accentTint} />
-                  </View>
-                  <Caption className="mb-0.5 text-[10px] uppercase tracking-wider text-muted">
-                    {t('home.stats.journeyLabel')}
-                  </Caption>
-                  <Display className="text-2xl leading-8">{journeyPct}%</Display>
-                  <Caption className="text-[11px] text-muted" numberOfLines={2}>
-                    {t('home.chip.progressFootnote')}
-                  </Caption>
-                </View>
+                />
 
-                <View
-                  style={homeStyles.chip}
+                <StatCard
+                  icon="calendar-outline"
+                  accent={accentTint}
+                  label={t('home.chip.daysLabel')}
+                  value={daysLeft <= 0 ? t('home.chip.atTarget') : String(Math.max(1, daysLeft))}
+                  footnote={
+                    daysLeft <= 0 ? t('home.chip.targetDayHint') : t('home.chip.daysLeftCaption')
+                  }
                   accessibilityLabel={
                     daysLeft <= 0
                       ? t('home.chip.a11y.target')
                       : t('home.chip.a11y.days', { count: Math.max(1, daysLeft) })
                   }
-                >
-                  <View style={homeStyles.chipIconRow}>
-                    <Ionicons name="calendar-outline" size={18} color={accentTint} />
-                  </View>
-                  <Caption className="mb-0.5 text-[10px] uppercase tracking-wider text-muted">
-                    {t('home.chip.daysLabel')}
-                  </Caption>
-                  <Display
-                    className={`text-2xl leading-8 ${daysLeft <= 0 ? 'text-[22px]' : ''}`}
-                    numberOfLines={daysLeft <= 0 ? 2 : 1}
-                  >
-                    {daysLeft <= 0 ? t('home.chip.atTarget') : String(Math.max(1, daysLeft))}
-                  </Display>
-                  <Caption className="text-[11px] text-muted">
-                    {daysLeft <= 0 ? t('home.chip.targetDayHint') : t('home.chip.daysLeftCaption')}
-                  </Caption>
-                </View>
+                />
               </View>
 
               <PrimaryButton
@@ -336,25 +335,31 @@ export function HomeScreen() {
               </PrimaryButton>
               <Caption className="mt-3 text-center text-muted">{t('home.checkInHint')}</Caption>
             </View>
-          </AppCard>
-        </View>
+          </GradientCard>
+        </Animated.View>
 
         {daysLeft <= 0 ? (
-          <Pressable
+          <AnimatedPressable
             testID="home:finale:banner"
+            haptic
             accessibilityRole="button"
             accessibilityLabel={t('collage.banner.cta')}
             onPress={() => {
               rootNav?.navigate('CollageFinale', { goalId: activeGoalId });
             }}
-            style={homeStyles.finaleBanner}
+            className="mb-2xl"
           >
-            <Heading className="mb-1 text-lg text-orange-200">{t('collage.banner.title')}</Heading>
-            <Body className="font-semibold text-accentOrange">{t('collage.banner.cta')}</Body>
-          </Pressable>
+            <GradientCard
+              colors={[`${colors.accentOrange}55`, `${colors.accentRed}22`, colors.surface]}
+              contentStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
+            >
+              <Heading className="mb-1 text-lg text-orange-200">{t('collage.banner.title')}</Heading>
+              <Body className="font-semibold text-accentOrange">{t('collage.banner.cta')}</Body>
+            </GradientCard>
+          </AnimatedPressable>
         ) : null}
 
-        <View style={homeStyles.sectionBlock}>
+        <Animated.View entering={enterAnimation(1)} style={homeStyles.sectionBlock}>
           <SectionHeader
             title={t('home.insights.title')}
             subtitle={t('home.insights.subtitle')}
@@ -365,9 +370,9 @@ export function HomeScreen() {
             <EmotionHeatmap activeGoalId={activeGoalId} />
             <BadgeRow activeGoalId={activeGoalId} />
           </View>
-        </View>
+        </Animated.View>
 
-        <View style={homeStyles.sectionBlock}>
+        <Animated.View entering={enterAnimation(2)} style={homeStyles.sectionBlock}>
           <SectionHeader
             title={t('capsule.list.title')}
             subtitle={t('home.capsulesSection.subtitle')}
@@ -388,8 +393,9 @@ export function HomeScreen() {
               ))}
             </View>
           )}
-          <Pressable
+          <AnimatedPressable
             testID="home:capsule:create-cta"
+            haptic
             onPress={() => {
               if (activeGoalId) {
                 rootNav?.navigate('CapsuleCreate', { goalId: activeGoalId });
@@ -400,8 +406,8 @@ export function HomeScreen() {
             style={homeStyles.capsuleCreateCta}
           >
             <Body className="font-semibold text-accentOrange">{t('capsule.list.createCta')}</Body>
-          </Pressable>
-        </View>
+          </AnimatedPressable>
+        </Animated.View>
       </ScrollView>
 
       <HypeManModal

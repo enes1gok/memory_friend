@@ -150,7 +150,16 @@
     "profile": {
       "title": "Sen",
       "subtitle": "Dil ve tercihler.",
-      "languageSection": "Tercihler"
+      "languageSection": "Tercihler",
+      "goalSection": "Hedef",
+      "headerTitle": "Memory Friend",
+      "memberSince": "Yolculuk başlangıcı {{date}}",
+      "notStarted": "Henüz başlamadı",
+      "noGoal": "Aktif hedef yok",
+      "noGoalHint": "Panelini açmak için bir hedef başlat.",
+      "proTitle": "Memory Friend Pro",
+      "proBody": "Sinematik dışa aktarımlar, daha zengin kolajlar ve daha derin yol arkadaşı içgörüleri burada olacak.",
+      "footer": "memory_friend"
     },
     "placeholderModal": {
       "title": "Örnek modal",
@@ -171,7 +180,12 @@
       "title": "Ne zamana kadar?",
       "subtitle": "Cezalandırıcı değil, motive edici bir tarih seç.",
       "openPicker": "Tarih seç",
-      "next": "Devam"
+      "next": "Devam",
+      "presets": {
+        "thirty": "30 gün",
+        "ninety": "90 gün",
+        "custom": "Özel"
+      }
     },
     "start": {
       "title": "Hazırsın",
@@ -204,6 +218,10 @@
     }
   },
   "journal": {
+    "sections": {
+      "today": "Bugün",
+      "yesterday": "Dün"
+    },
     "entry": {
       "videoThumbLoadingA11y": "Video önizlemesi yükleniyor"
     },
@@ -251,7 +269,12 @@
       "save": "Kaydet ve mühürle",
       "cancel": "İptal",
       "captureReady": "Tamam — bunu diğer bilgilerinle birlikte mühürleyeceğiz.",
-      "dateMustBeFuture": "Açılması için gelecekte bir zaman seç."
+      "dateMustBeFuture": "Açılması için gelecekte bir zaman seç.",
+      "presets": {
+        "thirty": "30 gün",
+        "sixMonths": "6 ay",
+        "custom": "Özel"
+      }
     },
     "card": {
       "lockedStatus": "Mühürlü",

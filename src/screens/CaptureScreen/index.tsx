@@ -1,7 +1,9 @@
 import { useIsFocused } from '@react-navigation/native';
-import { useCallback, useRef, useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Camera,
@@ -10,6 +12,8 @@ import {
   useMicrophonePermission,
 } from 'react-native-vision-camera';
 
+import { PrimaryButton } from '@/components/PrimaryButton';
+import { SegmentedControl } from '@/components/SegmentedControl';
 import { Body, Caption, Heading } from '@/components/Typography';
 import { useEnrichJournalEntry } from '@/features/ai/hooks/useEnrichJournalEntry';
 import { MoodPicker } from '@/features/journal/components/MoodPicker';
@@ -29,6 +33,35 @@ type PendingMedia = {
   type: 'video' | 'photo';
 };
 
+function formatDuration(seconds: number): string {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  return `${min}:${String(sec).padStart(2, '0')}`;
+}
+
+function AnimatedShutter({ mode, isRecording }: { mode: CaptureMode; isRecording: boolean }) {
+  const outerStyle = useAnimatedStyle(() => ({
+    borderColor: withTiming(isRecording ? colors.error : colors.textPrimary, { duration: 180 }),
+    transform: [{ scale: withTiming(isRecording ? 1.08 : 1, { duration: 180 }) }],
+  }));
+
+  const innerStyle = useAnimatedStyle(() => ({
+    width: withTiming(mode === 'video' && isRecording ? 24 : 64, { duration: 180 }),
+    height: withTiming(mode === 'video' && isRecording ? 24 : 64, { duration: 180 }),
+    borderRadius: withTiming(mode === 'video' && isRecording ? 7 : 32, { duration: 180 }),
+    backgroundColor: mode === 'video' && isRecording ? colors.error : colors.textPrimary,
+  }));
+
+  return (
+    <Animated.View
+      className="h-20 w-20 items-center justify-center rounded-full border-4 bg-white/20"
+      style={outerStyle}
+    >
+      <Animated.View style={innerStyle} />
+    </Animated.View>
+  );
+}
+
 export function CaptureScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
@@ -43,6 +76,7 @@ export function CaptureScreen() {
 
   const [mode, setMode] = useState<CaptureMode>('video');
   const [isRecording, setIsRecording] = useState(false);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
   const [pendingMedia, setPendingMedia] = useState<PendingMedia | null>(null);
   const [saving, setSaving] = useState(false);
   const [celebrationBadge, setCelebrationBadge] = useState<BadgeTypeId | null>(null);
@@ -54,6 +88,18 @@ export function CaptureScreen() {
 
   const showMoodPicker = pendingMedia !== null;
   const isActive = isFocused && !showMoodPicker && !saving;
+
+  useEffect(() => {
+    if (!isRecording) {
+      setRecordingSeconds(0);
+      return;
+    }
+    const startedAt = Date.now();
+    const id = setInterval(() => {
+      setRecordingSeconds(Math.max(0, Math.floor((Date.now() - startedAt) / 1000)));
+    }, 250);
+    return () => clearInterval(id);
+  }, [isRecording]);
 
   const onMoodPick = useCallback(
     async (moodTag: string) => {
@@ -159,18 +205,17 @@ export function CaptureScreen() {
         style={{ backgroundColor: colors.canvas, paddingTop: insets.top }}
       >
         <Heading className="mb-2">{t('capture.permission.title')}</Heading>
-        <Body className="mb-6 text-slate-400">{t('capture.permission.cameraBody')}</Body>
-        <Pressable
+        <Body className="mb-6 text-muted">{t('capture.permission.cameraBody')}</Body>
+        <PrimaryButton
           testID="capture:permission:request"
           onPress={() => {
             void requestCamPermission();
           }}
-          accessibilityRole="button"
+          gradient
           accessibilityLabel={t('capture.permission.openSettings')}
-          className="items-center rounded-xl bg-blue-600 py-4"
         >
-          <Body className="font-semibold text-white">{t('capture.permission.cta')}</Body>
-        </Pressable>
+          {t('capture.permission.cta')}
+        </PrimaryButton>
       </View>
     );
   }
@@ -198,46 +243,38 @@ export function CaptureScreen() {
         audio={mode === 'video'}
       />
 
+      <LinearGradient
+        pointerEvents="none"
+        colors={['rgba(0,0,0,0.72)', 'transparent']}
+        style={[StyleSheet.absoluteFill, { bottom: undefined, height: 150 }]}
+      />
+      <LinearGradient
+        pointerEvents="none"
+        colors={['transparent', 'rgba(0,0,0,0.72)']}
+        style={[StyleSheet.absoluteFill, { top: undefined, height: 190 }]}
+      />
+
       <View
         className="absolute left-0 right-0 px-4"
         style={{ top: insets.top + 8 }}
         pointerEvents="box-none"
       >
         <Caption className="mb-2 text-center text-sm text-white/90">{t('capture.prompt')}</Caption>
-        <View className="flex-row justify-center gap-2 rounded-full bg-black/50 p-1">
-          <Pressable
-            testID="capture:mode:video"
-            onPress={() => {
-              setMode('video');
-            }}
-            disabled={isRecording}
-            className={`flex-1 rounded-full py-2 ${mode === 'video' ? 'bg-white' : ''}`}
-            accessibilityRole="button"
-            accessibilityLabel={t('capture.mode.video')}
-          >
-            <Body
-              className={`text-center text-sm font-semibold ${mode === 'video' ? 'text-black' : 'text-white'}`}
-            >
-              {t('capture.mode.video')}
-            </Body>
-          </Pressable>
-          <Pressable
-            testID="capture:mode:photo"
-            onPress={() => {
-              setMode('photo');
-            }}
-            disabled={isRecording}
-            className={`flex-1 rounded-full py-2 ${mode === 'photo' ? 'bg-white' : ''}`}
-            accessibilityRole="button"
-            accessibilityLabel={t('capture.mode.photo')}
-          >
-            <Body
-              className={`text-center text-sm font-semibold ${mode === 'photo' ? 'text-black' : 'text-white'}`}
-            >
-              {t('capture.mode.photo')}
-            </Body>
-          </Pressable>
-        </View>
+        {isRecording ? (
+          <Caption className="mb-2 text-center text-sm font-semibold text-error">
+            {formatDuration(recordingSeconds)}
+          </Caption>
+        ) : null}
+        <SegmentedControl
+          testID="capture:mode"
+          disabled={isRecording}
+          value={mode}
+          options={[
+            { value: 'video', label: t('capture.mode.video') },
+            { value: 'photo', label: t('capture.mode.photo') },
+          ]}
+          onChange={setMode}
+        />
       </View>
 
       <View
@@ -253,16 +290,12 @@ export function CaptureScreen() {
           accessibilityLabel={
             mode === 'photo' ? t('capture.shutter.photo') : t('capture.shutter.record')
           }
-          className={`h-20 w-20 items-center justify-center rounded-full border-4 border-white ${
-            isRecording ? 'bg-red-500' : 'bg-white/20'
-          }`}
+          className="h-20 w-20 items-center justify-center rounded-full"
         >
           {saving ? (
             <ActivityIndicator color={colors.textPrimary} />
           ) : (
-            <View
-              className={`rounded-full bg-white ${mode === 'video' && isRecording ? 'h-6 w-6' : 'h-16 w-16'}`}
-            />
+            <AnimatedShutter mode={mode} isRecording={isRecording} />
           )}
         </Pressable>
       </View>

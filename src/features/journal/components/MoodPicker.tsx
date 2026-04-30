@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Modal, Pressable, Text, View } from 'react-native';
-import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
+import { Text, View } from 'react-native';
+import Animated, { Layout } from 'react-native-reanimated';
 
+import { AnimatedPressable } from '@/components/AnimatedPressable';
+import { AppSheet } from '@/components/AppSheet';
 import { Body, Caption, Heading } from '@/components/Typography';
 import { hapticSelection, hapticSuccess } from '@/utils/haptics';
 
@@ -16,36 +18,32 @@ export type MoodPickerProps = {
 export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
   const { t } = useTranslation();
 
-  if (!visible) {
-    return null;
-  }
-
   function handlePick(moodId: string) {
     hapticSuccess();
     onPick(moodId);
   }
 
   return (
-    <Modal
+    <AppSheet
+      testID="capture:mood:sheet"
       visible={visible}
-      animationType="fade"
-      transparent
-      onRequestClose={onDismiss}
-      statusBarTranslucent
+      snapPoints={['44%', '78%']}
+      onDismiss={onDismiss}
     >
-      <Animated.View entering={FadeIn} className="flex-1 justify-end bg-black/70">
-        <Pressable className="flex-1" onPress={onDismiss} accessibilityRole="button" />
-        <Animated.View
-          entering={FadeInUp.duration(320)}
-          className="rounded-t-3xl bg-surface px-4 pb-10 pt-6"
-        >
-          <Heading className="mb-1 text-center text-xl">{t('capture.mood.title')}</Heading>
-          <Body className="mb-6 text-center text-muted">{t('capture.mood.subtitle')}</Body>
-          <View className="flex-row flex-wrap justify-center" style={{ gap: 10 }}>
-            {MOOD_OPTIONS.map((m) => (
-              <Pressable
+      <View className="px-lg pb-4xl pt-sm">
+        <Heading className="mb-1 text-center text-xl">{t('capture.mood.title')}</Heading>
+        <Body className="mb-6 text-center text-muted">{t('capture.mood.subtitle')}</Body>
+        <View className="flex-row flex-wrap justify-center" style={{ gap: 10 }}>
+          {MOOD_OPTIONS.map((m) => (
+            <Animated.View
+              key={m.id}
+              layout={Layout.springify().damping(18)}
+              className="min-w-[30%] max-w-[46%] flex-1"
+            >
+              <AnimatedPressable
                 key={m.id}
                 testID={`capture:mood:${m.id}`}
+                haptic
                 onPressIn={() => {
                   hapticSelection();
                 }}
@@ -54,17 +52,17 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t(`moods.${m.id}`)}
-                className="min-w-[30%] max-w-[46%] flex-1 flex-row items-center gap-2 rounded-2xl border border-white/10 bg-surfaceElevated px-3 py-3"
+                className="flex-row items-center gap-2 rounded-2xl border border-borderSubtle bg-surfaceElevated px-3 py-3"
               >
                 <Text className="text-2xl">{m.emoji}</Text>
                 <Caption className="flex-1 text-sm text-secondary" numberOfLines={2}>
                   {t(`moods.${m.id}`)}
                 </Caption>
-              </Pressable>
-            ))}
-          </View>
-        </Animated.View>
-      </Animated.View>
-    </Modal>
+              </AnimatedPressable>
+            </Animated.View>
+          ))}
+        </View>
+      </View>
+    </AppSheet>
   );
 }

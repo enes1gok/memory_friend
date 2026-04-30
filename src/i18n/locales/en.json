@@ -150,7 +150,16 @@
     "profile": {
       "title": "You",
       "subtitle": "Language and preferences.",
-      "languageSection": "Preferences"
+      "languageSection": "Preferences",
+      "goalSection": "Goal",
+      "headerTitle": "Memory Friend",
+      "memberSince": "Journey started {{date}}",
+      "notStarted": "Not started yet",
+      "noGoal": "No active goal",
+      "noGoalHint": "Start a goal to unlock your dashboard.",
+      "proTitle": "Memory Friend Pro",
+      "proBody": "Cinematic exports, richer collages, and deeper companion insights are coming here.",
+      "footer": "memory_friend"
     },
     "placeholderModal": {
       "title": "Sample modal",
@@ -171,7 +180,12 @@
       "title": "By when?",
       "subtitle": "Pick a date that feels motivating, not punishing.",
       "openPicker": "Choose date",
-      "next": "Continue"
+      "next": "Continue",
+      "presets": {
+        "thirty": "30 days",
+        "ninety": "90 days",
+        "custom": "Custom"
+      }
     },
     "start": {
       "title": "You are ready",
@@ -204,6 +218,10 @@
     }
   },
   "journal": {
+    "sections": {
+      "today": "Today",
+      "yesterday": "Yesterday"
+    },
     "entry": {
       "videoThumbLoadingA11y": "Loading video preview"
     },
@@ -251,7 +269,12 @@
       "save": "Save and seal",
       "cancel": "Cancel",
       "captureReady": "Got it — we will seal this with your other details.",
-      "dateMustBeFuture": "Choose a time in the future for when this should open."
+      "dateMustBeFuture": "Choose a time in the future for when this should open.",
+      "presets": {
+        "thirty": "30 days",
+        "sixMonths": "6 months",
+        "custom": "Custom"
+      }
     },
     "card": {
       "lockedStatus": "Sealed",

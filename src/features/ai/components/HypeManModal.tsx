@@ -2,8 +2,9 @@ import { Q } from '@nozbe/watermelondb';
 import { useDatabase } from '@nozbe/watermelondb/react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { Image, Modal, Pressable, View, useWindowDimensions } from 'react-native';
+import { Image, Modal, View, useWindowDimensions } from 'react-native';
 
+import { PrimaryButton } from '@/components/PrimaryButton';
 import { Body, Heading } from '@/components/Typography';
 import { colors } from '@/theme/colors';
 import type { JournalEntry } from '@/models/JournalEntry';
@@ -70,7 +71,7 @@ export function HypeManModal({ visible, onDismiss, activeGoalId }: Props) {
       >
         <View>
           <Heading className="mb-2 text-2xl">{t('ai.hypeMan.title')}</Heading>
-          <Body className="text-slate-300">{t('ai.hypeMan.subtitle')}</Body>
+          <Body className="text-secondary">{t('ai.hypeMan.subtitle')}</Body>
         </View>
         {uris.length > 0 ? (
           <View className="mt-4 flex-row flex-wrap justify-center gap-3">
@@ -85,18 +86,19 @@ export function HypeManModal({ visible, onDismiss, activeGoalId }: Props) {
           </View>
         ) : (
           <View className="mt-6 items-center">
-            <Body className="text-center text-slate-500">{t('ai.hypeMan.noPhotos')}</Body>
+            <Body className="text-center text-muted">{t('ai.hypeMan.noPhotos')}</Body>
           </View>
         )}
 
-        <Pressable
+        <PrimaryButton
           onPress={onDismiss}
-          accessibilityRole="button"
           accessibilityLabel={t('ai.hypeMan.dismissA11y')}
-          className="mt-4 items-center rounded-2xl bg-orange-500 py-4"
+          className="mt-4"
+          gradient
+          variant="orange"
         >
-          <Body className="font-semibold text-white">{t('ai.hypeMan.cta')}</Body>
-        </Pressable>
+          {t('ai.hypeMan.cta')}
+        </PrimaryButton>
       </View>
     </Modal>
   );

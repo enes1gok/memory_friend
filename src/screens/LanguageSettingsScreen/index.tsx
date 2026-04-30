@@ -39,7 +39,7 @@ export function LanguageSettingsScreen() {
               }}
               className="mb-2 flex-row items-center justify-between rounded-xl border border-white/10 bg-surface/80 px-4 py-4 active:opacity-80"
             >
-              <Body className="text-base font-medium text-slate-100">{row.nativeName}</Body>
+              <Body className="text-base font-medium text-primary">{row.nativeName}</Body>
               {selected ? (
                 <Text
                   style={{

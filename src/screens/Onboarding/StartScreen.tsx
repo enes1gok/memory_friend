@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
+import { GradientCard } from '@/components/GradientCard';
 import { PrimaryButton } from '@/components/PrimaryButton';
+import { StepDots } from '@/components/StepDots';
 import { Body, Caption, Heading } from '@/components/Typography';
 import { SafeScreen } from '@/components/SafeScreen';
 import { ensureChannels } from '@/features/notification/channels';
@@ -72,13 +74,17 @@ export function StartScreen({ route }: Props) {
   return (
     <SafeScreen testID="onboarding:start:root">
       <View className="flex-1 justify-center px-6">
-        <Caption className="mb-6 text-center text-muted">
-          {t('onboarding.step.label', { current: 3, total: 3 })}
-        </Caption>
+        <View className="mb-6">
+          <StepDots
+            current={3}
+            total={3}
+            accessibilityLabel={t('onboarding.step.label', { current: 3, total: 3 })}
+          />
+        </View>
         <Heading className="mb-2">{t('onboarding.start.title')}</Heading>
         <Body className="mb-8 text-muted">{t('onboarding.start.subtitle')}</Body>
 
-        <View className="mb-10 rounded-2xl border border-white/15 bg-surfaceElevated/90 p-6">
+        <GradientCard className="mb-10" contentStyle={{ padding: 24 }}>
           <Caption className="mb-2 text-xs uppercase tracking-wide text-muted">
             {t('onboarding.start.summaryGoal')}
           </Caption>
@@ -87,10 +93,11 @@ export function StartScreen({ route }: Props) {
             {t('onboarding.start.summaryDate')}
           </Caption>
           <Body className="text-lg text-primary">{targetDate.toLocaleDateString()}</Body>
-        </View>
+        </GradientCard>
 
         <PrimaryButton
           variant="orange"
+          gradient
           testID="onboarding:start:cta"
           onPress={onStart}
           disabled={busy}

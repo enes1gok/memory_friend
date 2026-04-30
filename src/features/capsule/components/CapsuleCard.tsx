@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Image, Pressable, View } from 'react-native';
+import { Image, View } from 'react-native';
 
+import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { Body, Heading } from '@/components/Typography';
+import { GradientCard } from '@/components/GradientCard';
 import type { Capsule } from '@/models/Capsule';
 
 import { inferMediaKind, isCapsuleViewable } from '../logic/capsuleStatus';
@@ -34,9 +36,10 @@ export function CapsuleCard({ capsule, onView }: Props) {
     : t('capsule.card.unlockedStatus');
 
   return (
-    <View
+    <GradientCard
       testID="capsule:card:root"
-      className="mb-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60"
+      className="mb-md"
+      contentStyle={{ padding: 0 }}
     >
       <View className="p-3">
         <View className="mb-2 flex-row items-start justify-between gap-2">
@@ -44,7 +47,7 @@ export function CapsuleCard({ capsule, onView }: Props) {
             <Heading className="text-lg" numberOfLines={2} accessibilityRole="header">
               {capsule.title}
             </Heading>
-            <Body className="mt-1 text-slate-500" testID="capsule:card:date">
+            <Body className="mt-1 text-muted" testID="capsule:card:date">
               {t('capsule.card.opensOn', { date: dateStr })}
             </Body>
           </View>
@@ -54,22 +57,23 @@ export function CapsuleCard({ capsule, onView }: Props) {
         {viewable && mediaKind === 'photo' && previewUri ? (
           <Image
             source={previewUri}
-            className="mb-3 h-32 w-full rounded-xl bg-slate-800"
+            className="mb-md h-32 w-full rounded-md bg-surfaceElevated"
             resizeMode="cover"
             accessibilityIgnoresInvertColors
           />
         ) : null}
 
         {viewable && !previewUri && capsule.text ? (
-          <Body className="mb-3 text-slate-300" numberOfLines={3}>
+          <Body className="mb-md text-secondary" numberOfLines={3}>
             {capsule.text}
           </Body>
         ) : null}
       </View>
 
       {viewable ? (
-        <Pressable
+        <AnimatedPressable
           testID="capsule:card:view"
+          haptic
           onPress={() => {
             onView(capsule.id);
           }}
@@ -78,11 +82,11 @@ export function CapsuleCard({ capsule, onView }: Props) {
             title: capsule.title,
             state: stateText,
           })}
-          className="border-t border-white/10 bg-white/5 py-3"
+          className="border-t border-borderSubtle bg-white/5 py-md"
         >
-          <Body className="text-center font-semibold text-blue-400">{t('capsule.card.viewCta')}</Body>
-        </Pressable>
+          <Body className="text-center font-semibold text-accentBlue">{t('capsule.card.viewCta')}</Body>
+        </AnimatedPressable>
       ) : null}
-    </View>
+    </GradientCard>
   );
 }

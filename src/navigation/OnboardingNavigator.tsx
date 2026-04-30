@@ -17,6 +17,7 @@ export function OnboardingNavigator() {
         headerShown: false,
         contentStyle: { backgroundColor: colors.canvas },
         animation: 'slide_from_right',
+        gestureEnabled: true,
       }}
     >
       <Stack.Screen name="OnboardingGoalName" component={GoalNameScreen} />

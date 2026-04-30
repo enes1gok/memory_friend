@@ -1,13 +1,15 @@
 import type { ReactNode } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   ActivityIndicator,
-  Pressable,
   StyleSheet,
   type PressableProps,
   type StyleProp,
   type ViewStyle,
+  View,
 } from 'react-native';
 
+import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { ButtonText } from '@/components/Typography';
 import { colors } from '@/theme/colors';
 
@@ -32,6 +34,8 @@ type Props = PressableProps & {
   children: ReactNode;
   loading?: boolean;
   variant?: 'accent' | 'orange';
+  gradient?: boolean;
+  leadingIcon?: ReactNode;
   testID?: string;
 };
 
@@ -39,6 +43,8 @@ export function PrimaryButton({
   children,
   loading = false,
   variant = 'accent',
+  gradient = false,
+  leadingIcon,
   disabled,
   testID,
   className = '',
@@ -49,13 +55,14 @@ export function PrimaryButton({
   const fillColor = variant === 'orange' ? colors.accentOrange : colors.accentBlue;
 
   return (
-    <Pressable
+    <AnimatedPressable
       testID={testID}
       disabled={isDisabled}
+      haptic
       style={(state) => {
         const base: StyleProp<ViewStyle>[] = [
           styles.pressableBase,
-          { backgroundColor: fillColor },
+          gradient ? { overflow: 'hidden', backgroundColor: fillColor } : { backgroundColor: fillColor },
           state.pressed && !isDisabled ? styles.pressed : null,
           isDisabled ? styles.disabled : null,
         ];
@@ -67,13 +74,28 @@ export function PrimaryButton({
       className={`items-center justify-center ${className}`}
       {...rest}
     >
+      {gradient ? (
+        <LinearGradient
+          colors={
+            variant === 'orange'
+              ? [colors.accentOrange, colors.accentRed]
+              : [colors.accentBlue, colors.accentOrange]
+          }
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
+      ) : null}
       {loading ? (
         <ActivityIndicator color={colors.textPrimary} />
       ) : typeof children === 'string' ? (
-        <ButtonText className="text-primary">{children}</ButtonText>
+        <View className="flex-row items-center justify-center" style={{ gap: 8 }}>
+          {leadingIcon}
+          <ButtonText className="text-primary">{children}</ButtonText>
+        </View>
       ) : (
         children
       )}
-    </Pressable>
+    </AnimatedPressable>
   );
 }

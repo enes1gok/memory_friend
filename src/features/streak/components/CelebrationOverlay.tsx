@@ -4,6 +4,7 @@ import { Modal, Pressable, useWindowDimensions } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 
 import { Body, Heading } from '@/components/Typography';
+import { colors } from '@/theme/colors';
 
 import { BADGE_DISPLAY, type BadgeTypeId } from '../constants/badgeTypes';
 
@@ -67,7 +68,12 @@ export function CelebrationOverlay({ visible, badgeType, onDismiss }: Props) {
                   width: 10,
                   height: 10,
                   borderRadius: 3,
-                  backgroundColor: i % 3 === 0 ? '#f97316' : i % 3 === 1 ? '#3b82f6' : '#22c55e',
+                  backgroundColor:
+                    i % 3 === 0
+                      ? colors.accentOrange
+                      : i % 3 === 1
+                        ? colors.accentBlue
+                        : colors.success,
                   opacity: 0.85,
                 }}
               />
@@ -84,7 +90,7 @@ export function CelebrationOverlay({ visible, badgeType, onDismiss }: Props) {
           <Body className="mb-1 text-center text-lg font-semibold text-white">
             {t(def.nameKey)}
           </Body>
-          <Body className="max-w-xs text-center text-slate-400">{t(def.descriptionKey)}</Body>
+          <Body className="max-w-xs text-center text-muted">{t(def.descriptionKey)}</Body>
         </Animated.View>
       </Pressable>
     </Modal>

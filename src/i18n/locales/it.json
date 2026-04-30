@@ -150,7 +150,16 @@
     "profile": {
       "title": "Tu",
       "subtitle": "Lingua e preferenze.",
-      "languageSection": "Preferenze"
+      "languageSection": "Preferenze",
+      "goalSection": "Obiettivo",
+      "headerTitle": "Memory Friend",
+      "memberSince": "Percorso iniziato il {{date}}",
+      "notStarted": "Non ancora iniziato",
+      "noGoal": "Nessun obiettivo attivo",
+      "noGoalHint": "Avvia un obiettivo per sbloccare la dashboard.",
+      "proTitle": "Memory Friend Pro",
+      "proBody": "Esportazioni cinematografiche, collage più ricchi e insight del companion più profondi arriveranno qui.",
+      "footer": "memory_friend"
     },
     "placeholderModal": {
       "title": "Modale di esempio",
@@ -171,7 +180,12 @@
       "title": "Entro quando?",
       "subtitle": "Scegli una data che motivi, non che punisca.",
       "openPicker": "Scegli data",
-      "next": "Continua"
+      "next": "Continua",
+      "presets": {
+        "thirty": "30 giorni",
+        "ninety": "90 giorni",
+        "custom": "Personalizzato"
+      }
     },
     "start": {
       "title": "Sei pronto",
@@ -204,6 +218,10 @@
     }
   },
   "journal": {
+    "sections": {
+      "today": "Oggi",
+      "yesterday": "Ieri"
+    },
     "entry": {
       "videoThumbLoadingA11y": "Caricamento anteprima video"
     },
@@ -251,7 +269,12 @@
       "save": "Salva e sigilla",
       "cancel": "Annulla",
       "captureReady": "Perfetto — lo sigilleremo con gli altri dettagli.",
-      "dateMustBeFuture": "Scegli un momento futuro in cui dovrebbe aprirsi."
+      "dateMustBeFuture": "Scegli un momento futuro in cui dovrebbe aprirsi.",
+      "presets": {
+        "thirty": "30 giorni",
+        "sixMonths": "6 mesi",
+        "custom": "Personalizzato"
+      }
     },
     "card": {
       "lockedStatus": "Sigillata",

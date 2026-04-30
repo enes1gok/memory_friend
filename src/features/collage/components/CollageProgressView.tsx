@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Pressable, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -10,7 +11,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { SecondaryButton } from '@/components/SecondaryButton';
 import { Body, Heading } from '@/components/Typography';
+import { colors } from '@/theme/colors';
 
 type Props = {
   progress: number;
@@ -52,21 +55,27 @@ export function CollageProgressView({ progress, onCancel }: Props) {
       <Heading className="mb-2 text-center text-2xl" accessibilityRole="header">
         {t('collage.progress.title')}
       </Heading>
-      <Body className="mb-8 text-center text-slate-400">{label}</Body>
+      <Body className="mb-8 text-center text-muted">{label}</Body>
 
-      <View className="mb-10 h-3 overflow-hidden rounded-full bg-slate-800">
-        <Animated.View className="h-full rounded-full bg-orange-500" style={barStyle} />
+      <View className="mb-10 h-3 overflow-hidden rounded-full bg-surfaceElevated">
+        <Animated.View className="h-full overflow-hidden rounded-full" style={barStyle}>
+          <LinearGradient
+            colors={[colors.accentBlue, colors.accentOrange]}
+            start={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            style={{ flex: 1 }}
+          />
+        </Animated.View>
       </View>
 
-      <Pressable
+      <SecondaryButton
         testID="collage:progress:cancel"
         accessibilityRole="button"
         accessibilityLabel={t('collage.progress.cancel')}
         onPress={onCancel}
-        className="items-center rounded-2xl border border-slate-600 py-4"
       >
-        <Body className="font-semibold text-slate-200">{t('collage.progress.cancel')}</Body>
-      </Pressable>
+        {t('collage.progress.cancel')}
+      </SecondaryButton>
     </View>
   );
 }

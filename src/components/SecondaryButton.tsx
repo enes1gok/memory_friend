@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import { Pressable, Text, type PressableProps } from 'react-native';
+import { Text, type PressableProps } from 'react-native';
 
+import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { colors } from '@/theme/colors';
 import { fontFamilies } from '@/theme/fonts';
 
@@ -17,10 +18,11 @@ export function SecondaryButton({
   ...rest
 }: Props) {
   return (
-    <Pressable
+    <AnimatedPressable
       testID={testID}
       disabled={disabled}
-      className={`items-center justify-center rounded-2xl border border-white/15 bg-white/5 py-3.5 px-5 active:bg-white/10 ${disabled === true ? 'opacity-45' : ''} ${className}`}
+      haptic
+      className={`items-center justify-center rounded-lg border border-borderStrong bg-white/5 px-xl py-md ${disabled === true ? 'opacity-45' : ''} ${className}`}
       {...rest}
     >
       {typeof children === 'string' ? (
@@ -37,6 +39,6 @@ export function SecondaryButton({
       ) : (
         children
       )}
-    </Pressable>
+    </AnimatedPressable>
   );
 }
