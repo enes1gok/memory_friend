@@ -68,11 +68,21 @@ export function HomeScreen() {
 
   useFocusEffect(
     useCallback(() => {
-      const { hypeManFromCapturePending, setHypeManFromCapturePending } = useUIStore.getState();
-      if (hypeManFromCapturePending) {
-        setHypeOpen(true);
-        setHypeManFromCapturePending(false);
-      }
+      let cancelled = false;
+      const frame = requestAnimationFrame(() => {
+        if (cancelled) {
+          return;
+        }
+        const { hypeManFromCapturePending, setHypeManFromCapturePending } = useUIStore.getState();
+        if (hypeManFromCapturePending) {
+          setHypeOpen(true);
+          setHypeManFromCapturePending(false);
+        }
+      });
+      return () => {
+        cancelled = true;
+        cancelAnimationFrame(frame);
+      };
     }, []),
   );
 

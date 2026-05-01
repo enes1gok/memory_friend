@@ -13,6 +13,7 @@ import {
   EmotionHeatmap,
   ORDERED_BADGE_TYPES,
   useBadgesForGoal,
+  useGoalMoodEnergyPercent,
   useHeatmapDayMoods,
 } from '@/features/streak';
 import { buildHeatmapGrid, HEATMAP_NUM_WEEKS, HEATMAP_ROWS } from '@/features/streak/logic/heatmapGrid';
@@ -80,6 +81,8 @@ export function RhythmSection({ activeGoalId }: Props) {
   const dayToMood = useHeatmapDayMoods(activeGoalId);
   const { earnedIds, isHydrating: badgesHydrating } = useBadgesForGoal(activeGoalId);
   const { latestMood, daysLogged } = useRhythmWindowStats(dayToMood);
+  const { percent: energeticPercent, total: moodTotalEntries } =
+    useGoalMoodEnergyPercent(activeGoalId);
 
   const moodLabel =
     latestMood != null && isKnownMoodTag(latestMood)
@@ -127,6 +130,14 @@ export function RhythmSection({ activeGoalId }: Props) {
           </Caption>
           <EmotionHeatmap activeGoalId={activeGoalId} variant="compact" dayMoods={dayToMood} />
         </View>
+
+        {energeticPercent != null && moodTotalEntries > 0 ? (
+          <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.md }}>
+            <Body className="text-sm leading-5 text-primary" accessibilityRole="text">
+              {t('stats.insights.moodEnergyLine', { percent: energeticPercent })}
+            </Body>
+          </View>
+        ) : null}
 
         <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.md }}>
           <View style={styles.chipRow}>

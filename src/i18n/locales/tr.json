@@ -20,7 +20,9 @@
       "a11yInput": "Anı notu girişi",
       "attachLabel": "Ekle",
       "attachA11y": "Görsel ekle",
-      "removeAttachmentA11y": "Eklenen görseli kaldır"
+      "removeAttachmentA11y": "Eklenen görseli kaldır",
+      "micRecordA11y": "Sesli not kaydet",
+      "micStopA11y": "Kaydı durdur ve kaydet"
     },
     "loading": {
       "body": "Hedefin ve son serin yükleniyor."
@@ -57,7 +59,8 @@
       "chipBadges": "Rozetler",
       "noMoodYet": "Henüz yok",
       "daysLogged_one": "{{count}} gün",
-      "daysLogged_other": "{{count}} gün"
+      "daysLogged_other": "{{count}} gün",
+      "moodEnergyLine": "Bu hedef sürecinde kayıtlarının %{{percent}}'inde enerjik hissettin."
     },
     "capsulesSection": {
       "subtitle": "Gelecekteki kendine mühürlediğin mesajlar."
@@ -268,7 +271,12 @@
       "yesterday": "Dün"
     },
     "entry": {
-      "videoThumbLoadingA11y": "Video önizlemesi yükleniyor"
+      "videoThumbLoadingA11y": "Video önizlemesi yükleniyor",
+      "voiceNote": "Sesli not",
+      "playVoiceA11y": "Sesli notu oynat",
+      "pauseVoiceA11y": "Sesli notu duraklat",
+      "voiceThumbA11y": "Sesli not",
+      "transcribedLabel": "Metne dökülen"
     },
     "listTitle": "Anların",
     "addMemoryCta": "Anı ekle",

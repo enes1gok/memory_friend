@@ -37,7 +37,12 @@ export function useNotificationResponseHandler() {
       const parsed = parseNotificationData(
         initial?.notification?.data as Record<string, unknown> | undefined,
       );
-      if (parsed) handle(parsed);
+      if (!parsed) {
+        return;
+      }
+      requestAnimationFrame(() => {
+        handle(parsed);
+      });
     });
 
     return notifee.onForegroundEvent(({ type, detail }) => {

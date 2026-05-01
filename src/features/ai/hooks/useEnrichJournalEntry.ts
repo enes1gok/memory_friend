@@ -17,7 +17,7 @@ export type TriggerEnrichmentArgs = {
 /**
  * After a journal entry is saved, run Whisper + GPT off the hot path and persist to `ai_enrichments`.
  * Idempotent: skips when an enrichment row already has a non-empty transcript.
- * Video only (audio track); photo entries are skipped.
+ * Runs for video (audio track) and standalone voice notes (`audio`); photo/text-only entries are skipped.
  */
 export function useEnrichJournalEntry() {
   const database = useDatabase();
@@ -26,7 +26,7 @@ export function useEnrichJournalEntry() {
 
   const triggerEnrichment = useCallback((args: TriggerEnrichmentArgs) => {
     const { entryId, mediaPath, mediaType } = args;
-    if (mediaType !== 'video') {
+    if (mediaType !== 'video' && mediaType !== 'audio') {
       return;
     }
     if (inFlight.has(entryId)) {

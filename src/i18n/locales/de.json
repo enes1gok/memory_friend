@@ -20,7 +20,9 @@
       "a11yInput": "Eingabe für Erinnerungsnotiz",
       "attachLabel": "Anhang",
       "attachA11y": "Bild anhängen",
-      "removeAttachmentA11y": "Angehängtes Bild entfernen"
+      "removeAttachmentA11y": "Angehängtes Bild entfernen",
+      "micRecordA11y": "Sprachnotiz aufnehmen",
+      "micStopA11y": "Aufnahme beenden und speichern"
     },
     "loading": {
       "body": "Wir laden Ziel und Serie."
@@ -57,7 +59,8 @@
       "chipBadges": "Abzeichen",
       "noMoodYet": "Noch keine",
       "daysLogged_one": "{{count}} Tag",
-      "daysLogged_other": "{{count}} Tage"
+      "daysLogged_other": "{{count}} Tage",
+      "moodEnergyLine": "In diesem Ziel hast du dich {{percent}} % der Zeit energiegeladen gefühlt."
     },
     "capsulesSection": {
       "subtitle": "Nachrichten, die du für einen künftigen Tag versiegelst."
@@ -268,7 +271,12 @@
       "yesterday": "Gestern"
     },
     "entry": {
-      "videoThumbLoadingA11y": "Videovorschau wird geladen"
+      "videoThumbLoadingA11y": "Videovorschau wird geladen",
+      "voiceNote": "Sprachnotiz",
+      "playVoiceA11y": "Sprachnotiz abspielen",
+      "pauseVoiceA11y": "Sprachnotiz pausieren",
+      "voiceThumbA11y": "Sprachnotiz",
+      "transcribedLabel": "Transkript"
     },
     "listTitle": "Deine Momente",
     "addMemoryCta": "Erinnerung hinzufügen",

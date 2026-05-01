@@ -13,6 +13,7 @@ export { StreakCounter } from './components/StreakCounter';
 export { useActiveGoal } from './hooks/useActiveGoal';
 export { useBadgesForGoal } from './hooks/useBadgesForGoal';
 export { useHeatmapDayMoods } from './hooks/useHeatmapData';
+export { useGoalMoodEnergyPercent } from './hooks/useGoalMoodEnergyPercent';
 export { useStreakState } from './hooks/useStreakState';
 export type { StreakViewModel } from './hooks/useStreakState';
 export { useUpdateStreak } from './hooks/useUpdateStreak';

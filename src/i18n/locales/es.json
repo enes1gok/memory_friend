@@ -20,7 +20,9 @@
       "a11yInput": "Entrada de nota de recuerdo",
       "attachLabel": "Adjuntar",
       "attachA11y": "Adjuntar imagen",
-      "removeAttachmentA11y": "Quitar imagen adjunta"
+      "removeAttachmentA11y": "Quitar imagen adjunta",
+      "micRecordA11y": "Grabar nota de voz",
+      "micStopA11y": "Detener grabación y guardar"
     },
     "loading": {
       "body": "Cargando tu objetivo y tu racha."
@@ -57,7 +59,8 @@
       "chipBadges": "Insignias",
       "noMoodYet": "Aún no",
       "daysLogged_one": "{{count}} día",
-      "daysLogged_other": "{{count}} días"
+      "daysLogged_other": "{{count}} días",
+      "moodEnergyLine": "Durante este objetivo te sentiste con energía el {{percent}} % del tiempo."
     },
     "capsulesSection": {
       "subtitle": "Mensajes que sellas para un día futuro."
@@ -268,7 +271,12 @@
       "yesterday": "Ayer"
     },
     "entry": {
-      "videoThumbLoadingA11y": "Cargando vista previa del vídeo"
+      "videoThumbLoadingA11y": "Cargando vista previa del vídeo",
+      "voiceNote": "Nota de voz",
+      "playVoiceA11y": "Reproducir nota de voz",
+      "pauseVoiceA11y": "Pausar nota de voz",
+      "voiceThumbA11y": "Nota de voz",
+      "transcribedLabel": "Transcripción"
     },
     "listTitle": "Tus momentos",
     "addMemoryCta": "Añadir recuerdo",

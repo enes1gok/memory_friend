@@ -47,6 +47,8 @@ type Props = PressableProps & {
   appearance?: PrimaryButtonAppearance;
   leadingIcon?: ReactNode;
   testID?: string;
+  /** NativeWind layout classes; applied on a wrapper `View` (not on `AnimatedPressable`) for css-interop compatibility */
+  className?: string;
 };
 
 export function PrimaryButton({
@@ -58,7 +60,7 @@ export function PrimaryButton({
   leadingIcon,
   disabled,
   testID,
-  className = '',
+  className,
   style,
   ...rest
 }: Props) {
@@ -104,13 +106,12 @@ export function PrimaryButton({
 
   const showGradient = appearance === 'filled' && gradient;
 
-  return (
+  const pressable = (
     <AnimatedPressable
       testID={testID}
       disabled={isDisabled}
       haptic
       style={resolvedStyle}
-      className={`items-center justify-center ${className}`}
       {...rest}
     >
       {showGradient ? (
@@ -151,4 +152,18 @@ export function PrimaryButton({
       )}
     </AnimatedPressable>
   );
+
+  if (className != null && className.trim().length > 0) {
+    return (
+      <View className={className} style={{ width: '100%' }}>
+        {pressable}
+      </View>
+    );
+  }
+
+  return pressable;
 }
+
+PrimaryButton.displayName = 'PrimaryButton';
+
+export default PrimaryButton;

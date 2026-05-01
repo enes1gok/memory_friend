@@ -20,7 +20,9 @@
       "a11yInput": "Campo nota del ricordo",
       "attachLabel": "Allega",
       "attachA11y": "Allega immagine",
-      "removeAttachmentA11y": "Rimuovi immagine allegata"
+      "removeAttachmentA11y": "Rimuovi immagine allegata",
+      "micRecordA11y": "Registra nota vocale",
+      "micStopA11y": "Interrompi registrazione e salva"
     },
     "loading": {
       "body": "Caricamento obiettivo e serie."
@@ -57,7 +59,8 @@
       "chipBadges": "Badge",
       "noMoodYet": "Ancora nessuno",
       "daysLogged_one": "{{count}} giorno",
-      "daysLogged_other": "{{count}} giorni"
+      "daysLogged_other": "{{count}} giorni",
+      "moodEnergyLine": "Durante questo obiettivo ti sei sentito pieno di energia il {{percent}}% del tempo."
     },
     "capsulesSection": {
       "subtitle": "Messaggi che sigilli per un giorno futuro."
@@ -268,7 +271,12 @@
       "yesterday": "Ieri"
     },
     "entry": {
-      "videoThumbLoadingA11y": "Caricamento anteprima video"
+      "videoThumbLoadingA11y": "Caricamento anteprima video",
+      "voiceNote": "Nota vocale",
+      "playVoiceA11y": "Riproduci nota vocale",
+      "pauseVoiceA11y": "Metti in pausa la nota vocale",
+      "voiceThumbA11y": "Nota vocale",
+      "transcribedLabel": "Trascritto"
     },
     "listTitle": "I tuoi momenti",
     "addMemoryCta": "Aggiungi un ricordo",

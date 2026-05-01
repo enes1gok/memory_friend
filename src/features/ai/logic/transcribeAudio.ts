@@ -9,8 +9,23 @@ function toFileUri(path: string): string {
   return `file://${path}`;
 }
 
+/** Filename + MIME for Whisper multipart upload (must match file contents). */
+function whisperFilePart(localPath: string): { name: string; type: string } {
+  const lower = localPath.toLowerCase();
+  if (lower.endsWith('.m4a')) {
+    return { name: 'audio.m4a', type: 'audio/mp4' };
+  }
+  if (lower.endsWith('.caf')) {
+    return { name: 'audio.caf', type: 'audio/x-caf' };
+  }
+  if (lower.endsWith('.mp4') || lower.endsWith('.mov')) {
+    return { name: 'capture.mp4', type: 'video/mp4' };
+  }
+  return { name: 'capture.mp4', type: 'video/mp4' };
+}
+
 /**
- * Whisper transcription for a local media file (e.g. MP4 from VisionCamera).
+ * Whisper transcription for a local media file (e.g. MP4 from VisionCamera, M4A voice note).
  * Returns `null` on any failure — never throws to callers.
  */
 export async function transcribeAudio(localPath: string): Promise<string | null> {
@@ -40,13 +55,15 @@ export async function transcribeAudio(localPath: string): Promise<string | null>
     return null;
   }
 
+  const { name, type } = whisperFilePart(localPath);
+
   try {
     const form = new FormData();
     form.append('model', 'whisper-1');
     form.append('file', {
       uri,
-      name: 'capture.mp4',
-      type: 'video/mp4',
+      name,
+      type,
     } as unknown as Blob);
 
     const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {

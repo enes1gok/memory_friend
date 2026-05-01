@@ -20,7 +20,9 @@
       "a11yInput": "Memory note input",
       "attachLabel": "Attach",
       "attachA11y": "Attach image",
-      "removeAttachmentA11y": "Remove attached image"
+      "removeAttachmentA11y": "Remove attached image",
+      "micRecordA11y": "Record voice note",
+      "micStopA11y": "Stop recording and save"
     },
     "loading": {
       "body": "Pulling up your goal and latest streak."
@@ -57,7 +59,8 @@
       "chipBadges": "Badges",
       "noMoodYet": "None yet",
       "daysLogged_one": "{{count}} day",
-      "daysLogged_other": "{{count}} days"
+      "daysLogged_other": "{{count}} days",
+      "moodEnergyLine": "During this goal, you felt energetic {{percent}}% of the time."
     },
     "capsulesSection": {
       "subtitle": "Messages you seal for a future day."
@@ -268,7 +271,12 @@
       "yesterday": "Yesterday"
     },
     "entry": {
-      "videoThumbLoadingA11y": "Loading video preview"
+      "videoThumbLoadingA11y": "Loading video preview",
+      "voiceNote": "Voice note",
+      "playVoiceA11y": "Play voice note",
+      "pauseVoiceA11y": "Pause voice note",
+      "voiceThumbA11y": "Voice note",
+      "transcribedLabel": "Transcribed"
     },
     "listTitle": "Your moments",
     "addMemoryCta": "Add memory",

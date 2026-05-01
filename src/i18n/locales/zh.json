@@ -20,7 +20,9 @@
       "a11yInput": "记忆笔记输入",
       "attachLabel": "添加",
       "attachA11y": "添加图片",
-      "removeAttachmentA11y": "移除已添加的图片"
+      "removeAttachmentA11y": "移除已添加的图片",
+      "micRecordA11y": "录制语音笔记",
+      "micStopA11y": "停止录音并保存"
     },
     "loading": {
       "body": "正在加载目标与连续记录。"
@@ -57,7 +59,8 @@
       "chipBadges": "徽章",
       "noMoodYet": "暂无",
       "daysLogged_one": "{{count}} 天",
-      "daysLogged_other": "{{count}} 天"
+      "daysLogged_other": "{{count}} 天",
+      "moodEnergyLine": "在这个目标过程中，你有 {{percent}}% 的时间感到充满能量。"
     },
     "capsulesSection": {
       "subtitle": "留给未来某一天的话。"
@@ -268,7 +271,12 @@
       "yesterday": "昨天"
     },
     "entry": {
-      "videoThumbLoadingA11y": "正在加载视频预览"
+      "videoThumbLoadingA11y": "正在加载视频预览",
+      "voiceNote": "语音笔记",
+      "playVoiceA11y": "播放语音笔记",
+      "pauseVoiceA11y": "暂停语音笔记",
+      "voiceThumbA11y": "语音笔记",
+      "transcribedLabel": "转写文字"
     },
     "listTitle": "你的瞬间",
     "addMemoryCta": "添加回忆",
