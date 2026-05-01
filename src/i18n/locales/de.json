@@ -13,6 +13,15 @@
     "addMemoryCta": "Erinnerung hinzufügen",
     "addMemoryHint": "Video oder Foto, dann Stimmung wählen.",
     "addMemoryIntro": "Halte einen kurzen Check-in für deine Reise fest.",
+    "quickAdd": {
+      "placeholder": "Was beschäftigt dich heute?",
+      "saveCta": "Speichern",
+      "saved": "Gespeichert",
+      "a11yInput": "Eingabe für Erinnerungsnotiz",
+      "attachLabel": "Anhang",
+      "attachA11y": "Bild anhängen",
+      "removeAttachmentA11y": "Angehängtes Bild entfernen"
+    },
     "loading": {
       "body": "Wir laden Ziel und Serie."
     },

@@ -3,7 +3,6 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      'nativewind/babel',
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       [
         'module-resolver',
@@ -13,7 +12,15 @@ module.exports = function (api) {
           extensions: ['.ios.js', '.android.js', '.js', '.jsx', '.json', '.tsx', '.ts'],
         },
       ],
-      'react-native-reanimated/plugin',
+      require('react-native-css-interop/dist/babel-plugin').default,
+      [
+        '@babel/plugin-transform-react-jsx',
+        {
+          runtime: 'automatic',
+          importSource: 'react-native-css-interop',
+        },
+      ],
+      'react-native-worklets/plugin',
     ],
   };
 };

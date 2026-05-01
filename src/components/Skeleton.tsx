@@ -21,7 +21,7 @@ type Props = {
 const styles = StyleSheet.create({
   base: {
     overflow: 'hidden',
-    backgroundColor: colors.surfaceElevated,
+    backgroundColor: colors.surfaceContainerHigh,
   },
   shimmer: {
     ...StyleSheet.absoluteFillObject,

@@ -13,6 +13,15 @@
     "addMemoryCta": "Aggiungi un ricordo",
     "addMemoryHint": "Video o foto, poi scegli l'umore.",
     "addMemoryIntro": "Registra un check-in veloce per il tuo viaggio.",
+    "quickAdd": {
+      "placeholder": "Cosa hai in mente oggi?",
+      "saveCta": "Salva",
+      "saved": "Salvato",
+      "a11yInput": "Campo nota del ricordo",
+      "attachLabel": "Allega",
+      "attachA11y": "Allega immagine",
+      "removeAttachmentA11y": "Rimuovi immagine allegata"
+    },
     "loading": {
       "body": "Caricamento obiettivo e serie."
     },

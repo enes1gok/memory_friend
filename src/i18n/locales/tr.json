@@ -13,6 +13,15 @@
     "addMemoryCta": "Anı ekle",
     "addMemoryHint": "Video veya fotoğraf, sonra ruh halini seç.",
     "addMemoryIntro": "Yolculuğun için kısa bir check-in kaydet.",
+    "quickAdd": {
+      "placeholder": "Bugün aklında ne var?",
+      "saveCta": "Kaydet",
+      "saved": "Kaydedildi",
+      "a11yInput": "Anı notu girişi",
+      "attachLabel": "Ekle",
+      "attachA11y": "Görsel ekle",
+      "removeAttachmentA11y": "Eklenen görseli kaldır"
+    },
     "loading": {
       "body": "Hedefin ve son serin yükleniyor."
     },

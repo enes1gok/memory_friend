@@ -22,8 +22,8 @@ export function RootNavigator() {
     <Stack.Navigator
       initialRouteName={activeGoalId ? 'MainTabs' : 'Onboarding'}
       screenOptions={{
-        headerStyle: { backgroundColor: colors.surface },
-        headerTintColor: colors.textPrimary,
+        headerStyle: { backgroundColor: colors.surfaceContainer },
+        headerTintColor: colors.onSurface,
         contentStyle: { backgroundColor: colors.canvas },
       }}
     >

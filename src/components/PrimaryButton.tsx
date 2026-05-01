@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
+import { useMemo } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   ActivityIndicator,
   StyleSheet,
+  Text,
   type PressableProps,
   type StyleProp,
   type ViewStyle,
@@ -11,30 +13,38 @@ import {
 
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { ButtonText } from '@/components/Typography';
+import { useUIStore } from '@/stores/useUIStore';
+import { getAccentColor } from '@/theme/accent';
 import { colors } from '@/theme/colors';
+import { fontFamilies } from '@/theme/fonts';
+import { radius } from '@/theme/radius';
 
 const styles = StyleSheet.create({
   pressableBase: {
-    borderRadius: 16,
+    borderRadius: radius.lg,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 14,
+    paddingVertical: 12,
     paddingHorizontal: 20,
-    minHeight: 52,
+    minHeight: 48,
   },
   pressed: {
-    opacity: 0.92,
+    opacity: 0.88,
   },
   disabled: {
     opacity: 0.45,
   },
 });
 
+export type PrimaryButtonAppearance = 'filled' | 'tonal' | 'outlined' | 'text';
+
 type Props = PressableProps & {
   children: ReactNode;
   loading?: boolean;
   variant?: 'accent' | 'orange';
   gradient?: boolean;
+  /** Material 3 style; `filled` keeps current gradient / solid brand behavior */
+  appearance?: PrimaryButtonAppearance;
   leadingIcon?: ReactNode;
   testID?: string;
 };
@@ -44,6 +54,7 @@ export function PrimaryButton({
   loading = false,
   variant = 'accent',
   gradient = false,
+  appearance = 'filled',
   leadingIcon,
   disabled,
   testID,
@@ -52,29 +63,57 @@ export function PrimaryButton({
   ...rest
 }: Props) {
   const isDisabled = disabled === true || loading;
-  const fillColor = variant === 'orange' ? colors.accentOrange : colors.accentBlue;
+  const accentProgress = useUIStore((s) => s.accentProgress);
+  const dynamicAccent = useMemo(() => getAccentColor(accentProgress), [accentProgress]);
+  const fillColor = variant === 'orange' ? colors.accentOrange : dynamicAccent;
+
+  const labelColor =
+    appearance === 'tonal'
+      ? colors.onPrimaryContainer
+      : appearance === 'outlined' || appearance === 'text'
+        ? colors.onSurface
+        : colors.onPrimary;
+
+  const resolvedStyle = (state: { pressed: boolean }): StyleProp<ViewStyle> => {
+    const base: StyleProp<ViewStyle>[] = [styles.pressableBase];
+
+    if (appearance === 'outlined') {
+      base.push({
+        backgroundColor: 'transparent',
+        borderWidth: 1,
+        borderColor: colors.outline,
+      });
+    } else if (appearance === 'text') {
+      base.push({ backgroundColor: 'transparent' });
+    } else if (appearance === 'tonal') {
+      base.push({ backgroundColor: colors.primaryContainer, overflow: 'hidden' });
+    } else if (gradient) {
+      base.push({ overflow: 'hidden', backgroundColor: fillColor });
+    } else {
+      base.push({ backgroundColor: fillColor });
+    }
+
+    base.push(state.pressed && !isDisabled ? styles.pressed : null);
+    base.push(isDisabled ? styles.disabled : null);
+
+    if (style == null) {
+      return base;
+    }
+    return [...base, typeof style === 'function' ? style(state) : style];
+  };
+
+  const showGradient = appearance === 'filled' && gradient;
 
   return (
     <AnimatedPressable
       testID={testID}
       disabled={isDisabled}
       haptic
-      style={(state) => {
-        const base: StyleProp<ViewStyle>[] = [
-          styles.pressableBase,
-          gradient ? { overflow: 'hidden', backgroundColor: fillColor } : { backgroundColor: fillColor },
-          state.pressed && !isDisabled ? styles.pressed : null,
-          isDisabled ? styles.disabled : null,
-        ];
-        if (style == null) {
-          return base;
-        }
-        return [...base, typeof style === 'function' ? style(state) : style];
-      }}
+      style={resolvedStyle}
       className={`items-center justify-center ${className}`}
       {...rest}
     >
-      {gradient ? (
+      {showGradient ? (
         <LinearGradient
           colors={
             variant === 'orange'
@@ -87,11 +126,25 @@ export function PrimaryButton({
         />
       ) : null}
       {loading ? (
-        <ActivityIndicator color={colors.textPrimary} />
+        <ActivityIndicator color={labelColor} />
       ) : typeof children === 'string' ? (
-        <View className="flex-row items-center justify-center" style={{ gap: 8 }}>
+        <View className="z-10 flex-row items-center justify-center" style={{ gap: 8 }}>
           {leadingIcon}
-          <ButtonText className="text-primary">{children}</ButtonText>
+          {appearance === 'filled' ? (
+            <ButtonText>{children}</ButtonText>
+          ) : (
+            <Text
+              style={{
+                fontFamily: fontFamilies.bodySemiBold,
+                color: labelColor,
+                fontSize: 14,
+                lineHeight: 20,
+                letterSpacing: 0.1,
+              }}
+            >
+              {children}
+            </Text>
+          )}
         </View>
       ) : (
         children

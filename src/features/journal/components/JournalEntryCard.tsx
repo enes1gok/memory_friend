@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/Skeleton';
 import { Body } from '@/components/Typography';
 import type { JournalEntry } from '@/models/JournalEntry';
 import { toolkitGetThumbnail } from '@/services/mediaToolkit';
+import { springs } from '@/theme/motion';
 
 import { emojiForMoodTag } from '../constants/moods';
 
@@ -92,10 +93,10 @@ export function JournalEntryCard({ entry }: JournalEntryCardProps) {
   return (
     <Animated.View
       testID={`journal:entry:${entry.id}`}
-      layout={Layout.springify().damping(18)}
-      className="mb-md flex-row overflow-hidden rounded-lg border border-borderSubtle bg-surface"
+      layout={Layout.springify().damping(springs.gentle.damping)}
+      className="mb-md flex-row overflow-hidden rounded-xl border border-outline bg-surfaceContainer"
     >
-      <View className="w-24 items-center justify-center bg-surfaceElevated">
+      <View className="w-24 items-center justify-center bg-surfaceContainerHigh">
         {isPhoto && uri ? (
           <Image source={{ uri }} className="h-full w-full" resizeMode="cover" />
         ) : isVideo && uri ? (

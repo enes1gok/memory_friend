@@ -13,6 +13,15 @@
     "addMemoryCta": "Ajouter un souvenir",
     "addMemoryHint": "Vidéo ou photo, puis choisis ton humeur.",
     "addMemoryIntro": "Enregistre un court check-in pour ton parcours.",
+    "quickAdd": {
+      "placeholder": "À quoi penses-tu aujourd’hui ?",
+      "saveCta": "Enregistrer",
+      "saved": "Enregistré",
+      "a11yInput": "Saisie de note de souvenir",
+      "attachLabel": "Joindre",
+      "attachA11y": "Joindre une image",
+      "removeAttachmentA11y": "Retirer l’image jointe"
+    },
     "loading": {
       "body": "Chargement de ton objectif et de ta série."
     },

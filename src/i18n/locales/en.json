@@ -13,6 +13,15 @@
     "addMemoryCta": "Add memory",
     "addMemoryHint": "Video or photo, then pick a mood.",
     "addMemoryIntro": "Capture a quick check-in for your journey.",
+    "quickAdd": {
+      "placeholder": "What's on your mind today?",
+      "saveCta": "Save",
+      "saved": "Saved",
+      "a11yInput": "Memory note input",
+      "attachLabel": "Attach",
+      "attachA11y": "Attach image",
+      "removeAttachmentA11y": "Remove attached image"
+    },
     "loading": {
       "body": "Pulling up your goal and latest streak."
     },

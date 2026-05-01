@@ -61,7 +61,7 @@ function CaptureClosePressable({
         accessibilityLabel={label}
         className={`ml-3 h-10 w-10 items-center justify-center rounded-full ${chromeClassName}`}
       >
-        <Ionicons name="close" size={24} color={colors.textPrimary} />
+        <Ionicons name="close" size={24} color={colors.onSurface} />
       </Pressable>
     </View>
   );
@@ -69,7 +69,7 @@ function CaptureClosePressable({
 
 function AnimatedShutter({ mode, isRecording }: { mode: CaptureMode; isRecording: boolean }) {
   const outerStyle = useAnimatedStyle(() => ({
-    borderColor: withTiming(isRecording ? colors.error : colors.textPrimary, { duration: 180 }),
+    borderColor: withTiming(isRecording ? colors.error : colors.onSurface, { duration: 180 }),
     transform: [{ scale: withTiming(isRecording ? 1.08 : 1, { duration: 180 }) }],
   }));
 
@@ -77,7 +77,7 @@ function AnimatedShutter({ mode, isRecording }: { mode: CaptureMode; isRecording
     width: withTiming(mode === 'video' && isRecording ? 24 : 64, { duration: 180 }),
     height: withTiming(mode === 'video' && isRecording ? 24 : 64, { duration: 180 }),
     borderRadius: withTiming(mode === 'video' && isRecording ? 7 : 32, { duration: 180 }),
-    backgroundColor: mode === 'video' && isRecording ? colors.error : colors.textPrimary,
+    backgroundColor: mode === 'video' && isRecording ? colors.error : colors.onSurface,
   }));
 
   return (
@@ -305,7 +305,7 @@ export function CaptureScreen() {
           accessibilityLabel={t('capture.closeA11y')}
           className="h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black/45"
         >
-          <Ionicons name="close" size={24} color={colors.textPrimary} />
+          <Ionicons name="close" size={24} color={colors.onSurface} />
         </Pressable>
         <View className="min-w-0 flex-1 px-2">
           <Caption className="mb-2 text-center text-sm text-white/90">{t('capture.prompt')}</Caption>
@@ -343,7 +343,7 @@ export function CaptureScreen() {
           className="h-20 w-20 items-center justify-center rounded-full"
         >
           {saving ? (
-            <ActivityIndicator color={colors.textPrimary} />
+            <ActivityIndicator color={colors.onSurface} />
           ) : (
             <AnimatedShutter mode={mode} isRecording={isRecording} />
           )}
@@ -357,7 +357,7 @@ export function CaptureScreen() {
           className="absolute inset-0 items-center justify-center bg-black/40"
           pointerEvents="none"
         >
-          <ActivityIndicator size="large" color={colors.textPrimary} />
+          <ActivityIndicator size="large" color={colors.onSurface} />
         </View>
       ) : null}
 

@@ -15,12 +15,12 @@ type Props = {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceContainer,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
   },
   handle: {
-    backgroundColor: colors.borderStrong,
+    backgroundColor: colors.outline,
     width: 44,
   },
   handleContainer: {

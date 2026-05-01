@@ -13,6 +13,15 @@
     "addMemoryCta": "Añadir recuerdo",
     "addMemoryHint": "Vídeo o foto, y luego elige tu estado de ánimo.",
     "addMemoryIntro": "Guarda un check-in rápido para tu camino.",
+    "quickAdd": {
+      "placeholder": "¿Qué tienes en mente hoy?",
+      "saveCta": "Guardar",
+      "saved": "Guardado",
+      "a11yInput": "Entrada de nota de recuerdo",
+      "attachLabel": "Adjuntar",
+      "attachA11y": "Adjuntar imagen",
+      "removeAttachmentA11y": "Quitar imagen adjunta"
+    },
     "loading": {
       "body": "Cargando tu objetivo y tu racha."
     },

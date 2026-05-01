@@ -7,8 +7,8 @@ import type { JournalEntry } from '@/models/JournalEntry';
 import { useGoalStore } from '@/stores/useGoalStore';
 
 export type SaveJournalEntryArgs = {
-  mediaPath: string;
-  mediaType: string;
+  mediaPath?: string;
+  mediaType?: string;
   moodTag: string;
   text?: string;
 };
@@ -38,8 +38,12 @@ export function useSaveJournalEntry() {
           record.goalId = activeGoalId;
           record.capturedAt = new Date();
           record.moodTag = moodTag;
-          record.mediaPath = mediaPath;
-          record.mediaType = mediaType;
+          if (mediaPath !== undefined) {
+            record.mediaPath = mediaPath;
+          }
+          if (mediaType !== undefined) {
+            record.mediaType = mediaType;
+          }
           if (text !== undefined) {
             record.text = text;
           }

@@ -56,6 +56,13 @@ module.exports = {
       },
     ],
     'expo-font',
+    [
+      'expo-image-picker',
+      {
+        photosPermission:
+          'memory_friend needs access to your photo library to attach images to memories.',
+      },
+    ],
     '@react-native-community/datetimepicker',
     [
       'react-native-vision-camera',

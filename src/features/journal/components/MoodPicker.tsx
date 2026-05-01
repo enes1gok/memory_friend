@@ -5,6 +5,7 @@ import Animated, { Layout } from 'react-native-reanimated';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { AppSheet } from '@/components/AppSheet';
 import { Body, Caption, Heading } from '@/components/Typography';
+import { springs } from '@/theme/motion';
 import { hapticSelection, hapticSuccess } from '@/utils/haptics';
 
 import { MOOD_OPTIONS } from '../constants/moods';
@@ -32,12 +33,12 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
     >
       <View className="px-lg pb-4xl pt-sm">
         <Heading className="mb-1 text-center text-xl">{t('capture.mood.title')}</Heading>
-        <Body className="mb-6 text-center text-muted">{t('capture.mood.subtitle')}</Body>
+        <Body className="mb-6 text-center text-onSurfaceVariant">{t('capture.mood.subtitle')}</Body>
         <View className="flex-row flex-wrap justify-center" style={{ gap: 10 }}>
           {MOOD_OPTIONS.map((m) => (
             <Animated.View
               key={m.id}
-              layout={Layout.springify().damping(18)}
+              layout={Layout.springify().damping(springs.gentle.damping)}
               className="min-w-[30%] max-w-[46%] flex-1"
             >
               <AnimatedPressable
@@ -51,10 +52,10 @@ export function MoodPicker({ visible, onPick, onDismiss }: MoodPickerProps) {
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t(`moods.${m.id}`)}
-                className="flex-row items-center gap-2 rounded-2xl border border-borderSubtle bg-surfaceElevated px-3 py-3"
+                className="flex-row items-center gap-2 rounded-2xl border border-outline bg-surfaceContainerHigh px-3 py-3"
               >
                 <Text className="text-2xl">{m.emoji}</Text>
-                <Caption className="flex-1 text-sm text-secondary" numberOfLines={2}>
+                <Caption className="flex-1 text-sm text-onSurfaceVariant" numberOfLines={2}>
                   {t(`moods.${m.id}`)}
                 </Caption>
               </AnimatedPressable>

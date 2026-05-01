@@ -82,7 +82,7 @@ export function ProfileScreen() {
           </AnimatedPressable>
         </AppCard>
 
-        <GradientCard className="mb-4" colors={[`${colors.accentOrange}44`, `${colors.accentBlue}22`, colors.surface]}>
+        <GradientCard className="mb-4" colors={[`${colors.accentOrange}44`, `${colors.accentBlue}22`, colors.surfaceContainer]}>
           <Heading className="mb-1 text-lg">{t('screens.profile.proTitle')}</Heading>
           <Body className="text-sm text-secondary">{t('screens.profile.proBody')}</Body>
         </GradientCard>

@@ -9,6 +9,7 @@ import Animated, {
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { Body } from '@/components/Typography';
 import { colors } from '@/theme/colors';
+import { springs } from '@/theme/motion';
 
 export type SegmentedOption<T extends string> = {
   value: T;
@@ -36,7 +37,7 @@ export function SegmentedControl<T extends string>({
   const itemWidth = width > 0 ? width / Math.max(1, options.length) : 0;
 
   useEffect(() => {
-    translateX.value = withSpring(activeIndex * itemWidth, { damping: 20, stiffness: 260 });
+    translateX.value = withSpring(activeIndex * itemWidth, springs.gentle);
   }, [activeIndex, itemWidth, translateX]);
 
   const thumbStyle = useAnimatedStyle(() => ({
@@ -54,14 +55,20 @@ export function SegmentedControl<T extends string>({
     <View
       testID={testID}
       onLayout={onLayout}
-      className="rounded-pill border border-borderSubtle bg-black/35 p-xs"
+      className="rounded-pill border border-outline bg-surfaceContainerHighest p-xs"
       accessibilityRole="tablist"
     >
       {itemWidth > 0 ? (
         <Animated.View
           pointerEvents="none"
           className="absolute bottom-xs top-xs rounded-pill"
-          style={[{ width: itemWidth, backgroundColor: colors.textPrimary }, thumbStyle]}
+          style={[
+            {
+              width: itemWidth,
+              backgroundColor: colors.secondaryContainer,
+            },
+            thumbStyle,
+          ]}
         />
       ) : null}
       <View className="flex-row">
@@ -83,7 +90,9 @@ export function SegmentedControl<T extends string>({
                 }
               }}
             >
-              <Body className={`text-sm font-semibold ${selected ? 'text-black' : 'text-white'}`}>
+              <Body
+                className={`text-sm font-semibold ${selected ? 'text-onSecondaryContainer' : 'text-onSurfaceVariant'}`}
+              >
                 {option.label}
               </Body>
             </AnimatedPressable>

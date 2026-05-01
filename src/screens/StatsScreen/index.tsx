@@ -229,7 +229,7 @@ export function StatsScreen() {
             })}
             style={statsStyles.heroCard}
             contentStyle={{ padding: 0 }}
-            colors={[`${accentTint}2A`, 'rgba(255,255,255,0.03)', colors.surface]}
+            colors={[`${accentTint}2A`, 'rgba(255,255,255,0.03)', colors.surfaceContainer]}
           >
             <View style={[statsStyles.heroProgressRail, { backgroundColor: `${accentTint}33` }]}>
               <AnimatedProgressFill percent={journeyPct} color={accentTint} />
@@ -305,7 +305,7 @@ export function StatsScreen() {
             className="mb-2xl"
           >
             <GradientCard
-              colors={[`${colors.accentOrange}55`, `${colors.accentRed}22`, colors.surface]}
+              colors={[`${colors.accentOrange}55`, `${colors.accentRed}22`, colors.surfaceContainer]}
               contentStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
             >
               <Heading className="mb-1 text-lg text-orange-200">{t('collage.banner.title')}</Heading>

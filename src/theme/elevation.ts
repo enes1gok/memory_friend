@@ -1,6 +1,8 @@
 import type { ViewStyle } from 'react-native';
 
-/** Consistent depth tokens for dark surfaces. */
+/**
+ * Depth on dark UI: prefer tonal surfaces; shadows stay subtle so panels do not look muddy.
+ */
 export const elevation = {
   flat: {
     shadowColor: '#000',
@@ -11,17 +13,17 @@ export const elevation = {
   },
   raised: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.28,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.22,
     shadowRadius: 10,
     elevation: 4,
   },
   floating: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.35,
-    shadowRadius: 22,
-    elevation: 10,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.28,
+    shadowRadius: 18,
+    elevation: 8,
   },
 } satisfies Record<string, ViewStyle>;
 

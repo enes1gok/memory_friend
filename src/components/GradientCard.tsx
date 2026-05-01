@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 export function GradientCard({
   children,
-  colors: gradientColors = ['rgba(59,130,246,0.18)', 'rgba(249,115,22,0.08)', colors.surface],
+  colors: gradientColors = ['rgba(59,130,246,0.18)', 'rgba(249,115,22,0.08)', colors.surfaceContainer],
   style,
   contentStyle,
   className = '',

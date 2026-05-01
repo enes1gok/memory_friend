@@ -21,12 +21,12 @@ export function IconChip({ icon, emoji, label, tone = colors.accentBlue, childre
   return (
     <View
       testID={testID}
-      className="flex-row items-center rounded-pill border border-borderSubtle bg-white/5 px-md py-xs"
+      className="flex-row items-center rounded-pill border border-outline bg-secondaryContainer px-md py-xs"
       style={[{ gap: 6 }, style]}
     >
       {icon ? <Ionicons name={icon} size={14} color={tone} /> : null}
       {emoji ? <Caption className="text-sm">{emoji}</Caption> : null}
-      {children ?? <Caption className="text-xs text-secondary">{label}</Caption>}
+      {children ?? <Caption className="text-xs text-onSurfaceVariant">{label}</Caption>}
     </View>
   );
 }

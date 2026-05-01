@@ -13,6 +13,15 @@
     "addMemoryCta": "添加回忆",
     "addMemoryHint": "先录视频或拍照，再选择心情。",
     "addMemoryIntro": "为旅程留下一次简短打卡。",
+    "quickAdd": {
+      "placeholder": "今天你在想什么？",
+      "saveCta": "保存",
+      "saved": "已保存",
+      "a11yInput": "记忆笔记输入",
+      "attachLabel": "添加",
+      "attachA11y": "添加图片",
+      "removeAttachmentA11y": "移除已添加的图片"
+    },
     "loading": {
       "body": "正在加载目标与连续记录。"
     },

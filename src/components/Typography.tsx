@@ -3,7 +3,7 @@ import { Text, type TextProps } from 'react-native';
 import { colors } from '@/theme/colors';
 import { fontFamilies } from '@/theme/fonts';
 
-/** Hero / screen title scale */
+/** Hero / screen title — display-small */
 export function Display(props: TextProps) {
   const { style, ...rest } = props;
   return (
@@ -12,7 +12,7 @@ export function Display(props: TextProps) {
       style={[
         {
           fontFamily: fontFamilies.display,
-          color: colors.textPrimary,
+          color: colors.onSurface,
           fontSize: 28,
           lineHeight: 36,
         },
@@ -22,7 +22,7 @@ export function Display(props: TextProps) {
   );
 }
 
-/** Section titles — default ~20px; override with className e.g. `text-lg` */
+/** Section titles — title-medium; override with className e.g. `text-lg` */
 export function Heading(props: TextProps) {
   const { style, ...rest } = props;
   return (
@@ -31,7 +31,7 @@ export function Heading(props: TextProps) {
       style={[
         {
           fontFamily: fontFamilies.heading,
-          color: colors.textPrimary,
+          color: colors.onSurface,
           fontSize: 20,
           lineHeight: 28,
         },
@@ -41,7 +41,26 @@ export function Heading(props: TextProps) {
   );
 }
 
-/** Body copy — readable on dark canvas */
+/** Prominent line — title-large */
+export function Title(props: TextProps) {
+  const { style, ...rest } = props;
+  return (
+    <Text
+      {...rest}
+      style={[
+        {
+          fontFamily: fontFamilies.heading,
+          color: colors.onSurface,
+          fontSize: 22,
+          lineHeight: 28,
+        },
+        style,
+      ]}
+    />
+  );
+}
+
+/** Body — body-large */
 export function Body(props: TextProps) {
   const { style, ...rest } = props;
   return (
@@ -50,7 +69,7 @@ export function Body(props: TextProps) {
       style={[
         {
           fontFamily: fontFamilies.body,
-          color: colors.textSecondary,
+          color: colors.onSurfaceVariant,
           fontSize: 16,
           lineHeight: 24,
         },
@@ -60,7 +79,7 @@ export function Body(props: TextProps) {
   );
 }
 
-/** Meta, legend, hints */
+/** Meta, legend — body-small */
 export function Caption(props: TextProps) {
   const { style, ...rest } = props;
   return (
@@ -70,8 +89,8 @@ export function Caption(props: TextProps) {
         {
           fontFamily: fontFamilies.body,
           color: colors.textMuted,
-          fontSize: 13,
-          lineHeight: 18,
+          fontSize: 12,
+          lineHeight: 16,
         },
         style,
       ]}
@@ -79,7 +98,27 @@ export function Caption(props: TextProps) {
   );
 }
 
-/** Primary actions on filled buttons */
+/** Labels, dense UI — label-large */
+export function Label(props: TextProps) {
+  const { style, ...rest } = props;
+  return (
+    <Text
+      {...rest}
+      style={[
+        {
+          fontFamily: fontFamilies.bodySemiBold,
+          color: colors.onSurface,
+          fontSize: 14,
+          lineHeight: 20,
+          letterSpacing: 0.1,
+        },
+        style,
+      ]}
+    />
+  );
+}
+
+/** Primary actions on filled buttons — label-large on primary */
 export function ButtonText(props: TextProps) {
   const { style, ...rest } = props;
   return (
@@ -88,9 +127,10 @@ export function ButtonText(props: TextProps) {
       style={[
         {
           fontFamily: fontFamilies.bodySemiBold,
-          color: colors.textPrimary,
-          fontSize: 16,
-          lineHeight: 22,
+          color: colors.onPrimary,
+          fontSize: 14,
+          lineHeight: 20,
+          letterSpacing: 0.1,
         },
         style,
       ]}

@@ -18,8 +18,8 @@ export function EmptyState({ title, body, ctaLabel, onCtaPress, testID }: Props)
       className="flex-1 justify-center px-6"
       accessibilityRole="none"
     >
-      <Heading className="mb-2 text-xl">{title}</Heading>
-      <Body className="mb-8 text-muted">{body}</Body>
+      <Heading className="mb-2 text-center text-xl text-onSurface">{title}</Heading>
+      <Body className="mb-8 text-center text-onSurfaceVariant">{body}</Body>
       {ctaLabel != null && onCtaPress != null ? (
         <PrimaryButton testID={`${testID}:cta`} onPress={onCtaPress}>
           {ctaLabel}

@@ -7,7 +7,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { hapticSelection } from '@/utils/haptics';
-import { useReduceMotionPreference } from '@/theme/motion';
+import { springs, useReduceMotionPreference } from '@/theme/motion';
 
 const AnimatedContainer = Animated.createAnimatedComponent(Pressable);
 
@@ -43,11 +43,11 @@ export function AnimatedPressable({
         onPress?.(event);
       }}
       onPressIn={(event) => {
-        scale.value = reduceMotion ? 1 : withSpring(0.97, { damping: 18, stiffness: 260 });
+        scale.value = reduceMotion ? 1 : withSpring(0.97, springs.gentle);
         onPressIn?.(event);
       }}
       onPressOut={(event) => {
-        scale.value = withSpring(1, { damping: 18, stiffness: 260 });
+        scale.value = withSpring(1, springs.gentle);
         onPressOut?.(event);
       }}
       style={(state) => [

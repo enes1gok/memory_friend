@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import { TextInput, type TextInputProps } from 'react-native';
 
+import { useUIStore } from '@/stores/useUIStore';
 import { getAccentColor } from '@/theme/accent';
 import { colors } from '@/theme/colors';
 import { fontFamilies } from '@/theme/fonts';
-import { useUIStore } from '@/stores/useUIStore';
+import { radius } from '@/theme/radius';
 
 type Props = TextInputProps & {
   error?: boolean;
@@ -14,6 +15,8 @@ export function AppTextInput({ error = false, style, onFocus, onBlur, ...rest }:
   const [focused, setFocused] = useState(false);
   const accentProgress = useUIStore((s) => s.accentProgress);
   const accent = useMemo(() => getAccentColor(accentProgress), [accentProgress]);
+
+  const borderColor = error ? colors.error : focused ? accent : colors.outline;
 
   return (
     <TextInput
@@ -30,11 +33,11 @@ export function AppTextInput({ error = false, style, onFocus, onBlur, ...rest }:
       style={[
         {
           minHeight: 48,
-          borderRadius: 16,
+          borderRadius: radius.lg,
           borderWidth: 1,
-          borderColor: error ? colors.warning : focused ? accent : colors.borderSubtle,
-          backgroundColor: colors.surfaceElevated,
-          color: colors.textPrimary,
+          borderColor,
+          backgroundColor: colors.surfaceContainerLow,
+          color: colors.onSurface,
           fontFamily: fontFamilies.body,
           fontSize: 16,
           paddingHorizontal: 16,
