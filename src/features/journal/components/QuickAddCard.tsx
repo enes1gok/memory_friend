@@ -4,11 +4,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 import { AppTextInput } from '@/components/AppTextInput';
 import { GradientCard } from '@/components/GradientCard';
-import { Caption } from '@/components/Typography';
+import { ButtonText, Caption } from '@/components/Typography';
 import { useEnrichJournalEntry } from '@/features/ai/hooks/useEnrichJournalEntry';
 import {
   MOOD_OPTIONS,
@@ -21,25 +22,25 @@ import type { BadgeTypeId } from '@/features/streak/constants/badgeTypes';
 import { pickBestNewBadge } from '@/features/streak/logic/pickBestNewBadge';
 import { useUIStore } from '@/stores/useUIStore';
 import { colors } from '@/theme/colors';
+import { springs, useReduceMotionPreference } from '@/theme/motion';
 import { radius } from '@/theme/radius';
 import { hapticSuccess } from '@/utils/haptics';
 import { persistJournalMedia } from '@/utils/persistJournalMedia';
 
 const SAVED_FEEDBACK_MS = 2200;
 
-/** Floating save + mic */
-const FAB_SIZE = 56;
-const FAB_INSET = 12;
-const FAB_GAP = 12;
-/** Horizontal space used by both FABs + outer inset (from card inner edge). */
-const FAB_CLUSTER_WIDTH = FAB_INSET + FAB_SIZE + FAB_GAP + FAB_SIZE + FAB_INSET;
-
-/** Mood emoji row sits above the FAB cluster */
-const MOOD_ROW_BOTTOM_OFFSET = FAB_INSET + FAB_SIZE + 10;
-
-const MOOD_ROW_HEIGHT = 44;
-const CONTENT_PAD_BELOW_FABS =
-  FAB_INSET + FAB_SIZE + 10 + MOOD_ROW_HEIGHT + FAB_INSET;
+const FOOTER_INSET = 12;
+/** Secondary mic: 48dp circle (meets ~44pt minimum); spaced from Save by ACTION_GAP. */
+const MIC_SIZE = 48;
+const ACTION_GAP = 20;
+const SAVE_PILL_MIN_HEIGHT = 48;
+const MOOD_ROW_GAP = 10;
+/** Matches mood chip size so scaled selected emoji does not clip. */
+const MOOD_ROW_HEIGHT = 56;
+/** Uniform chip size: room for larger selected emoji (scale + glyph). */
+const MOOD_CHIP_DP = 56;
+/** Selected emoji reads clearly larger than siblings (press feedback still on outer chip). */
+const EMOJI_SCALE_SELECTED = 1.42;
 
 const styles = StyleSheet.create({
   layerRelative: {
@@ -47,48 +48,58 @@ const styles = StyleSheet.create({
     minHeight: 1,
   },
   moodRow: {
-    position: 'absolute',
-    left: 8,
-    right: FAB_CLUSTER_WIDTH + 8,
-    bottom: MOOD_ROW_BOTTOM_OFFSET,
-    height: MOOD_ROW_HEIGHT,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
+    marginTop: MOOD_ROW_GAP,
+    marginBottom: MOOD_ROW_GAP,
+    minHeight: MOOD_ROW_HEIGHT,
     zIndex: 4,
   },
-  fabMic: {
-    position: 'absolute',
-    width: FAB_SIZE,
-    height: FAB_SIZE,
-    bottom: FAB_INSET,
-    right: FAB_INSET + FAB_SIZE + FAB_GAP,
+  footerRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: FAB_SIZE / 2,
-    zIndex: 6,
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 6,
+    justifyContent: 'flex-end',
+    gap: ACTION_GAP,
+    paddingBottom: FOOTER_INSET,
   },
-  fabSave: {
-    position: 'absolute',
-    width: FAB_SIZE,
-    height: FAB_SIZE,
-    bottom: FAB_INSET,
-    right: FAB_INSET,
+  micButton: {
+    width: MIC_SIZE,
+    height: MIC_SIZE,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: FAB_SIZE / 2,
+    borderRadius: MIC_SIZE / 2,
     zIndex: 6,
-    elevation: 8,
+    elevation: 6,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.22,
+    shadowRadius: 5,
+  },
+  savePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    minHeight: SAVE_PILL_MIN_HEIGHT,
+    minWidth: 120,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    borderRadius: SAVE_PILL_MIN_HEIGHT / 2,
+    zIndex: 6,
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.28,
+    shadowRadius: 5,
+  },
+  moodChipSelectedShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.32,
     shadowRadius: 6,
+    elevation: 5,
   },
 });
 
@@ -98,6 +109,67 @@ export type QuickAddCardProps = {
 
 function moodEmoji(id: MoodTagId): string {
   return MOOD_OPTIONS.find((m) => m.id === id)?.emoji ?? '💭';
+}
+
+type QuickMoodChipProps = {
+  id: MoodTagId;
+  selected: boolean;
+  accentColor: string;
+  disabled: boolean;
+  accessibilityLabel: string;
+  onSelect: () => void;
+};
+
+function QuickMoodChip({
+  id,
+  selected,
+  accentColor,
+  disabled,
+  accessibilityLabel,
+  onSelect,
+}: QuickMoodChipProps) {
+  const reduceMotion = useReduceMotionPreference();
+  const emojiScale = useSharedValue(selected ? EMOJI_SCALE_SELECTED : 1);
+
+  useEffect(() => {
+    const target = selected ? EMOJI_SCALE_SELECTED : 1;
+    if (reduceMotion) {
+      emojiScale.value = target;
+    } else {
+      emojiScale.value = withSpring(target, springs.gentle);
+    }
+  }, [emojiScale, reduceMotion, selected]);
+
+  const emojiAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: emojiScale.value }],
+  }));
+
+  return (
+    <AnimatedPressable
+      testID={`home:quick-add:mood:${id}`}
+      haptic
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ selected }}
+      disabled={disabled}
+      onPress={onSelect}
+      className="items-center justify-center rounded-2xl border"
+      style={[
+        {
+          width: MOOD_CHIP_DP,
+          height: MOOD_CHIP_DP,
+          borderWidth: selected ? 2 : 1,
+          borderColor: selected ? accentColor : colors.outline,
+          backgroundColor: selected ? `${accentColor}33` : colors.surfaceContainerHigh,
+        },
+        selected ? styles.moodChipSelectedShadow : null,
+      ]}
+    >
+      <Animated.View className="items-center justify-center" style={emojiAnimatedStyle}>
+        <Text className={selected ? 'text-3xl' : 'text-2xl'}>{moodEmoji(id)}</Text>
+      </Animated.View>
+    </AnimatedPressable>
+  );
 }
 
 export function QuickAddCard({ accentColor }: QuickAddCardProps) {
@@ -303,11 +375,7 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
         contentStyle={{ padding: 16 }}
       >
         <View style={styles.layerRelative}>
-          <View
-            style={{
-              paddingBottom: CONTENT_PAD_BELOW_FABS + (showSaved ? 28 : 0),
-            }}
-          >
+          <View style={showSaved ? { paddingBottom: 8 } : undefined}>
             <AppTextInput
               testID="home:quick-add:input"
               accessibilityLabel={t('home.quickAdd.a11yInput')}
@@ -362,7 +430,7 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
 
             {showSaved ? (
               <Caption
-                className="mt-2 pr-14 text-center text-secondary"
+                className="mt-2 text-center text-secondary"
                 accessibilityLiveRegion="polite"
               >
                 {t('home.quickAdd.saved')}
@@ -371,76 +439,71 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
           </View>
 
           <View style={styles.moodRow} pointerEvents="box-none">
-            {QUICK_PICK_MOOD_IDS.map((id) => {
-              const selected = selectedMood === id;
-              return (
-                <AnimatedPressable
-                  key={id}
-                  testID={`home:quick-add:mood:${id}`}
-                  haptic
-                  accessibilityRole="button"
-                  accessibilityLabel={t(`moods.${id}`)}
-                  accessibilityState={{ selected }}
-                  disabled={inputLocked || isRecording}
-                  onPress={() => {
-                    setSelectedMood(id);
-                  }}
-                  className="h-11 w-11 items-center justify-center rounded-2xl border"
-                  style={{
-                    borderColor: selected ? accentColor : colors.outline,
-                    backgroundColor: selected ? `${accentColor}33` : colors.surfaceContainerHigh,
-                  }}
-                >
-                  <Text className="text-2xl">{moodEmoji(id)}</Text>
-                </AnimatedPressable>
-              );
-            })}
+            {QUICK_PICK_MOOD_IDS.map((id) => (
+              <QuickMoodChip
+                key={id}
+                id={id}
+                selected={selectedMood === id}
+                accentColor={accentColor}
+                disabled={inputLocked || isRecording}
+                accessibilityLabel={t(`moods.${id}`)}
+                onSelect={() => {
+                  setSelectedMood(id);
+                }}
+              />
+            ))}
           </View>
 
-          <AnimatedPressable
-            testID="home:quick-add:mic"
-            haptic
-            accessibilityRole="button"
-            accessibilityLabel={
-              isRecording ? t('home.quickAdd.micStopA11y') : t('home.quickAdd.micRecordA11y')
-            }
-            accessibilityState={{ busy: saving }}
-            disabled={saving}
-            onPress={onMicPress}
-            style={[
-              styles.fabMic,
-              {
-                backgroundColor: isRecording ? colors.error : colors.surfaceContainerHighest,
-                borderWidth: 1,
-                borderColor: colors.outline,
-              },
-            ]}
-          >
-            <Ionicons
-              name={isRecording ? 'stop' : 'mic'}
-              size={26}
-              color={isRecording ? colors.onError : colors.onSurface}
-            />
-          </AnimatedPressable>
+          <View style={styles.footerRow}>
+            <AnimatedPressable
+              testID="home:quick-add:mic"
+              haptic
+              hitSlop={{ top: 6, bottom: 6, left: 12, right: 4 }}
+              accessibilityRole="button"
+              accessibilityLabel={
+                isRecording ? t('home.quickAdd.micStopA11y') : t('home.quickAdd.micRecordA11y')
+              }
+              accessibilityState={{ busy: saving }}
+              disabled={saving}
+              onPress={onMicPress}
+              style={[
+                styles.micButton,
+                {
+                  backgroundColor: isRecording ? colors.error : colors.surfaceContainerHighest,
+                  borderWidth: 1,
+                  borderColor: colors.outline,
+                },
+              ]}
+            >
+              <Ionicons
+                name={isRecording ? 'stop' : 'mic'}
+                size={24}
+                color={isRecording ? colors.onError : colors.onSurface}
+              />
+            </AnimatedPressable>
 
-          <AnimatedPressable
-            testID="home:quick-add:save"
-            haptic
-            accessibilityRole="button"
-            accessibilityLabel={t('home.quickAdd.saveCta')}
-            accessibilityState={{ disabled: saveDisabled }}
-            disabled={saveDisabled}
-            onPress={() => {
-              void performSave();
-            }}
-            style={[styles.fabSave, { backgroundColor: accentColor }]}
-          >
-            {saving && !isRecording ? (
-              <ActivityIndicator color={colors.onPrimary} size="small" />
-            ) : (
-              <Ionicons name="paper-plane" size={24} color={colors.onPrimary} />
-            )}
-          </AnimatedPressable>
+            <AnimatedPressable
+              testID="home:quick-add:save"
+              haptic
+              accessibilityRole="button"
+              accessibilityLabel={t('home.quickAdd.saveCta')}
+              accessibilityState={{ disabled: saveDisabled }}
+              disabled={saveDisabled}
+              onPress={() => {
+                void performSave();
+              }}
+              style={[styles.savePill, { backgroundColor: accentColor }]}
+            >
+              {saving && !isRecording ? (
+                <ActivityIndicator color={colors.onPrimary} size="small" />
+              ) : (
+                <>
+                  <Ionicons name="paper-plane" size={20} color={colors.onPrimary} />
+                  <ButtonText>{t('home.quickAdd.saveCta')}</ButtonText>
+                </>
+              )}
+            </AnimatedPressable>
+          </View>
         </View>
       </GradientCard>
 
