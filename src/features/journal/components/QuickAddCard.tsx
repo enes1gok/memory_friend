@@ -30,8 +30,8 @@ import { persistJournalMedia } from '@/utils/persistJournalMedia';
 const SAVED_FEEDBACK_MS = 2200;
 
 const FOOTER_INSET = 12;
-/** Secondary mic: 48dp circle (meets ~44pt minimum); spaced from Save by ACTION_GAP. */
-const MIC_SIZE = 48;
+/** Circular voice control next to attach (meets ~44pt minimum touch target). */
+const MIC_SIZE = 52;
 const ACTION_GAP = 20;
 const SAVE_PILL_MIN_HEIGHT = 48;
 const MOOD_ROW_GAP = 10;
@@ -183,6 +183,7 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
   const [celebrationOpen, setCelebrationOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const recordingRef = useRef<Audio.Recording | null>(null);
+  const savePillRef = useRef<View>(null);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const saveJournalEntry = useSaveJournalEntry();
@@ -259,8 +260,21 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
     [],
   );
 
+  const fireFlyToJournal = useCallback(() => {
+    requestAnimationFrame(() => {
+      savePillRef.current?.measureInWindow((x, y, w, h) => {
+        useUIStore.getState().requestJournalFly({
+          fromX: x + w / 2,
+          fromY: y + h / 2,
+          tint: accentColor,
+        });
+      });
+    });
+  }, [accentColor]);
+
   const performSave = useCallback(async () => {
     const trimmed = text.trim();
+    const hadText = trimmed.length > 0;
     const mediaPath = attachedPath;
     if (trimmed.length === 0 && mediaPath == null) {
       return;
@@ -275,12 +289,15 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
       setText('');
       setAttachedPath(null);
       runCelebration(newBadges);
+      if (hadText) {
+        fireFlyToJournal();
+      }
     } catch (e) {
       console.error('[QuickAddCard] save journal entry failed', e);
     } finally {
       setSaving(false);
     }
-  }, [attachedPath, runCelebration, saveJournalEntry, selectedMood, text]);
+  }, [attachedPath, fireFlyToJournal, runCelebration, saveJournalEntry, selectedMood, text]);
 
   const stopRecordingAndSave = useCallback(async () => {
     const rec = recordingRef.current;
@@ -290,6 +307,7 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
     recordingRef.current = null;
     setIsRecording(false);
     setSaving(true);
+    const trimmed = text.trim();
     try {
       const status = await rec.stopAndUnloadAsync();
       const durationMs =
@@ -302,7 +320,6 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
         return;
       }
       const persisted = persistJournalMedia(uri, 'm4a');
-      const trimmed = text.trim();
       const { entryId, newBadges } = await saveJournalEntry({
         moodTag: selectedMood,
         mediaPath: persisted,
@@ -313,12 +330,15 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
       setText('');
       setAttachedPath(null);
       runCelebration(newBadges);
+      if (trimmed.length > 0) {
+        fireFlyToJournal();
+      }
     } catch (e) {
       console.error('[QuickAddCard] voice note save failed', e);
     } finally {
       setSaving(false);
     }
-  }, [runCelebration, saveJournalEntry, selectedMood, text, triggerEnrichment]);
+  }, [fireFlyToJournal, runCelebration, saveJournalEntry, selectedMood, text, triggerEnrichment]);
 
   const startRecording = useCallback(async () => {
     if (saving) {
@@ -405,6 +425,33 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
                 <Caption className="text-sm text-secondary">{t('home.quickAdd.attachLabel')}</Caption>
               </AnimatedPressable>
 
+              <AnimatedPressable
+                testID="home:quick-add:mic"
+                haptic
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  isRecording ? t('home.quickAdd.micStopA11y') : t('home.quickAdd.micRecordA11y')
+                }
+                accessibilityState={{ busy: saving }}
+                disabled={saving}
+                onPress={onMicPress}
+                style={[
+                  styles.micButton,
+                  {
+                    backgroundColor: isRecording ? colors.error : `${accentColor}33`,
+                    borderWidth: 2,
+                    borderColor: isRecording ? colors.error : accentColor,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name={isRecording ? 'stop' : 'mic'}
+                  size={26}
+                  color={isRecording ? colors.onError : colors.onSurface}
+                />
+              </AnimatedPressable>
+
               {attachedPath != null ? (
                 <View className="flex-row items-center gap-2">
                   <Image
@@ -455,54 +502,29 @@ export function QuickAddCard({ accentColor }: QuickAddCardProps) {
           </View>
 
           <View style={styles.footerRow}>
-            <AnimatedPressable
-              testID="home:quick-add:mic"
-              haptic
-              hitSlop={{ top: 6, bottom: 6, left: 12, right: 4 }}
-              accessibilityRole="button"
-              accessibilityLabel={
-                isRecording ? t('home.quickAdd.micStopA11y') : t('home.quickAdd.micRecordA11y')
-              }
-              accessibilityState={{ busy: saving }}
-              disabled={saving}
-              onPress={onMicPress}
-              style={[
-                styles.micButton,
-                {
-                  backgroundColor: isRecording ? colors.error : colors.surfaceContainerHighest,
-                  borderWidth: 1,
-                  borderColor: colors.outline,
-                },
-              ]}
-            >
-              <Ionicons
-                name={isRecording ? 'stop' : 'mic'}
-                size={24}
-                color={isRecording ? colors.onError : colors.onSurface}
-              />
-            </AnimatedPressable>
-
-            <AnimatedPressable
-              testID="home:quick-add:save"
-              haptic
-              accessibilityRole="button"
-              accessibilityLabel={t('home.quickAdd.saveCta')}
-              accessibilityState={{ disabled: saveDisabled }}
-              disabled={saveDisabled}
-              onPress={() => {
-                void performSave();
-              }}
-              style={[styles.savePill, { backgroundColor: accentColor }]}
-            >
-              {saving && !isRecording ? (
-                <ActivityIndicator color={colors.onPrimary} size="small" />
-              ) : (
-                <>
-                  <Ionicons name="paper-plane" size={20} color={colors.onPrimary} />
-                  <ButtonText>{t('home.quickAdd.saveCta')}</ButtonText>
-                </>
-              )}
-            </AnimatedPressable>
+            <View ref={savePillRef} collapsable={false}>
+              <AnimatedPressable
+                testID="home:quick-add:save"
+                haptic
+                accessibilityRole="button"
+                accessibilityLabel={t('home.quickAdd.saveCta')}
+                accessibilityState={{ disabled: saveDisabled }}
+                disabled={saveDisabled}
+                onPress={() => {
+                  void performSave();
+                }}
+                style={[styles.savePill, { backgroundColor: accentColor }]}
+              >
+                {saving && !isRecording ? (
+                  <ActivityIndicator color={colors.onPrimary} size="small" />
+                ) : (
+                  <>
+                    <Ionicons name="paper-plane" size={20} color={colors.onPrimary} />
+                    <ButtonText>{t('home.quickAdd.saveCta')}</ButtonText>
+                  </>
+                )}
+              </AnimatedPressable>
+            </View>
           </View>
         </View>
       </GradientCard>

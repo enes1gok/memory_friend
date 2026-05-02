@@ -1,8 +1,8 @@
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, type ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AnimatedPressable } from '@/components/AnimatedPressable';
@@ -41,17 +41,6 @@ const styles = StyleSheet.create({
     borderColor: colors.outline,
     backgroundColor: colors.surfaceContainerHighest,
     ...elevation.floating,
-  },
-  accentStrip: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: StyleSheet.hairlineWidth,
-    minHeight: 2,
-    borderTopLeftRadius: radius['3xl'],
-    borderTopRightRadius: radius['3xl'],
-    zIndex: 2,
   },
   rowWrap: {
     position: 'relative',
@@ -153,29 +142,27 @@ function TabLabel({ focused, activeTint, children }: { focused: boolean; activeT
 export function AppTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const accentProgress = useUIStore((s) => s.accentProgress);
+  const setJournalTabAnchor = useUIStore((s) => s.setJournalTabAnchor);
+  const journalIconRef = useRef<View>(null);
   const activeTint = getAccentColor(accentProgress);
 
-  const stripProgress = useSharedValue(1);
-  const stripFrom = useSharedValue(activeTint);
-  const stripTo = useSharedValue(activeTint);
+  const updateJournalAnchor = useCallback(() => {
+    journalIconRef.current?.measureInWindow((x, y, width, height) => {
+      setJournalTabAnchor({ x: x + width / 2, y: y + height / 2 });
+    });
+  }, [setJournalTabAnchor]);
 
   useEffect(() => {
-    stripFrom.value = stripTo.value;
-    stripTo.value = activeTint;
-    stripProgress.value = 0;
-    stripProgress.value = withTiming(1, { duration: durations.base });
-  }, [activeTint, stripFrom, stripProgress, stripTo]);
-
-  const accentStripStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(stripProgress.value, [0, 1], [stripFrom.value, stripTo.value]),
-  }));
+    requestAnimationFrame(() => {
+      updateJournalAnchor();
+    });
+  }, [insets.bottom, updateJournalAnchor]);
 
   return (
     <View
       pointerEvents="box-none"
       style={[styles.container, { paddingBottom: Math.max(insets.bottom, 8) }]}
     >
-      <Animated.View style={[styles.accentStrip, accentStripStyle]} pointerEvents="none" />
       <View style={styles.rowWrap}>
         <View style={styles.row}>
           {state.routes.map((route, index) => {
@@ -190,6 +177,7 @@ export function AppTabBar({ state, descriptors, navigation }: BottomTabBarProps)
             const color = focused ? activeTint : colors.textMuted;
             const pair = iconsByRoute[route.name as keyof typeof iconsByRoute];
             const iconName = focused ? pair.filled : pair.outline;
+            const isJournal = route.name === 'Journal';
 
             return (
               <AnimatedPressable
@@ -211,7 +199,20 @@ export function AppTabBar({ state, descriptors, navigation }: BottomTabBarProps)
                   }
                 }}
               >
-                <View style={styles.iconRow}>
+                <View
+                  ref={isJournal ? journalIconRef : undefined}
+                  style={styles.iconRow}
+                  collapsable={false}
+                  onLayout={
+                    isJournal
+                      ? () => {
+                          requestAnimationFrame(() => {
+                            updateJournalAnchor();
+                          });
+                        }
+                      : undefined
+                  }
+                >
                   <TabIconSlot focused={focused}>
                     <Ionicons name={iconName} color={color} size={24} />
                   </TabIconSlot>

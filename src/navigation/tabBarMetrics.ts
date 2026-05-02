@@ -3,3 +3,6 @@
  * (`AppTabBar`: absolute, rounded pill above home indicator).
  */
 export const TAB_BAR_FLOATING_OVERLAY_DP = 84;
+
+/** Alias for layouts that refer to padding below floating actions / tab bar. */
+export const CONTENT_PAD_BELOW_FABS = TAB_BAR_FLOATING_OVERLAY_DP;
