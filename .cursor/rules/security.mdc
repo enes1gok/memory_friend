@@ -1,0 +1,73 @@
+---
+description: Security guidelines for secret handling, API keys, and data privacy in memory_friend
+alwaysApply: false
+---
+
+# Security — memory_friend
+
+## API key handling
+
+### Current state (prototype / internal)
+
+`EXPO_PUBLIC_OPENAI_API_KEY` is an Expo public env var, meaning it is **bundled into the client binary** and readable by anyone who decompiles the app.
+
+This is acceptable **only** for:
+- Internal / TestFlight / internal-track builds where the user base is controlled.
+- Development and CI environments.
+
+### Required before public App Store / Play Store release
+
+Replace direct client calls to OpenAI with a **server-side proxy**:
+
+```
+App → Your API gateway (auth'd with user JWT) → OpenAI API
+```
+
+The proxy:
+1. Validates the user's JWT before forwarding.
+2. Enforces per-user rate limits / cost caps.
+3. Logs usage for cost monitoring.
+4. Keeps the OpenAI key server-side only.
+
+Until the proxy exists, document the risk in `app.config.js` or a `SECURITY.md` and ensure builds are distributed only to known users.
+
+## Environment variables
+
+- **`EXPO_PUBLIC_*`** vars are embedded in the bundle — treat as public.
+- **Non-public secrets** (server keys, signing certs) must go through EAS Secrets (`eas secret:create`) and never appear in code or commits.
+- `.env` files with real secrets must be in `.gitignore` and never committed.
+
+## What to send to OpenAI
+
+Minimise data sent per the behavioral-psychology and offline-first principles:
+
+| Use case | Send | Do not send |
+|----------|------|-------------|
+| Transcription (Whisper) | Audio file ≤ 25 MB | User account info, goal text |
+| Emotion tagging (GPT) | Transcript text only | File paths, device IDs, user IDs |
+| Companion nudge | No user text | — |
+
+## Local data
+
+- **WatermelonDB** is SQLite on-device; no cloud sync unless explicitly added.
+- **MMKV** is on-device only.
+- **Media files** (`documentDirectory`) are app-sandboxed; not accessible without root/jailbreak.
+- If cloud backup is ever added (Pro tier), it requires explicit user consent + a privacy policy update.
+
+## No silent mass upload
+
+Never add a background job that uploads journal entries, audio, or media without:
+1. An explicit opt-in in the product spec.
+2. A consent prompt that describes what is uploaded, to whom, and for how long it is retained.
+3. A way to delete uploaded data.
+
+## Dependency hygiene
+
+- Run `npm run doctor` (expo-doctor) before adding native dependencies.
+- Prefer packages with active maintenance and known security track records.
+- Never add packages that require disabling App Transport Security (iOS) broadly.
+
+## Cross-links
+
+- Offline-first + AI principles: [behavioral-psychology.mdc](behavioral-psychology.mdc)
+- AI feature workflow: [.cursor/skills/add-ai-feature/SKILL.md](../skills/add-ai-feature/SKILL.md)

@@ -88,3 +88,5 @@ Adjust names to match the repo as it grows; keep **feature boundaries** clear.
 - Notifications: [notification-system.mdc](notification-system.mdc)
 - Data layer: [data-layer.mdc](data-layer.mdc)
 - Media: [media-processing.mdc](media-processing.mdc)
+- Security (API keys, privacy): [security.mdc](security.mdc)
+- Testing (Jest, testID, E2E): [testing.mdc](testing.mdc)

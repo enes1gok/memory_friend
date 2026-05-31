@@ -15,8 +15,7 @@ import { Skeleton } from '@/components/Skeleton';
 import { Body, Caption, Display, Heading } from '@/components/Typography';
 import { CapsuleCard } from '@/features/capsule/components/CapsuleCard';
 import { useCapsulesByGoal } from '@/features/capsule/hooks/useCapsulesByGoal';
-import { journeyPercent, useActiveGoal, useStreakState } from '@/features/streak';
-import type { Goal } from '@/models/Goal';
+import { accentProgressForGoal, journeyPercent, useActiveGoal, useStreakState } from '@/features/streak';
 import { TAB_BAR_FLOATING_OVERLAY_DP } from '@/navigation/tabBarMetrics';
 import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
@@ -91,16 +90,6 @@ function daysUntilTargetEnd(target: Date): number {
   end.setHours(23, 59, 59, 999);
   const ms = end.getTime() - Date.now();
   return Math.ceil(ms / (24 * 60 * 60 * 1000));
-}
-
-function accentProgressForGoal(goal: Goal): number {
-  const start = goal.startDate.getTime();
-  const end = goal.targetDate.getTime();
-  const now = Date.now();
-  if (end <= start) {
-    return 1;
-  }
-  return Math.min(1, Math.max(0, (now - start) / (end - start)));
 }
 
 function AnimatedProgressFill({ percent, color }: { percent: number; color: string }) {

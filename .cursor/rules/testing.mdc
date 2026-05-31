@@ -1,0 +1,71 @@
+---
+description: Testing strategy, structure, and setup for memory_friend
+globs: "src/**/*.{test,spec}.{ts,tsx}"
+alwaysApply: false
+---
+
+# Testing strategy — memory_friend
+
+## Current state
+
+No test runner is configured yet. The codebase has `testID` attributes throughout for E2E (Maestro / Detox), but no unit/integration test files.
+
+## Priority order
+
+Test from the inside out — pure logic first, React components last:
+
+1. **Pure logic** (highest ROI, no RN runtime needed): `src/features/streak/logic/`, `src/features/notification/logic/`, `src/features/capsule/logic/`, `src/features/ai/logic/`.
+2. **Hooks** (WatermelonDB observe patterns): use `@testing-library/react-hooks` + mocked DB.
+3. **Components**: use `@testing-library/react-native` for critical flows (capture, onboarding).
+4. **E2E** (Maestro): golden path — onboard → capture → view journal → check streak.
+
+## Jest setup (when adding tests)
+
+```bash
+npm install --save-dev jest @types/jest ts-jest @testing-library/react-native @testing-library/jest-native
+```
+
+Add to `package.json`:
+```json
+{
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
+  }
+}
+```
+
+## File naming and location
+
+- Unit tests live next to the file they test: `computeStreak.test.ts` beside `computeStreak.ts`.
+- Integration or cross-module tests go in `src/__tests__/`.
+- E2E flows go in `e2e/` (Maestro `.yaml` files).
+
+## What to test first (highest business risk)
+
+| File | Risk |
+|------|------|
+| `streak/logic/computeStreak.ts` | Wrong streak = broken core promise |
+| `streak/logic/badgeRules.ts` | Badge award logic (anti-farm) |
+| `notification/logic/policy.ts` | Quiet-hours / clamp logic |
+| `capsule/logic/capsuleStatus.ts` | Unlock date edge cases |
+| `ai/logic/tagEmotions.ts` | Tag parsing — invalid GPT output |
+| `streak/logic/journeyPercent.ts` | 0-100 clamping, end <= start |
+
+## Test standards
+
+- **No `any`** in tests — import actual types from domain modules.
+- **No real network** — mock `fetch` or the OpenAI client in AI tests.
+- **No real FS** — mock `expo-file-system` for media-path tests.
+- Prefer `describe` + `it` (BDD) for readability; one assertion per `it` where practical.
+- Prefer `test.each` for boundary-value tables (day-diff edge cases, quiet-hour clamping).
+
+## testID convention (E2E)
+
+Pattern: `{domain}:{component}:{action}`
+
+Examples: `home:streak:counter`, `capture:shutter:press`, `stats:hero:card`.
+
+Already established in source — do not rename without updating E2E specs.

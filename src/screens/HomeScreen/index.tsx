@@ -11,8 +11,7 @@ import { SafeScreen } from '@/components/SafeScreen';
 import { Skeleton } from '@/components/Skeleton';
 import { HypeManModal } from '@/features/ai';
 import { QuickAddCard } from '@/features/journal';
-import { useActiveGoal } from '@/features/streak';
-import type { Goal } from '@/models/Goal';
+import { JourneyProgressCard, StreakCounter, accentProgressForGoal, useActiveGoal } from '@/features/streak';
 import { TAB_BAR_FLOATING_OVERLAY_DP } from '@/navigation/tabBarMetrics';
 import type { RootStackParamList } from '@/navigation/types';
 import { useGoalStore } from '@/stores/useGoalStore';
@@ -26,20 +25,10 @@ const homeStyles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: 'center',
     paddingHorizontal: 20,
+    paddingTop: 8,
   },
 });
-
-function accentProgressForGoal(goal: Goal): number {
-  const start = goal.startDate.getTime();
-  const end = goal.targetDate.getTime();
-  const now = Date.now();
-  if (end <= start) {
-    return 1;
-  }
-  return Math.min(1, Math.max(0, (now - start) / (end - start)));
-}
 
 export function HomeScreen() {
   const { t } = useTranslation();
@@ -147,7 +136,12 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         className="flex-1"
       >
-        <Animated.View entering={enterAnimation(0)} className="pt-1">
+        <Animated.View entering={enterAnimation(0)} className="mb-3 flex-row gap-3">
+          <StreakCounter activeGoalId={activeGoalId} compact />
+          <JourneyProgressCard goal={goal} accentColor={accentTint} />
+        </Animated.View>
+
+        <Animated.View entering={enterAnimation(1)}>
           <QuickAddCard accentColor={accentTint} />
         </Animated.View>
       </ScrollView>

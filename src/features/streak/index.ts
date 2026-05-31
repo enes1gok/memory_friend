@@ -25,6 +25,6 @@ export {
   todayIsoLocal,
   type StreakSnapshot,
 } from './logic/computeStreak';
-export { journeyPercent } from './logic/journeyPercent';
+export { accentProgressForGoal, journeyPercent } from './logic/journeyPercent';
 export { pickBestNewBadge } from './logic/pickBestNewBadge';
 export { updateStreakAfterJournalWrite } from './logic/updateStreakAfterJournalWrite';
