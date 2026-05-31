@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint*)",
+      "Bash(npm run lint -- *)",
+      "Bash(npx tsc --noEmit*)",
+      "Bash(npm run doctor*)",
+      "Bash(node .cursor/skills/sync-locales/scripts/check-locales.js*)",
+      "Bash(git diff --stat*)",
+      "Bash(git log --oneline*)",
+      "Bash(git status*)",
+      "Bash(git branch*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/memory_friend && FILE=\"$CLAUDE_TOOL_INPUT_FILE_PATH\"; if [[ \"$FILE\" == *.ts || \"$FILE\" == *.tsx ]]; then npx tsc --noEmit 2>&1 | head -40; fi"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/memory_friend && echo '=== Lint check ===' && npm run lint --silent 2>&1 | tail -15 || true"
+          }
+        ]
+      }
+    ]
+  }
+}

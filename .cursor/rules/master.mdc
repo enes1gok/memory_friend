@@ -19,6 +19,8 @@ alwaysApply: true
 | Vision Camera, FFmpeg, file paths, cache vs document | `media-processing.mdc` |
 | Streaks, notifications tone, AI companion UX, empathy | `behavioral-psychology.mdc` |
 | Notifee channels, triggers, payloads, handlers, reschedule/cancel semantics | `notification-system.mdc` |
+| API keys, secrets, data privacy, upload consent | `security.mdc` |
+| Unit tests, Jest setup, testID conventions, E2E | `testing.mdc` |
 
 ## Skills
 
@@ -33,6 +35,8 @@ Project skills live in `.cursor/skills/{name}/SKILL.md`. Read the matching skill
 | `add-notification` | Notifee channels, triggers, foreground/initial handlers, i18n copy, or notification-related native permission config |
 | `subscription-gate` | Free vs Pro limits, paywall, `can*` helpers |
 | `add-ai-feature` | OpenAI / Whisper / GPT integration or prompts |
+| `add-error-boundary` | Adding React error boundaries to screen or feature subtrees |
+| `sync-locales` | After any i18n key add/remove/rename, or to verify locale parity |
 
 ## Maintenance contract
 
